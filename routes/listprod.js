@@ -4,7 +4,7 @@ const sql = require('mssql');
 
 router.get('/', function(req, res, next) {
     res.setHeader('Content-Type', 'text/html');
-    res.write("<title>Grocery</title>")
+    res.write("<title>Products</title>")
 
     // Get the product name to search for
     let name = req.query.productName;

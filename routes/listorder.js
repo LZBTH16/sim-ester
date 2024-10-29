@@ -5,7 +5,7 @@ const moment = require('moment');
 
 router.get('/', function(req, res, next) {
     res.setHeader('Content-Type', 'text/html');
-    res.write('<title>Sim-ester Grocery Order List</title>');
+    res.write('<title>SIM-ESTER Order List</title>');
 
     /** Create connection, and validate that it connected successfully **/
 
