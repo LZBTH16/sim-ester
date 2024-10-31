@@ -5,7 +5,7 @@
   "repository": "N/A",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon -L --inspect=0.0.0.0 server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
