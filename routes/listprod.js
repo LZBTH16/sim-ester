@@ -26,8 +26,41 @@ router.get('/', function(req, res, next) {
         let num = 2.89999;
         num = num.toFixed(2);
     **/
+        res.write('<h1>Search for Products You Want to Buy:</h1>');
 
-    res.end();
+        res.write('<form method="get" action="listprod">');
+        res.write('<input type="text" name="productName" size="50">');
+        res.write('<input type="submit" value="Submit"><input type="reset" value="Reset">');
+        res.write('</form>');
+
+        // getting the product name from the string query
+        if(!name){
+            res.end();
+            return;
+        }
+        
+        (async function() {
+            try {
+                let pool = await sql.connect(dbConfig);
+    
+                let sqlQuery = "SELECT productName, productPrice FROM product WHERE productName LIKE @name";              
+                let results = await pool.request().input('name', sql.VarChar, '%{productName}%').query(sqlQuery);
+                
+                res.write("<table><tr><th></th><th>Product Name</th><th>Price</th></tr>");
+                for (let i = 0; i < results.recordset.length; i++) {
+                    let result = results.recordset[i];
+                    let price = "$"+result.productPrice.toFixed(2);
+                    res.write("<tr><td><a href='addcart?id=<productId>&name=<productName>&price=<productPrice>'>Add to cart</a></td><td>" + result.productName + "</td><td>" + price + "</td></tr>");
+
+                }
+                res.write("</table>");
+    
+                res.end();
+            } catch(err) {
+                console.dir(err);
+                res.write(JSON.stringify(err));
+                res.end();
+            }})();
 });
 
 module.exports = router;
