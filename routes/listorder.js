@@ -34,7 +34,7 @@ router.get('/', function(req, res, next) {
                 res.write("<table><tr><th>Product Id</th><th>Quantity</th><th>Price</th></tr>");
                 for(let j = 0; j < results2.recordset.length; j++){
                     let result2 = results2.recordset[j];
-                    let price = result2.price.toFixed(2);
+                    let price = "$"+result2.price.toFixed(2);
                     res.write("<tr><td>" + result2.productId + "</td><td>" + result2.quantity + "</td><td>" + price + "</td></tr>");
                 }
             }

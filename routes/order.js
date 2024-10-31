@@ -11,12 +11,33 @@ router.get('/', function(req, res, next) {
     if (req.session.productList && req.session.productList.length > 0) {
         productList = req.session.productList;
     }
-
     /**
     Determine if valid customer id was entered
     Determine if there are products in the shopping cart
     If either are not true, display an error message
     **/
+    let customerId = req.query.customerId;
+    customerId = Number(customerId);
+    
+    if(!Number.isInteger(customerId) || customerId < 0){
+        res.write('<h1>Invalid customer id. Go back to the previous page and try again.</h1>');
+        res.end();
+    }
+
+    (async function() {
+        let pool = await sql.connect(dbConfig);
+
+        let sqlQuery = "SELECT customerId FROM customer WHERE customerId = @customerId";
+        let results = await pool.request().input('customerId', sql.Int, customerId).query(sqlQuery);
+
+        // not in db
+        if(results.recordset.length === 0){
+            res.write('<h1>Invalid customer id. Go back to the previous page and try again.</h1>');
+            res.end();
+        } 
+
+    })
+
 
     /** Make connection and validate **/
 
