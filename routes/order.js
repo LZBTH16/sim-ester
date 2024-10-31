@@ -24,19 +24,22 @@ router.get('/', function(req, res, next) {
         res.end();
     }
 
-    (async function() {
-        let pool = await sql.connect(dbConfig);
+    res.write('<h1>hi</h1>');
 
-        let sqlQuery = "SELECT customerId FROM customer WHERE customerId = @customerId";
-        let results = await pool.request().input('customerId', sql.Int, customerId).query(sqlQuery);
+    // (async function() {
+    //     let pool = await sql.connect(dbConfig);
 
-        // not in db
-        if(results.recordset.length === 0){
-            res.write('<h1>Invalid customer id. Go back to the previous page and try again.</h1>');
-            res.end();
-        } 
+    //     let sqlQuery = "SELECT customerId FROM customer WHERE customerId = @customerId";
+    //     let results = await pool.request().input('customerId', sql.Int, customerId).query(sqlQuery);
 
-    })
+    //     not in db
+    //     if(results.recordset.length === 0){
+    //         res.write('<h1>Invalid customer id. Go back to the previous page and try again.</h1>');
+    //         res.end();
+    //     }
+    //     res.write('<h1>hi!</h1>');
+
+    // });
 
 
     /** Make connection and validate **/
