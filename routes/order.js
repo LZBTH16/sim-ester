@@ -99,7 +99,7 @@ router.get('/', function(req, res, next) {
                 sqlQuery = "INSERT INTO orderproduct VALUES (@orderId, @productId, @quantity, @price)"
                 result = await pool.request()
                     .input('orderId', sql.Int, orderId)
-                    .input('productId', sql.Int, product.productId)
+                    .input('productId', sql.Int, product.id)
                     .input('quantity', sql.Int, product.quantity)
                     .input('price', sql.Decimal, product.price)
                     .query(sqlQuery);
