@@ -7,39 +7,115 @@ router.get('/', function(req, res, next) {
     res.setHeader('Content-Type', 'text/html');
     res.write("<title>SIM-ESTER Order Processing</title>");
 
+    // shopping cart
     let productList = false;
     if (req.session.productList && req.session.productList.length > 0) {
         productList = req.session.productList;
     }
+    else{
+        res.write('<h1>Your shopping cart is empty!</h1>');
+        res.end();
+        return;
+    }
+    
     /**
     Determine if valid customer id was entered
     Determine if there are products in the shopping cart
     If either are not true, display an error message
     **/
-    let customerId = req.query.customerId;
-    customerId = Number(customerId);
+
+    (async function() {
+        try{
+            let sqlQuery = "";
+            let results = [];
+
+            // Verify customerId
+            let customerId = req.query.customerId;
+            customerId = Number(customerId);
+
+            let pool = await sql.connect(dbConfig);
+
+            sqlQuery = "SELECT firstName, lastName FROM customer WHERE customerId = @customerId";
+            results = await pool.request()
+                .input('customerId', sql.Int, customerId)
+                .query(sqlQuery);
+
+            if(results.recordset.length === 0 || !Number.isInteger(customerId) || customerId < 0){
+                res.write('<h1>Invalid customer id. Go back to the previous page and try again.</h1>');
+                res.end();
+                return;
+            }
+
+            let firstName = results.recordset[0].firstName;
+            let lastName = results.recordset[0].lastName;
+
+            // Show Order Summary
+            res.write('<h1>Your Order Summary</h1>');
+            res.write("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+            res.write("<th>Price</th><th>Subtotal</th></tr>");
+
+            let total = 0;
+            for (let i = 0; i < productList.length; i++) {
+                product = productList[i];
+                if (!product) {
+                    continue
+                }
     
-    if(!Number.isInteger(customerId) || customerId < 0){
-        res.write('<h1>Invalid customer id. Go back to the previous page and try again.</h1>');
-        res.end();
-    }
+                res.write("<tr><td>" + product.id + "</td>");
+                res.write("<td>" + product.name + "</td>");
+    
+                res.write("<td align=\"center\">" + product.quantity + "</td>");
+    
+                res.write("<td align=\"right\">$" + Number(product.price).toFixed(2) + "</td>");
+                res.write("<td align=\"right\">$" + (Number(product.quantity.toFixed(2)) * Number(product.price)).toFixed(2) + "</td></tr>");
+                res.write("</tr>");
+                total = total + product.quantity * product.price;
+            }
+            res.write("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td><td align=\"right\">$" + total.toFixed(2) + "</td></tr>");
+            res.write("</table>");
 
-    res.write('<h1>hi</h1>');
+            // Insert into ordersummary
+            let currentDate = new Date();
+            sqlQuery = "INSERT INTO ordersummary (orderDate, totalAmount, customerId) OUTPUT INSERTED.orderId VALUES(@orderDate, @totalAmount, @customerId)";
+            let result = await pool.request()
+                .input('orderDate', sql.DateTime, currentDate)
+                .input('totalAmount', sql.Decimal, total)
+                .input('customerId', sql.Int, customerId)
+                .query(sqlQuery);
 
-    // (async function() {
-    //     let pool = await sql.connect(dbConfig);
+            let orderId = result.recordset[0].orderId;
 
-    //     let sqlQuery = "SELECT customerId FROM customer WHERE customerId = @customerId";
-    //     let results = await pool.request().input('customerId', sql.Int, customerId).query(sqlQuery);
+            res.write("<h1>Order completed. Will be shipped soon...</h1>");
+            res.write('<h1>Your order reference number is: ' + orderId + '</h1>');
+            res.write('<h1>Shipping to customer: ' + customerId + ' Name: ' + firstName + ' ' + lastName + '</h1>');
 
-    //     not in db
-    //     if(results.recordset.length === 0){
-    //         res.write('<h1>Invalid customer id. Go back to the previous page and try again.</h1>');
-    //         res.end();
-    //     }
-    //     res.write('<h1>hi!</h1>');
+            // Insert into orderproduct
+            for(let i = 0; i < productList.length; i++){
+                product = productList[i];
+                if (!product){
+                    continue;
+                }
 
-    // });
+                sqlQuery = "INSERT INTO orderproduct VALUES (@orderId, @productId, @quantity, @price)"
+                result = await pool.request()
+                    .input('orderId', sql.Int, orderId)
+                    .input('productId', sql.Int, product.productId)
+                    .input('quantity', sql.Int, product.quantity)
+                    .input('price', sql.Decimal, product.price)
+                    .query(sqlQuery);
+            }
+
+            // Clear shopping cart (sessional variable)
+            req.session.destroy();
+            res.end();
+
+        } catch(err){
+            console.dir(err);
+            res.write(JSON.stringify(err));
+            res.end();
+        }
+
+    })();
 
 
     /** Make connection and validate **/
@@ -77,7 +153,7 @@ router.get('/', function(req, res, next) {
 
     /** Clear session/cart **/
 
-    res.end();
+    // res.end();
 });
 
 module.exports = router;
