@@ -24,7 +24,10 @@ router.get('/', function(req, res, next) {
             res.write("<td align=\"center\">" + product.quantity + "</td>");
 
             res.write("<td align=\"right\">$" + Number(product.price).toFixed(2) + "</td>");
-            res.write("<td align=\"right\">$" + (Number(product.quantity.toFixed(2)) * Number(product.price)).toFixed(2) + "</td></tr>");
+            res.write("<td align=\"right\">$" + (Number(product.quantity.toFixed(2)) * Number(product.price)).toFixed(2) + "</td>");
+            // Delete Item
+            res.write(`<td><a href='deleteItem?id=${product.id}'>Remove from cart</a></td></tr>`);
+
             res.write("</tr>");
             total = total + product.quantity * product.price;
         }
