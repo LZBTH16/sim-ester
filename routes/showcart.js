@@ -21,16 +21,28 @@ router.get('/', function(req, res, next) {
             res.write("<tr><td>" + product.id + "</td>");
             res.write("<td>" + product.name + "</td>");
 
-            res.write("<td align=\"center\">" + product.quantity + "</td>");
-
+            res.write(`<td align=\"center\"><input type=\"number\" id=${product.id} value=\"${product.quantity}" min=\"1\" style=\"width: 40px; text-align: center;\"></td>`);
             res.write("<td align=\"right\">$" + Number(product.price).toFixed(2) + "</td>");
             res.write("<td align=\"right\">$" + (Number(product.quantity.toFixed(2)) * Number(product.price)).toFixed(2) + "</td>");
             // Delete Item
-            res.write(`<td><a href='deleteItem?id=${product.id}'>Remove from cart</a></td></tr>`);
-
+            res.write(`<td><a href='deleteitem?id=${product.id}'>Remove from cart</a></td>`);
+            // Update Quantity Button
+            res.write(`<td><button onclick="updateQuantity(${product.id})">Update Quantity</button></td>`);
             res.write("</tr>");
             total = total + product.quantity * product.price;
         }
+
+        res.write(`
+            <script>
+            function updateQuantity(productId){
+                let quantity = document.getElementById(productId).value;
+                
+                window.location.href = 'updatequantity?id=productId&quantity=quantity';
+            }
+            </script>
+            `);
+
+        
         res.write("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td><td align=\"right\">$" + total.toFixed(2) + "</td></tr>");
         res.write("</table>");
 

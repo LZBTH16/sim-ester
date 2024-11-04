@@ -9,7 +9,8 @@ let addCart = require('./routes/addcart');
 let showCart = require('./routes/showcart');
 let checkout = require('./routes/checkout');
 let order = require('./routes/order');
-let deleteItem = require('./routes/deleteItem');
+let deleteItem = require('./routes/deleteitem'); // might show an error, but nothing to worry about
+let updateQuantity = require('./routes/updatequantity');
 
 
 const app = express();
@@ -63,7 +64,8 @@ app.use('/addcart', addCart);
 app.use('/showcart', showCart);
 app.use('/checkout', checkout);
 app.use('/order', order);
-app.use('/deleteItem', deleteItem);
+app.use('/deleteitem', deleteItem);
+app.use('/updatequantity', updateQuantity);
 
 // setting up CSS & images
 app.use(express.static('public'));
