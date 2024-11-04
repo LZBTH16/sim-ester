@@ -45,7 +45,10 @@ app.use(session({
 }))
 
 // Setting up the rendering engine
-app.engine('handlebars', exphbs());
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main', // use this as the default layout for rendered views
+  partialsDir: 'views/partials' // directory for partials
+}));
 app.set('view engine', 'handlebars');
 
 // Setting up Express.js routes.
@@ -59,7 +62,7 @@ app.use('/showcart', showCart);
 app.use('/checkout', checkout);
 app.use('/order', order);
 
-// setting up CSS
+// setting up CSS & images
 app.use(express.static('public'));
 
 // Rendering the main page

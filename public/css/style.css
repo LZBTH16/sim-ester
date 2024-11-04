@@ -1,8 +1,51 @@
+/* general styles */
 body {
     background: #CCCCFF;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
-body h1 {
+.main-page h1 {
+    font-size: 30px;
+}
+.main-page a{
+    color: #5D3FD3;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+.main-page a:hover{
+    color: #cda7ff;
+    background-color: #7962d4;
+    border-radius: 5px;
+}
+
+/* navbar styling/header */
+.navbar{
+    display: flex;
+    align-items: center;
+    margin: 20px;
+}
+.navbar h1{
     font-size: 50px;
+    padding: 20px;
+    color:#5D3FD3;
+}
+.navbar img{
+    width: 150px;
+    height:auto;
+    border-radius: 50px;
+}
+
+/* actual navbar */
+nav{
+    background-color: #5D3FD3;
+    padding: 20px;
+}
+nav a{
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+nav a:hover{
+    background-color: #6f4fec;
+    border-radius: 5px;
 }
