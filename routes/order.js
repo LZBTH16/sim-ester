@@ -29,19 +29,22 @@ router.get('/', function(req, res, next) {
             let sqlQuery = "";
             let results = [];
 
-            // Verify customerId
+            // Verify customerId and password
             let customerId = req.query.customerId;
+            let password = req.query.password;
             customerId = Number(customerId);
 
             let pool = await sql.connect(dbConfig);
 
-            sqlQuery = "SELECT firstName, lastName FROM customer WHERE customerId = @customerId";
+            sqlQuery = "SELECT firstName, lastName FROM customer WHERE customerId = @customerId AND password = @password";
             results = await pool.request()
                 .input('customerId', sql.Int, customerId)
+                .input('password', sql.VarChar, password)
                 .query(sqlQuery);
 
+            // Check if user exists, or if the customerId is a valid number
             if(results.recordset.length === 0 || !Number.isInteger(customerId) || customerId < 0){
-                res.write('<h1>Invalid customer id. Go back to the previous page and try again.</h1>');
+                res.write('<h1>Invalid account details. Go back to the previous page and try again.</h1>');
                 res.end();
                 return;
             }
