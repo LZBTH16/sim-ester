@@ -34,14 +34,12 @@ router.get('/', function(req, res, next) {
 
         res.write(`
             <script>
-            function updateQuantity(productId){
-                let quantity = document.getElementById(productId).value;
-                
-                window.location.href = 'updatequantity?id=productId&quantity=quantity';
+            function updateQuantity(id) {
+                let quantity = document.getElementById(id).value; 
+                window.location.href = \`updatequantity?id=\${id}&quantity=\${quantity}\`;
             }
             </script>
-            `);
-
+        `);
         
         res.write("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td><td align=\"right\">$" + total.toFixed(2) + "</td></tr>");
         res.write("</table>");

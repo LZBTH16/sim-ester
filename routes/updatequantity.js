@@ -11,8 +11,18 @@ router.get('/', function(req, res, next) {
         productList = req.session.productList;
     }
 
-    let id = req.query.id;
-    let quantity = req.query.quantity;
+    let id = false;
+    let quantity = false;
+
+    if(req.query.id && req.query.quantity){
+        id = req.query.id;
+        quantity = req.query.quantity;
+
+        id = parseInt(id);
+        quantity = parseInt(quantity);
+    }else{
+        res.redirect("/showcart");
+    }
 
     // Update quantity
     productList[id].quantity = quantity;

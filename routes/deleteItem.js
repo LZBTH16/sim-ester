@@ -11,7 +11,13 @@ router.get('/', function(req, res, next) {
         productList = req.session.productList;
     }
 
-    let id = req.query.id;
+    let id = false;
+
+    if(req.query.id){
+        id = req.query.id;
+    }else{
+        res.redirect("/showcart");
+    }
 
     // Delete the product
     delete productList[id];
