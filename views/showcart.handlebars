@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Shopping Cart</title>
+</head>
+<body>
+    {{#if productList.length}}
+        <h1>Your Shopping Cart</h1>
+        <table>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+                <th>Actions</th>
+            </tr>
+
+            {{#each productList}}
+                {{#if this.id}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.name}}</td>
+                        <td align="center">
+                            <input type="number" id="{{this.id}}" value="{{this.quantity}}" min="1" style="width: 40px; text-align: center;">
+                        </td>
+                        <td align="right">${{formatPrice this.price}}</td>
+                        <td align="right">${{multiplyAndFormat this.quantity this.price}}</td>
+                        <td>
+                            <a href="/deleteitem?id={{this.id}}">Remove from cart</a>
+                        </td>
+                        <td>
+                            <button onclick="updateQuantity({{this.id}})">Update Quantity</button>
+                        </td>
+                    </tr>
+                {{/if}}
+            {{/each}}
+
+
+            <tr>
+                <td colspan="4" align="right"><b>Order Total</b></td>
+                <td align="right">${{formatPrice total}}</td>
+            </tr>
+        </table>
+
+        <h2><a href="/checkout">Check Out</a></h2>
+    {{else}}
+        <h1>Your shopping cart is empty!</h1>
+    {{/if}}
+
+    <h2><a href="/listprod">Continue Shopping</a></h2>
+
+    <script>
+        function updateQuantity(id) {
+            let quantity = document.getElementById(id).value;
+            window.location.href = `updatequantity?id=${id}&quantity=${quantity}`;
+        }
+    </script>
+</body>
+</html>

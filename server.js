@@ -50,7 +50,14 @@ app.use(session({
 // Setting up the rendering engine
 app.engine('handlebars', exphbs({
   defaultLayout: 'main', // use this as the default layout for rendered views
-  partialsDir: 'views/partials' // directory for partials
+  partialsDir: 'views/partials', // directory for partials
+  helpers: {
+    multiply: (a, b) => (a * b).toFixed(2),
+
+    formatPrice: (value) => Number(value).toFixed(2),
+
+    multiplyAndFormat: (a, b) => (a * b).toFixed(2)
+  }
 }));
 app.set('view engine', 'handlebars');
 
