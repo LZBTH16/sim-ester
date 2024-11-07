@@ -22,7 +22,8 @@ body {
 .navbar{
     display: flex;
     align-items: center;
-    margin: 20px;
+    margin: 0px;
+    background-color: #301b83;
 }
 .navbar h1{
     font-size: 50px;
@@ -33,6 +34,7 @@ body {
     width: 150px;
     height:auto;
     border-radius: 50px;
+    padding: 20px;
 }
 
 /* actual navbar */
