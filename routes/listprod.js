@@ -2,10 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sql = require('mssql');
 
-router.get('/', function(req, res, next) {
-    res.setHeader('Content-Type', 'text/html');
-    res.write("<title>Products</title>")
-
+router.get('/', async function(req, res, next) {
     // Get the product name to search for
     let name = req.query.productName;
     
@@ -26,12 +23,6 @@ router.get('/', function(req, res, next) {
         let num = 2.89999;
         num = num.toFixed(2);
     **/
-        res.write('<h1>Search for Products You Want to Buy:</h1>');
-
-        res.write('<form method="get" action="listprod">');
-        res.write('<input type="text" name="productName" size="50">');
-        res.write('<input type="submit" value="Submit"><input type="reset" value="Reset">');
-        res.write('</form>');
         
         (async function() {
             try {
@@ -52,26 +43,28 @@ router.get('/', function(req, res, next) {
                 }
 
                 // displaying the search message
-                if(name){
-                    res.write(`<h2>Products containing '${name}'</h2>`);
-                } else{
-                    res.write("<h2>All Products</h2>");
-                }
-                
-                res.write("<table><tr><th></th><th>Product Name</th><th>Price</th></tr>");
-                for (let i = 0; i < results.recordset.length; i++) {
-                    let result = results.recordset[i];
-                    let price = "$"+result.productPrice.toFixed(2);
-                    res.write(`<tr><td><a href='addcart?id=${result.productId}&name=${result.productName}&price=${result.productPrice}'>Add to cart</a></td><td>${result.productName}</td><td>${price}</td></tr>`);
+                // if(name){
+                //     res.write(`<h2>Products containing '${name}'</h2>`);
+                // } else{
+                //     res.write("<h2>All Products</h2>");
+                // }
 
-                }
-                res.write("</table>");
+                // formatting the products
+                const products = results.recordset.map(result => ({
+                    id: result.productId,
+                    name: result.productName,
+                    price: result.productPrice.toFixed(2)
+                }));
+
+                // title to send to listprod.handlebars
+                const searchTitle = name ? `Products containing '${name}'` : "All Products";
+
+                res.render('listprod', {searchTitle, products})
+                
     
-                res.end();
             } catch(err) {
                 console.dir(err);
                 res.write(JSON.stringify(err));
-                res.end();
             }})();
 });
 
