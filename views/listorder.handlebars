@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SIM-ESTER Order List</title>
+</head>
+<body>
+    <h1>SIM-ESTER Order List</h1>
+
+    {{#each orders}}
+        <h2>Order ID: {{this.orderId}}</h2>
+        <p><strong>Order Date:</strong> {{this.orderDate}}</p>
+        <p><strong>Customer ID:</strong> {{this.customerId}}</p>
+        <p><strong>Customer Name:</strong> {{this.customerName}}</p>
+        <p><strong>Total Amount:</strong> ${{this.totalAmount}}</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each this.products}}
+                    <tr>
+                        <td>{{this.productId}}</td>
+                        <td>{{this.quantity}}</td>
+                        <td>{{this.price}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    {{/each}}
+
+    {{#unless orders}}
+        <p>No orders found.</p>
+    {{/unless}}
+</body>
+</html>
