@@ -11,6 +11,15 @@ let checkout = require('./routes/checkout');
 let order = require('./routes/order');
 let deleteItem = require('./routes/deleteitem'); // might show an error, but nothing to worry about
 let updateQuantity = require('./routes/updatequantity');
+let displayImage = require('./routes/displayImage');
+let index = require('./routes/index');
+let ship = require('./routes/ship');
+let validateLogin = require('./routes/validateLogin');
+let admin = require('./routes/admin');
+let product = require('./routes/product');
+let login = require('./routes/login');
+let customer = require('./routes/customer');
+let logout = require('./routes/logout');
 
 
 const app = express();
@@ -73,6 +82,15 @@ app.use('/checkout', checkout);
 app.use('/order', order);
 app.use('/deleteitem', deleteItem);
 app.use('/updatequantity', updateQuantity);
+app.use('/displayImage', displayImage);
+app.use('/index', index);
+app.use('/ship', ship);
+app.use('/validateLogin', validateLogin);
+app.use('/admin', admin);
+app.use('/product', product);
+app.use('/login', login);
+app.use('/customer', customer);
+app.use('/logout', logout);
 
 // setting up CSS & images
 app.use(express.static('public'));
