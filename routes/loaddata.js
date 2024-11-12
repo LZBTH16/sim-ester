@@ -6,7 +6,7 @@ const fs = require('fs');
 router.get('/', function(req, res, next) {
     (async function() {
         try {
-            let pool = await sql.connect(dbConfig);
+            const pool = await sql.connect(dbConfig);
 
             res.setHeader('Content-Type', 'text/html');
             res.write('<title>Data Loader</title>');

@@ -14,11 +14,11 @@ router.get('/', function(req, res, next) {
 
     (async function() {
         try {
-            let pool = await sql.connect(dbConfig);
+            const pool = await sql.connect(dbConfig);
 
-            let sqlQuery = "SELECT productImage FROM product WHERE productId = @productId";
+            const sqlQuery = "SELECT productImage FROM product WHERE productId = @productId";
 
-            let result = await pool.request()
+            const result = await pool.request()
                 .input('productId', sql.Int, productId)
                 .query(sqlQuery);
 
@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
                 res.end();
                 return;
             } else {
-                let productImage = result.recordset[0].productImage;
+                const productImage = result.recordset[0].productImage;
 
                 res.write(productImage);
             }

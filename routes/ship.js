@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 
     (async function() {
         try {
-            let pool = await sql.connect(dbConfig);
+            const pool = await sql.connect(dbConfig);
 
            // TODO: Start a transaction
 	   	

@@ -7,7 +7,7 @@ router.post('/', function(req, res) {
     // Have to preserve async context since we make an async call
     // to the database in the validateLogin function.
     (async () => {
-        let authenticatedUser = await validateLogin(req);
+        const authenticatedUser = await validateLogin(req);
         if (authenticatedUser) {
             req.session.authenticatedUser = authenticatedUser;
             res.redirect("/index");
@@ -22,14 +22,14 @@ async function validateLogin(req) {
         return false;
     }
 
-    let username = req.body.username;
-    let password = req.body.password;
-    let authenticatedUser =  await (async function() {
+    const username = req.body.username;
+    const password = req.body.password;
+    const authenticatedUser =  await (async function() {
         try {
-            let pool = await sql.connect(dbConfig);
+            const pool = await sql.connect(dbConfig);
 
-            let sqlQuery = "SELECT customerId FROM customer WHERE userid = @username AND password = @password";
-            let result = await pool.request()
+            const sqlQuery = "SELECT customerId FROM customer WHERE userid = @username AND password = @password";
+            const result = await pool.request()
                 .input('username', sql.VarChar, username)
                 .input('password', sql.VarChar, password)
                 .query(sqlQuery);

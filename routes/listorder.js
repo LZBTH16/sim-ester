@@ -5,14 +5,14 @@ const moment = require('moment');
 
 router.get('/', async function (req, res, next) {
     try {
-        let pool = await sql.connect(dbConfig);
+        const pool = await sql.connect(dbConfig);
 
-        let sqlQuery = `
+        const sqlQuery = `
             SELECT orderId, orderDate, customer.customerId, firstName, lastName, totalAmount 
             FROM ordersummary 
             JOIN customer ON customer.customerId = ordersummary.customerId
         `;
-        let results = await pool.request().query(sqlQuery);
+        const results = await pool.request().query(sqlQuery);
 
         const orders = [];
         for (let result of results.recordset) {
@@ -25,8 +25,8 @@ router.get('/', async function (req, res, next) {
                 products: []
             };
 
-            let sqlQuery2 = `SELECT productId, quantity, price FROM orderproduct WHERE orderId = ${result.orderId}`;
-            let results2 = await pool.request().query(sqlQuery2);
+            const sqlQuery2 = `SELECT productId, quantity, price FROM orderproduct WHERE orderId = ${result.orderId}`;
+            const results2 = await pool.request().query(sqlQuery2);
 
             for (let product of results2.recordset) {
                 order.products.push({

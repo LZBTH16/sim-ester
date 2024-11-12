@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Sales Report by Day</title>
+</head>
+<body>
+    <h1>Administrator Sales Report by Day</h1>
+    <h2>Order Date Total Amount</h2>
+
+    {{#each orders}}
+        <h3>{{this.orderDate}} - ${{this.sumTotal}}</h3>
+    {{/each}}
+</body>
+</html>

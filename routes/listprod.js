@@ -26,7 +26,7 @@ router.get('/', async function(req, res, next) {
         
         (async function() {
             try {
-                let pool = await sql.connect(dbConfig);
+                const pool = await sql.connect(dbConfig);
     
                 let sqlQuery;
                 if(!name){

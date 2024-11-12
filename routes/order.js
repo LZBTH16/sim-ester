@@ -17,10 +17,11 @@ router.get('/', async function (req, res, next) {
 
         // Verify customerId and password
         let customerId = req.query.customerId;
-        let password = req.query.password;
         customerId = Number(customerId);
 
-        let pool = await sql.connect(dbConfig);
+        const password = req.query.password;
+
+        const pool = await sql.connect(dbConfig);
 
         sqlQuery = "SELECT firstName, lastName FROM customer WHERE customerId = @customerId AND password = @password";
         results = await pool.request()
@@ -33,12 +34,13 @@ router.get('/', async function (req, res, next) {
             return res.render('order', { errorMessage: 'Invalid account details. Go back to the previous page and try again.' });
         }
 
-        let firstName = results.recordset[0].firstName;
-        let lastName = results.recordset[0].lastName;
+        const firstName = results.recordset[0].firstName;
+        const lastName = results.recordset[0].lastName;
 
         // Process the order summary
         let total = 0;
         let orderItems = [];
+        let subtotal = 0;
         
         for (let i = 0; i < productList.length; i++) {
             product = productList[i];
@@ -47,7 +49,7 @@ router.get('/', async function (req, res, next) {
                 continue;
             }   
             
-            let subtotal = (Number(product.quantity) * Number(product.price)).toFixed(2);
+            subtotal = (Number(product.quantity) * Number(product.price)).toFixed(2);
             total += product.quantity * product.price;
             
             orderItems.push({
@@ -86,7 +88,7 @@ router.get('/', async function (req, res, next) {
         }
 
         // Clear shopping cart (sessional variable)
-        req.session.destroy();
+        req.session.productList = [];
 
         // Render the order summary
         res.render('order', {
