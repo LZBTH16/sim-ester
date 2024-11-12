@@ -70,6 +70,9 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
+// Parses req.body
+app.use(express.urlencoded({ extended: true }));
+
 // Setting up Express.js routes.
 // These present a "route" on the URL of the site.
 // Eg: http://127.0.0.1/loaddata
@@ -98,7 +101,7 @@ app.use(express.static('public'));
 // Rendering the main page
 app.get('/', function (req, res) {
   res.render('index', {
-    title: "Main Page"
+    title: "Home Page"
   });
 })
 

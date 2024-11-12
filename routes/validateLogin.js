@@ -9,7 +9,8 @@ router.post('/', function(req, res) {
     (async () => {
         let authenticatedUser = await validateLogin(req);
         if (authenticatedUser) {
-            res.redirect("/");
+            req.session.authenticatedUser = authenticatedUser;
+            res.redirect("/index");
         } else {
             res.redirect("/login");
         }
@@ -27,8 +28,16 @@ async function validateLogin(req) {
         try {
             let pool = await sql.connect(dbConfig);
 
-	// TODO: Check if userId and password match some customer account. 
-	// If so, set authenticatedUser to be the username.
+            let sqlQuery = "SELECT customerId FROM customer WHERE userid = @username AND password = @password";
+            let result = await pool.request()
+                .input('username', sql.VarChar, username)
+                .input('password', sql.VarChar, password)
+                .query(sqlQuery);
+            
+            // Check if the credentials match an valid account
+            if(result.recordset.length > 0){
+                return username;
+            }
 
            return false;
         } catch(err) {
