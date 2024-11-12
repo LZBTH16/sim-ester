@@ -28,7 +28,7 @@
         {{#each products}}
             <tr>
                 <th><a href="addcart?id={{id}}&name={{name}}&price={{price}}">Add to cart</a></th>
-                <th>{{name}}</th>
+                <th><a href="product?id={{id}}" >{{name}}</a></th>
                 <th>{{price}}</th>
             </tr>
         {{/each}}

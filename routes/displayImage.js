@@ -5,9 +5,9 @@ const sql = require('mssql');
 router.get('/', function(req, res, next) {
     res.setHeader('Content-Type', 'image/jpeg');
 
-    let id = req.query.id;
-    let idVal = parseInt(id);
-    if (isNaN(idVal)) {
+    let productId = req.query.id;
+    productId = parseInt(productId);
+    if (isNaN(productId)) {
         res.end();
         return;
     }
@@ -16,10 +16,10 @@ router.get('/', function(req, res, next) {
         try {
             let pool = await sql.connect(dbConfig);
 
-            let sqlQuery = "// TODO: Modify SQL to retrieve productImage given productId";
+            let sqlQuery = "SELECT productImage FROM product WHERE productId = @productId";
 
-            result = await pool.request()
-                .input('id', sql.Int, idVal)
+            let result = await pool.request()
+                .input('productId', sql.Int, productId)
                 .query(sqlQuery);
 
             if (result.recordset.length === 0) {
@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
                 res.write(productImage);
             }
 
-            res.end()
+            res.end();
         } catch(err) {
             console.dir(err);
             res.write(err + "")
