@@ -51,3 +51,29 @@ nav a:hover{
     background-color: #6f4fec;
     border-radius: 5px;
 }
+
+/* listprod table style */
+.listprod th{
+    padding: 12px;
+    font-size: 15px;
+}
+.cart a{
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    background-color: #5D3FD3;
+    border-radius: 5px;
+}
+.cart a:hover{
+    background-color: #6f4fec;
+    border-radius: 5px;
+}
+.product a{
+    color: black;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+.product a:hover{
+    background-color: #6f4fec;
+    border-radius: 5px;
+}
