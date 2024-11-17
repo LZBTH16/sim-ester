@@ -26,7 +26,10 @@ router.get('/', function(req, res, next) {
             const customer = result.recordset[0];
 
             // send the query to be displayed
-            res.render('customer', {customer});
+            res.render('customer', {customer,
+                username: req.session.authenticatedUser,
+                title: "Customer Info"
+            });
 
         } catch(err) {
             console.dir(err);

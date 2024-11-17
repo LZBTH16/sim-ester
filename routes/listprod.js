@@ -42,13 +42,6 @@ router.get('/', async function(req, res, next) {
                     results = await pool.request().query(sqlQuery); // all products
                 }
 
-                // displaying the search message
-                // if(name){
-                //     res.write(`<h2>Products containing '${name}'</h2>`);
-                // } else{
-                //     res.write("<h2>All Products</h2>");
-                // }
-
                 // formatting the products
                 const products = results.recordset.map(result => ({
                     id: result.productId,
@@ -59,7 +52,10 @@ router.get('/', async function(req, res, next) {
                 // title to send to listprod.handlebars
                 const searchTitle = name ? `Products containing '${name}'` : "All Products";
 
-                res.render('listprod', {searchTitle, products})
+                res.render('listprod', {searchTitle, products,
+                    username: req.session.authenticatedUser,
+                    title: "Products"
+                })
                 
     
             } catch(err) {

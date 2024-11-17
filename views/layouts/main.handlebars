@@ -3,10 +3,13 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css"> <!-- linking to the CSS -->
+    {{!-- <link rel=""> --}}
     <title>{{title}}</title>
 </head>
 <body>
+    {{> account-bar}} <!-- account bar, shows login/logout + other user features -->
     {{> header}} <!-- header partial -->
     {{{body}}}
+    {{> footer}}
 </body>
 </html>

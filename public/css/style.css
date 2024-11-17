@@ -1,21 +1,42 @@
-/* general styles */
-body {
-    background: #CCCCFF;
+/* general styles, used for all tags, everywhere */
+html, body {
+    /* resetting margin and padding of body, html tags */
+    margin: 0;
+    padding: 0;
+
+    /* the rest of the general styles */
+    background: #CCCCCC;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color:#002145;
 }
 
-.main-page h1 {
-    font-size: 30px;
+/* PARTIAL STYLES */
+/* account-bar */
+.account-bar {
+    background: #E6E6E6;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
 }
-.main-page a{
-    color: #5D3FD3;
+.account-bar a {
+    color: #002145;
     text-decoration: none;
-    padding: 10px 15px;
-}
-.main-page a:hover{
-    color: #F5F5F5;
-    background-color: #6f4fec;
+    margin-right: 10px;
+    padding: 5px;
     border-radius: 5px;
+}
+.account-bar a:hover {
+    color: #013368;
+    text-decoration: none;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+.account-bar h3 {
+    color: #002145;
+    font-weight: bold;
+    margin-right: 50px;
 }
 
 /* navbar styling/header */
@@ -23,12 +44,12 @@ body {
     display: flex;
     align-items: center;
     margin: 0px;
-    background-color: #301b83;
+    background-color: #002145;
 }
 .navbar h1{
     font-size: 50px;
     padding: 20px;
-    color:#5D3FD3;
+    color:#FFFFFF;
 }
 .navbar img{
     width: 150px;
@@ -36,24 +57,77 @@ body {
     border-radius: 50px;
     padding: 20px;
 }
-
 /* actual navbar */
 nav{
-    background-color: #5D3FD3;
+    background-color: #2F5D7C;
     padding: 20px;
 }
 nav a{
-    color: white;
+    color: #FFFFFF;
     text-decoration: none;
     padding: 10px 15px;
 }
 nav a:hover{
-    background-color: #6f4fec;
+    background-color: #3e769b;
     border-radius: 5px;
 }
 
+/* footer styling */
+footer {
+    background: #002145;
+    color: #FFFFFF;
+    padding: 20px 0;
+}
+.spacer {
+    height: 50px;
+}
+.separator {
+    border: none;
+    border-top: 2px solid #FFFFFF;
+    margin: 0 20px;
+}
+.bottom-bar {
+    display:flex;
+    align-items: center;
+    background: #002145;
+    padding: 20px;
+}
+.bottom-bar a {
+    color: #FFFFFF;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+/* THE ACTUAL PAGES */
+/* INDEX/MAIN */
+.main-page {
+    margin-bottom: 50px;
+}
+.main-page h1 {
+    font-size: 50px;
+    margin-bottom: 50px;
+}
+.main-page a{
+    color: #002145;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+.main-page a:hover{
+    color: #FFFFFF;
+    background-color: #2F5D7C;
+    border-radius: 5px;
+}
+
+/* LISTPROD */
+.listprod {
+    margin-left: 30px;
+}
+/* listprod search stuff */
+.listprod-search input {
+    background: #FFFFFF;
+}
 /* listprod table style */
-.listprod th{
+.listprod-table th{
     padding: 12px;
     font-size: 15px;
 }
@@ -61,11 +135,11 @@ nav a:hover{
     color: white;
     text-decoration: none;
     padding: 10px 15px;
-    background-color: #5D3FD3;
+    background-color: #002145;
     border-radius: 5px;
 }
 .cart a:hover{
-    background-color: #6f4fec;
+    background-color: #2F5D7C;
     border-radius: 5px;
 }
 .product a{
@@ -74,6 +148,6 @@ nav a:hover{
     padding: 10px 15px;
 }
 .product a:hover{
-    background-color: #6f4fec;
+    background-color: #002145;
     border-radius: 5px;
 }

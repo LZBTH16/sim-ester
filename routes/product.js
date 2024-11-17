@@ -19,7 +19,9 @@ router.get('/', async function(req, res) {
             productId: productId,
             productName: product.productName,
             productPrice: product.productPrice,
-            productImageURL: product.productImageURL
+            productImageURL: product.productImageURL,
+            username: req.session.authenticatedUser,
+            title: product.productName
         });
     } catch (err) {
         console.dir(err);

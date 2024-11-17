@@ -39,7 +39,10 @@ router.get('/', async function (req, res, next) {
             orders.push(order);
         }
 
-        res.render('listorder', { orders });
+        res.render('listorder', { orders,
+            username: req.session.authenticatedUser,
+            title: "All Orders"
+         });
     } catch (err) {
         console.dir(err);
         res.write(JSON.stringify(err));

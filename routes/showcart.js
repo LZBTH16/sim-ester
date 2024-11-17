@@ -13,7 +13,10 @@ router.get('/', function(req, res, next) {
     }, 0);
 
     // Render the Handlebars template and pass productList and total
-    res.render('showcart', { productList, total });
+    res.render('showcart', { productList, total,
+        username: req.session.authenticatedUser,
+        title: "Cart"
+     });
 });
 
 module.exports = router;

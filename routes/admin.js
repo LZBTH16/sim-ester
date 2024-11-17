@@ -24,7 +24,9 @@ router.get('/', function(req, res, next) {
                 sumTotal: order.sumTotal
             }));
 
-            res.render('admin', {orders});
+            res.render('admin', {orders,
+                username: req.session.authenticatedUser
+            });
 
         } catch(err) {
             console.dir(err);

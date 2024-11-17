@@ -94,7 +94,9 @@ router.get('/', async function (req, res, next) {
         res.render('order', {
             customer: { id: customerId, firstName, lastName },
             order: { id: orderId, date: moment(currentDate).format('YYYY-MM-DD'), total: total.toFixed(2) },
-            items: orderItems
+            items: orderItems,
+            username: req.session.authenticatedUser,
+            title: "Your Order"
         });
 
     } catch (err) {
