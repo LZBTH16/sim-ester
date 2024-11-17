@@ -13,8 +13,8 @@ body {
     padding: 10px 15px;
 }
 .main-page a:hover{
-    color: #cda7ff;
-    background-color: #7962d4;
+    color: white;
+    background-color: #6f4fec;
     border-radius: 5px;
 }
 

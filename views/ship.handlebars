@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="css/style.css"> <!-- linking to the CSS -->
+        <title>{{title}}</title>
+    </head>
+
+    <body>
+        <h1>{{message}}</h1> <!-- displaying whether the shipment was successful or not -->
+        <!-- for each ordered product, display the id, qty, and prev & new inventories -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Ordered Product</th>
+                    <th>Qty</th>
+                    <th>Previous Inventory</th>
+                    <th>New Inventory</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each shipmentDetails}}
+                    <tr>
+                        <td>{{this.productId}}</td>
+                        <td>{{this.qty}}</td>
+                        <td>{{this.prevInventory}}</td>
+                        <td>{{this.newInventory}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <h1><a href="/">Back to Main Page</a></h1>
+    </body>
+</html>
