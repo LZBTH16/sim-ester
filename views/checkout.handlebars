@@ -5,20 +5,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIM-ESTER CheckOut Line</title>
 </head>
 <body>
-    <h1>Enter your customer id and password to complete the transaction:</h1>
+    <div class="checkout">
+        <h2>Enter your customer ID and password to complete the transaction:</h2>
 
-    <form method="get" action="order">
-        <label for="customerId">Customer ID:</label>
-        <input type="text" name="customerId" size="50" required>
+        <form method="get" action="order">
+            <div class="user-info">
+                <label for="customerId">Customer ID:</label>
+                <input type="text" name="customerId" size="20" required>
+            </div>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" size="50" required>
+            <div class="user-info">
+                <label for="password">Password:</label>
+                <input type="password" name="password" size="20" required>
+            </div>
 
-        <input type="submit" value="Submit">
-        <input type="reset" value="Reset">
-    </form>
+            <div class="checkout-buttons">
+                {{!-- custom-button CSS can be found under LISTPROD CSS section --}}
+                <input class="custom-button" type="submit" value="Submit">
+                <input class="custom-button" type="reset" value="Reset">
+            </div>
+        </form>
+    </div>
 </body>
 </html>
