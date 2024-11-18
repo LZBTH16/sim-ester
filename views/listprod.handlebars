@@ -9,16 +9,16 @@
     <body>
     
     <div class="listprod">
-        <div class="listprod-search">
-            <h1>Search for Products You Want to Buy:</h1>
+        {{!-- <div class="listprod-search"> --}}
+            <h1>Search for Products</h1>
 
             <!-- product search bar & buttons -->
             <form method="get" action="/listprod">
-                <input type="text" name="productName" size="50" placeholder="Enter product name">
-                <input type="submit" value="Submit">
-                <input type="reset" value="Reset">
+                <input class="searchbar" type="text" name="productName" size="30" placeholder="Enter product name">
+                <input class="custom-button" type="submit" value="Submit">
+                <input class="custom-button" type="reset" value="Reset">
             </form>
-        </div>
+        {{!-- </div> --}}
 
         <!-- List of Products -->
         <div class="listprod-table">
@@ -30,10 +30,10 @@
                 </tr>
                 <!-- getting the results -->
                 {{#each products}}
-                    <tr class="products">
-                        <th class="cart"><a href="addcart?id={{id}}&name={{name}}&price={{price}}">Add to cart</a></th>
-                        <th class="product"><a href="product?id={{id}}" >{{name}}</a></th>
-                        <th>{{price}}</th>
+                    <tr>
+                        <td class="add-cart"><a href="addcart?id={{id}}&name={{name}}&price={{price}}">Add to cart</a></td>
+                        <td class="listprod-product"><a href="product?id={{id}}" >{{name}}</a></td>
+                        <td>${{price}}</td>
                     </tr>
                 {{/each}}
             </table>
