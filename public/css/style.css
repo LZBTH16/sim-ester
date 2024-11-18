@@ -197,6 +197,22 @@ footer {
 }
 
 /* PRODUCT */
+.product-display {
+    width: 500px;
+    margin: 50px auto; /* centres horizontally, adds vertical spacing */
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #F9F9F9;
+    padding: 10px;
+}
+.product-display img {
+    width: 300px;
+    height: auto;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
 /* SHOWCART */
 .showcart {
     margin-left: 30px;
@@ -276,4 +292,9 @@ footer {
     border-radius: 10px;
     text-decoration: none;
     padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+.navigate a:hover {
+    background-color: #004176;
+    border-radius: 10px;
 }

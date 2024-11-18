@@ -5,19 +5,21 @@
     <title>{{productName}}</title>
 </head>
 <body>
-    <h1>{{productName}}</h1>
-    
-    {{#if productImageURL}}
-        <img src="{{productImageURL}}" alt="{{productName}}">
-    {{else}}
-        <!-- If productImageURL is not available, load directly from the database using displayImage -->
-        <img src="/displayImage?id={{productId}}" alt="{{productName}}">
-    {{/if}}
+    <div class="product-display">
+        <h1>{{productName}}</h1>
+        
+        {{#if productImageURL}}
+            <img src="{{productImageURL}}" alt="{{productName}}">
+        {{else}}
+            <!-- If productImageURL is not available, load directly from the database using displayImage -->
+            <img src="/displayImage?id={{productId}}" alt="{{productName}}">
+        {{/if}}
 
-    <h2>Id: {{productId}}</h2>
-    <h2>Price: ${{productPrice}}</h2>
+        <h3>Id: {{productId}}</h3>
+        <h3>Price: ${{productPrice}}</h3>
 
-    <h1><a href="/addcart?id={{productId}}&name={{productName}}&price={{productPrice}}">Add to cart</a></h1>
-    <h1><a href="/listprod">Continue shopping</a></h1>
+        <h2 class="navigate"><a href="/addcart?id={{productId}}&name={{productName}}&price={{productPrice}}">Add to cart</a></h2>
+        <h2 class="navigate"><a href="/listprod">Continue shopping</a></h2>
+    </div>
 </body>
 </html>
