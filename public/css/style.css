@@ -119,11 +119,16 @@ footer {
     align-items: center;
     background: #002145;
     padding: 20px;
+    justify-content: center;
 }
 .bottom-bar a {
     color: #FFFFFF;
     text-decoration: none;
     margin: 0 15px;
+}
+footer h3{
+    display:flex;
+    justify-content: center;
 }
 
 /* THE ACTUAL PAGES */
