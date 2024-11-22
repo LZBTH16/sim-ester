@@ -25,6 +25,18 @@ html, body {
     background-color: #004176;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
+.decorative-button {
+    display:inline-block;
+    border: none;
+    padding: 7px 12px;
+    margin-top: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: default;
+    outline: none;
+    font-size: 18px;
+    background-color: #002145;
+    color: #FFFFFF;
+}
 .text-input {
     background: #FFFFFF;
     border: none;
@@ -134,11 +146,7 @@ footer h3{
 /* THE ACTUAL PAGES */
 /* INDEX/MAIN */
 .main-page {
-    margin-bottom: 50px;
-}
-.main-page h1 {
-    font-size: 50px;
-    margin-bottom: 50px;
+    padding-bottom: 50px;
 }
 .main-page a{
     color: #002145;
@@ -146,14 +154,39 @@ footer h3{
     padding: 10px 15px;
 }
 .main-page a:hover{
-    color: #FFFFFF;
-    background-color: #2F5D7C;
-    border-radius: 5px;
+    color: #004176;
+}
+/* potentially make the image background change (like a carousel of images) */
+.hero-section {
+    background-image: url('../images/ubco-aerial.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 600px;
+
+    position: relative;
+    text-align: center;
+    padding: 20px;
+}
+.hero-section h1 {
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    margin-bottom: 10px;
+}
+.hero-section p {
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+    margin: 0 auto;
+    max-width: 800px;
+    color: white;
 }
 
 /* LISTPROD */
 .listprod {
     margin-left: 30px;
+    display: block;
+    justify-content: center;
 }
 /* listprod table style */
 .listprod-table {

@@ -22,16 +22,16 @@
         <div class="listprod-table">
             <table>
                 <tr>
-                    <th></th>
                     <th>Product Name</th>
                     <th>Price</th>
+                    <th></th>
                 </tr>
                 <!-- getting the results -->
                 {{#each products}}
                     <tr>
-                        <td class="add-cart"><a href="addcart?id={{id}}&name={{name}}&price={{price}}">Add to cart</a></td>
                         <td class="listprod-product"><a href="product?id={{id}}" >{{name}}</a></td>
                         <td>${{price}}</td>
+                        <td class="add-cart"><a href="addcart?id={{id}}&name={{name}}&price={{price}}">Add to cart</a></td>
                     </tr>
                 {{/each}}
             </table>
