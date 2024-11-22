@@ -187,50 +187,66 @@ footer h3{
     margin-left: 30px;
     display: block;
     justify-content: center;
-}
-/* listprod table style */
-.listprod-table {
     margin-bottom: 50px;
-    margin-top: 20px;
-    font-size: 18px;
-    width: 100%;
-    border-collapse: collapse;
 }
-.listprod-table th{
-    padding: 12px;
-    font-size: 18px;
-    text-align: left;
-    border-bottom: 2px solid #002145;
+/* the search feature */
+.listprod-search {
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 50px;
 }
-.listprod-table td {
-    padding: 12px;
-    font-size: 15px;
+.search-form {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+/* the product cards */
+.products-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+.product-card {
+    display: inline;
+    color:#002145;
+    background-color: #F9F9F9;
+    padding: 20px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+.product-card:hover {
+    transform: scale(1.05); /* slightly enlarge when hovered */
+}
+.product-name a {
+    font-size: 25px;
+    color: #002145;
+    text-decoration: none;
+}
+.product-price {
+    margin: 10px 0px;
+    font-size: 18px;
     font-weight: bold;
-    border-bottom: 2px solid #002145;
+    margin-bottom: 20px;
 }
-.listprod-table tr:last-child td {
-    border-bottom: none;
-}
-.add-cart a{
+.product-action a {
     color: white;
-    font-size: 15px;
+    font-size: 18px;
     text-decoration: none;
     padding: 10px 15px;
     background-color: #002145;
     border-radius: 5px;
     transition: all 0.3s ease;
 }
-.add-cart a:hover{
+.product-action a:hover {
     background-color: #004176;
     border-radius: 5px;
-}
-.listprod-product a {
-    color: #002145;
-    text-decoration: none;
-    padding: 10px 15px;
-}
-.listprod-product a:hover {
-    color: #004176;
 }
 
 /* PRODUCT */
