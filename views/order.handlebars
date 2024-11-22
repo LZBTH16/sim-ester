@@ -1,40 +1,46 @@
-<title>SIM-ESTER Order Processing</title>
+{{!-- <title>SIM-ESTER Order Processing</title>  likley not needed? --}}
+<div class="order-list">
+    {{!-- Display error msg --}}
+    {{#if errorMessage}}
+        <h1>{{errorMessage}}</h1>
 
-{{!-- Display error msg --}}
-{{#if errorMessage}}
-    <h1>{{errorMessage}}</h1>
+    {{!-- Check if the cart is empty --}}
+    {{else if emptyCart}}
+        <h1>Your shopping cart is empty!</h1>
 
-{{!-- Check if the cart is empty --}}
-{{else if emptyCart}}
-    <h1>Your shopping cart is empty!</h1>
+    {{!-- Show the order summary --}}
+    {{else}}
+        <div class="order-container">
+            <h1>Your Order Summary</h1>
+            <h2>Order Reference: {{order.id}}</h2>
+            <p><strong>Shipping To:</strong> {{customer.firstName}} {{customer.lastName}}</p>
+            <p><strong>Customer ID:</strong> {{customer.id}}</p>
 
-{{!-- Show the order summary --}}
-{{else}}
-    <h1>Your Order Summary</h1>
-    <table>
-        <tr>
-            <th>Product Id</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Subtotal</th>
-        </tr>
-        {{#each items}}
-        <tr>
-            <td>{{this.id}}</td>
-            <td>{{this.name}}</td>
-            <td align="center">{{this.quantity}}</td>
-            <td align="right">${{this.price}}</td>
-            <td align="right">${{this.subtotal}}</td>
-        </tr>
-        {{/each}}
-        <tr>
-            <td colspan="4" align="right"><b>Order Total</b></td>
-            <td align="right">${{order.total}}</td>
-        </tr>
-    </table>
+            <h3>Products in this order:</h3>
 
-    <h1>Order completed. Will be shipped soon...</h1>
-    <h1>Your order reference number is: {{order.id}}</h1>
-    <h1>Shipping to customer: {{customer.id}} Name: {{customer.firstName}} {{customer.lastName}}</h1>
-{{/if}}
+            <table>
+                <tr>
+                    <th>Product Id</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+                {{#each items}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.name}}</td>
+                    <td align="center">{{this.quantity}}</td>
+                    <td align="right">${{this.price}}</td>
+                    <td align="right">${{this.subtotal}}</td>
+                </tr>
+                {{/each}}
+                <tr>
+                    <td colspan="4" align="right"><b>Order Total</b></td>
+                    <td align="right">${{order.total}}</td>
+                </tr>
+            </table>
+            <h2>Order completed. Will be shipped soon...</h2>
+        </div>
+    {{/if}}
+</div>
