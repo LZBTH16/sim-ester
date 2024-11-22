@@ -30,11 +30,11 @@
                                 </td>
                                 <td align="right">${{formatPrice this.price}}</td>
                                 <td align="right">${{multiplyAndFormat this.quantity this.price}}</td>
-                                <td class="removeitem">
-                                    <a href="/deleteitem?id={{this.id}}">Remove from cart</a>
-                                </td>
                                 <td>
                                     <button class="updateitem" onclick="updateQuantity({{this.id}})">Update Quantity</button>
+                                </td>
+                                <td class="removeitem">
+                                    <a href="/deleteitem?id={{this.id}}">Remove from cart</a>
                                 </td>
                             </tr>
                         {{/if}}

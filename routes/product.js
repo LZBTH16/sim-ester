@@ -8,7 +8,7 @@ router.get('/', async function(req, res) {
 
         const productId = req.query.id;
 
-        const sqlQuery = "SELECT productName, productPrice, productImageURL FROM product WHERE productId = @productId";
+        const sqlQuery = "SELECT productName, productPrice, productImageURL, productDesc FROM product WHERE productId = @productId";
         const result = await pool.request()
             .input('productId', sql.Int, productId)
             .query(sqlQuery);
@@ -20,6 +20,7 @@ router.get('/', async function(req, res) {
             productName: product.productName,
             productPrice: product.productPrice,
             productImageURL: product.productImageURL,
+            productDesc: product.productDesc,
             username: req.session.authenticatedUser,
             title: product.productName
         });
