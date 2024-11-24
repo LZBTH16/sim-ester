@@ -2,10 +2,13 @@
     {{#if username}}
         <h3>Welcome, {{username}}</h3>
         <h3>|</h3>
+        <h3><a href="/customer">Account</a></h3>
+        <h3>|</h3>
         <h3><a href="/logout">Log out</a></h3>
     {{else}}
         <h3><a href="/login">Login</a></h3>
-        <h3><a href="/customer">Account/Login</a></h3>
+        <h3>|</h3>
+        <h3><a href="/customer">Account</a></h3>
     {{/if}}
     <h3>|</h3>
     <h3 class="end"><a href="/showcart">Cart</a></h3>
