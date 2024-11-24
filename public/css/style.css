@@ -87,21 +87,22 @@ html, body {
 .account-bar a {
     color: #002145;
     text-decoration: none;
-    margin-right: 10px;
     padding: 5px;
     border-radius: 5px;
 }
 .account-bar a:hover {
     color: #013368;
     text-decoration: none;
-    margin-right: 10px;
     padding: 5px;
     border-radius: 5px;
 }
 .account-bar h3 {
     color: #002145;
     font-weight: bold;
-    margin-right: 50px;
+    /* margin-right: 50px; */
+}
+.end {
+    margin-right: 20px;
 }
 
 /* navbar styling/header */
@@ -421,13 +422,13 @@ footer h3{
 }
 
 /* ORDER */
-.order-list {
+.order-checkout {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .order-summary {
-    width: 800px;
+    width: auto;
     margin: 50px auto;
     text-align: center;
     border-radius: 10px;
@@ -455,7 +456,7 @@ footer h3{
 .order-summary table td:last-child {
     font-weight: bold;
     color: #002145;
-}.order-summary h1, h2, h3 {
+}.order-summary h1, h2 {
     margin: 10px 0;
     color: #002145;
 }
