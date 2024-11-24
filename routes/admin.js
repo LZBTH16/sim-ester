@@ -13,10 +13,9 @@ router.get('/', function(req, res, next) {
         try {
             const pool = await sql.connect(dbConfig);
 
+            // getting orders per day
             const sqlQuery = "SELECT CAST(orderDate AS DATE) orderDate, SUM(totalAmount) sumTotal FROM ordersummary GROUP BY CAST(orderDate AS DATE)";
-
-            const results = await pool.request()
-                .query(sqlQuery);
+            const results = await pool.request().query(sqlQuery);
 
             // Iterate through every order in the recordset
             const orders = results.recordset.map(order => ({
@@ -24,8 +23,17 @@ router.get('/', function(req, res, next) {
                 sumTotal: order.sumTotal
             }));
 
+
+            // getting customer info
+            const sqlQuery2 = "SELECT * FROM customer";
+            const results2 = await pool.request().query(sqlQuery2);
+            const customerInfo = results2.recordset;
+
+            // sending the data to the admin.handlebars
             res.render('admin', {orders,
-                username: req.session.authenticatedUser
+                customerInfo,
+                username: req.session.authenticatedUser,
+                title: "Admin"
             });
 
         } catch(err) {

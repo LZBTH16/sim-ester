@@ -49,6 +49,31 @@ html, body {
 .text-input:focus {
     box-shadow: 0 0 10px rgba(0, 33, 69, 0.8);
 }
+/* default container styling */
+.container {
+    width: auto;
+    margin: 20px auto;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #F9F9F9;
+    padding: 20px;
+}
+.container table {
+    margin: 10px auto;
+    border-collapse: collapse;
+}
+.container table th {
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    text-align: left;
+}
+.container table td {
+    padding: 10px;
+    border: 1px solid #dddddd;
+    text-align: left;
+}
 
 /* PARTIAL STYLES */
 /* account-bar */
@@ -482,4 +507,20 @@ footer h3{
 }.order-details h1, h2, h3 {
     margin: 10px 0;
     color: #002145;
+}
+
+/* ADMIN */
+/* welcome msg & info */
+.admin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+.admin-landing p {
+    color: white;
+    background-color: #002145;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

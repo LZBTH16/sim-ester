@@ -1,16 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrator Sales Report by Day</title>
-</head>
-<body>
-    <h1>Administrator Sales Report by Day</h1>
-    <h2>Order Date | Total Order Amount</h2>
+<div class="admin">
+    {{!-- what the admin will see when first getting to the page --}}
+    <div class="admin-landing">
+        <h1>Welcome {{username}}</h1>
+        <p>Continue below for admin features</p>
+    </div>
 
-    {{#each orders}}
-        <h3>{{this.orderDate}} - ${{this.sumTotal}}</h3>
-    {{/each}}
-</body>
-</html>
+    {{!-- sales report --}}
+    <div class="container">
+        <h2>Administrator Sales Report by Day</h2>
+        <table>
+            <thead>
+                <tr>
+                <th>Order Date</th>
+                <th>Total Order Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each orders}}
+                <tr>
+                    <td>{{this.orderDate}}</td>
+                    <td>{{this.sumTotal}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    {{!-- all customers --}}
+    <div class="container">
+        <h2>Customer Information</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Customer ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Postal Code</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each customerInfo}}
+                <tr>
+                    <td>{{this.userid}}</td>
+                    <td>{{this.customerId}}</td>
+                    <td>{{this.firstName}}</td>
+                    <td>{{this.lastName}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.phonenum}}</td>
+                    <td>{{this.address}}</td>
+                    <td>{{this.city}}</td>
+                    <td>{{this.state}}</td>
+                    <td>{{this.postalCode}}</td>
+                    <td>{{this.country}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

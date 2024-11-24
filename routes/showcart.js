@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
     // Render the Handlebars template and pass productList and total
     res.render('showcart', { productList, total,
         username: req.session.authenticatedUser,
-        title: "Cart"
+        title: "Your Cart"
      });
 });
 
