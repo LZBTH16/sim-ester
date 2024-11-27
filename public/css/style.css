@@ -50,7 +50,6 @@ html, body {
     box-shadow: 0 0 10px rgba(0, 33, 69, 0.8);
 }
 .category-select {
-    
     background: #002145;
     border: none;
     border-radius: 10px;
@@ -219,6 +218,41 @@ footer h3{
     max-width: 800px;
     color: white;
 }
+.divider {
+    padding: 20px;
+    background-color: #002145;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+/* Featured Products Section */
+.showcase .featured{
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+.showcase-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.showcase-product {
+    width: 400px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #F9F9F9;
+    padding: 10px;
+}
+.showcase-product img {
+    width: 200px; /* ensuring all images are same size */
+}
+.showcase-product .product-action {
+    margin: 20px; /* specific margin for this page */
+}
+.showcase .navigate {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
 
 /* LISTPROD */
 .listprod {
@@ -286,6 +320,7 @@ footer h3{
     transition: all 0.3s ease;
 }
 .product-action a:hover {
+    color: white;
     background-color: #004176;
     border-radius: 5px;
 }
@@ -379,6 +414,7 @@ footer h3{
     border-radius: 10px;
 }
 /* checkout & continue shopping buttons */
+/* also used for "All Products" button on main page */
 .navigate a {
     display: inline-block;
     color: white;
@@ -390,6 +426,7 @@ footer h3{
 }
 .navigate a:hover {
     background-color: #004176;
+    color: white;
     border-radius: 10px;
 }
 

@@ -8,15 +8,37 @@
             <p>Continue below for more information</p>
         </div>
     </div>
-    {{!-- featured products? --}}
-    <div class="product-showcase">
 
+    {{!-- to separate the sections --}}
+    <div class="divider"></div>
+
+    {{!-- featured products --}}
+    <div class="showcase">
+        <h1 class="featured">Featured Products</h1>
+        <div class="showcase-container">
+            {{#each products}}
+                <div class="showcase-product">
+                    <h2>{{productName}}</h2>
+
+                    {{#if productImageURL}}
+                        <img src="{{productImageURL}}" alt="{{productName}}">
+                    {{else}}
+                        <!-- If productImageURL is not available, load directly from the database using displayImage -->
+                        <img src="/displayImage?id={{productId}}" alt="{{productName}}">
+                    {{/if}}
+                    <div class="product-action">
+                        <a href="product?id={{productId}}" >Details</a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+        <h2 class="navigate"><a href="/listprod">All Products</a></h2>
     </div>
+
+    <div class="divider"></div>
 
     {{!-- About Us --}}
     <div class="about">
 
     </div>        
-
-    <h2 align="center"><a href="/listprod">Begin Shopping</a></h2> 
 </div>
