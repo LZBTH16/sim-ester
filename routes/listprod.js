@@ -5,9 +5,10 @@ const sql = require('mssql');
 router.get('/', async function(req, res, next) {
     // Get the product name to search for
     let name = req.query.productName;
-    
-    /** $name now contains the search string the user entered
-     Use it to build a query and print out the results. **/
+    let category = req.query.category; // Category filter
+
+    /** $name and $category now contain the search string and category */
+    /** Use them to build a query and print out the results **/
 
     /** Create and validate connection **/
 
@@ -23,39 +24,59 @@ router.get('/', async function(req, res, next) {
         let num = 2.89999;
         num = num.toFixed(2);
     **/
-        
-        (async function() {
-            try {
-                const pool = await sql.connect(dbConfig);
-    
-                let sqlQuery;
-                if(!name){
-                    sqlQuery = "SELECT productId, productName, productPrice FROM product"; // default, when not specifically searching
-                } else {
-                    sqlQuery = "SELECT productId, productName, productPrice FROM product WHERE productName LIKE @name"; // when searching for something
-                }
-                
-                let results;
-                if(name){
-                    results = await pool.request().input('name', sql.VarChar, `%${name}%`).query(sqlQuery); // results should be the specified search
-                } else {
-                    results = await pool.request().query(sqlQuery); // all products
-                }
 
-                // formatting the products
-                const products = results.recordset.map(result => ({
-                    id: result.productId,
-                    name: result.productName,
-                    price: result.productPrice.toFixed(2)
-                }));
+    (async function() {
+        try {
+            const pool = await sql.connect(dbConfig);
 
-                // title to send to listprod.handlebars
-                const searchTitle = name ? `Products containing '${name}'` : "All Products";
+            // Base query to join the product and category tables
+            let sqlQuery = `
+                SELECT p.productId, p.productName, p.productPrice, c.categoryName 
+                FROM product p
+                JOIN category c ON p.categoryId = c.categoryId
+                WHERE 1=1
+            `;
 
-                res.render('listprod', {searchTitle, products,
-                    username: req.session.authenticatedUser,
-                    title: "Products"
-                })
+            // If a product name is provided, add it to the query
+            if (name) {
+                sqlQuery += " AND p.productName LIKE @name";
+            }
+
+            // If a category is provided, add it to the query
+            if (category) {
+                sqlQuery += " AND c.categoryName = @category"; // Filtering by categoryName
+            }
+
+            let results;
+            if (name && category) {
+                results = await pool.request()
+                    .input('name', sql.VarChar, `%${name}%`)
+                    .input('category', sql.VarChar, category)
+                    .query(sqlQuery); // Results filtered by both name and category
+            } else if (name) {
+                results = await pool.request()
+                    .input('name', sql.VarChar, `%${name}%`)
+                    .query(sqlQuery); // Filter by name only
+            } else if (category) {
+                results = await pool.request()
+                    .input('category', sql.VarChar, category)
+                    .query(sqlQuery); // Filter by category only
+            } else {
+                results = await pool.request().query(sqlQuery); // No filter, get all products
+            }
+
+            // Formatting the products
+            const products = results.recordset.map(result => ({
+                id: result.productId,
+                name: result.productName,
+                price: result.productPrice.toFixed(2),
+                category: result.categoryName // Add categoryName to the product object
+            }));
+
+            // Title to send to listprod.handlebars
+            const searchTitle = name ? `Products containing '${name}'` : (category ? `Products in '${category}' category` : "All Products");
+
+            res.render('listprod', { searchTitle, products, username: req.session.authenticatedUser, title: "Products" });
                 
     
             } catch(err) {
