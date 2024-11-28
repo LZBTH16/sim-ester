@@ -1,26 +1,43 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="css/style.css"> <!-- linking to the CSS -->
-        <title>{{title}}</title>
-    </head>
-
-    <body>
+<div class="customer-page">
+    <div class="customer-account">
         <h1>Customer Profile</h1>
         <!-- displaying customer data -->
+        {{!-- editable fields --}}
         <table>
-            <tr><th>Id</th><td>{{customer.customerId}}</td></tr>
-            <tr><th>First Name</th><td>{{customer.firstName}}</td></tr>
-            <tr><th>Last Name</th><td>{{customer.lastName}}</td></tr>
-            <tr><th>Email</th><td>{{customer.email}}</td></tr>
-            <tr><th>Phone</th><td>{{customer.phonenum}}</td></tr>
-            <tr><th>Address</th><td>{{customer.address}}</td></tr>
-            <tr><th>City</th><td>{{customer.city}}</td></tr>
-            <tr><th>State</th><td>{{customer.state}}</td></tr>
-            <tr><th>Postal Code</th><td>{{customer.postalCode}}</td></tr>
-            <tr><th>Country</th><td>{{customer.country}}</td></tr>
-            <tr><th>User ID</th><td>{{customer.userid}}</td></tr>
+            <tr>
+                <td class="profile-field">First Name</td>
+                <td><span id="firstName">{{customer.firstName}}</span></td>
+                <td><button class="custom-button" data-field="firstName">Edit</button></td>
+            </tr>
+            <tr>
+                <td class="profile-field">Last Name</td>
+                <td><span id="lastName">{{customer.lastName}}</span></td>
+                <td><button class="custom-button" data-field="lastName">Edit</button></td>
+            </tr>
+            <tr>
+                <td class="profile-field">Email</td>
+                <td><span id="email">{{customer.email}}</span></td>
+                <td><button class="custom-button" data-field="email">Edit</button></td>
+            </tr>
+            <tr>
+                <td class="profile-field">Phone</td>
+                <td><span id="phonenum">{{customer.phonenum}}</span></td>
+                <td><button class="custom-button" data-field="phonenum">Edit</button></td>
+            </tr>
+            <tr>
+                <td class="profile-field">Address</td>
+                <td>
+                    <span id="address" class="field-value">
+                        {{customer.address}}, {{customer.city}}, {{customer.state}}, {{customer.postalCode}}, {{customer.country}}
+                    </span>
+                </td>
+                <td><button class="custom-button" data-field="address">Edit</button></td>
+            </tr>
         </table>
-    </body>
-</html>
+
+        {{!-- submit button for the changes --}}
+        <div class="profile-actions">
+            <button id="submit-changes" class="custom-button">Submit Changes</button>
+        </div>
+    </div>
+</div>

@@ -1,25 +1,25 @@
 <div class="login">
 
-    <h3>Please Login to System</h3>
+    <h3>Login to SIM-ESTER</h3>
 
     {{#if loginMessage}}
         <p>{{loginMessage}}</p>
     {{/if}}
 
     <br>
-    <form name="form" method=post action="/validateLogin">
+    <form class="form" method=post action="/validateLogin">
         <div class="login-info">
-            <label for="username">Username:</label>
+            <label for="username">Username</label>
             <input class="text-input" type="text" name="username" size=10 maxlength="10">
         </div>
         <div class="login-info">
-            <label for="password">Password:</label>
+            <label for="password">Password</label>
             <input class ="text-input" type="password" name="password" size=10 maxlength="10">
         </div>
         <div class="info"><a href="/">Forgot password?</a></div>
 
         <div class="login-button">
-            <input class="custom-button" type="submit" name="Submit2" value="Log In">
+            <input class="custom-button" type="submit" value="Log In">
         </div>
         <div class="info">Don't have an account? <a href="/">Sign up</a></div>
     </form>

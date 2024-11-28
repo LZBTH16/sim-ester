@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
             // send the query to be displayed
             res.render('customer', {customer,
                 username: req.session.authenticatedUser,
-                title: "Customer Info"
+                title: "Your Profile"
             });
 
         } catch(err) {

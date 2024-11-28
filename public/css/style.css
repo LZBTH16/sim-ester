@@ -1,3 +1,6 @@
+ /* min-height: 100vh; Ensure the body takes the full viewport height */
+
+
 /* general styles, used for all tags, everywhere */
 html, body {
     /* resetting margin and padding of body, html tags */
@@ -492,11 +495,37 @@ footer h3{
     background-color: #F9F9F9;
     padding: 20px;
 }
-.login-info {
+.form .login-info {
+    text-align: left;
     margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 .login-info label {
-    font-weight: bold;
+    color: #002145;
+}
+.form .custom-button {
+    padding: 7px 120px;
+    border-radius: 60px;
+}
+.form .info {
+    margin: 20px;
+}
+.form .info a {
+    color:#004176;
+}
+.form .info a:visited {
+    color:#004176;
+}
+/* styling the login message */
+.login p {
+    padding: 5px 10px;
+    background:#990000;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* ORDER */
@@ -602,4 +631,33 @@ footer h3{
     background-color: #002145;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* CUSTOMER */
+.customer-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+.customer-account {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+    background: #F9F9F9;
+    width: 650px;
+    border-radius: 10px;
+    margin: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.profile-actions .custom-button {
+    margin-top: 20px;
+}
+.profile-field {
+    font-weight: bold;
+    color: #002145;;
+    font-size: 16px;
+    text-align: left;
 }
