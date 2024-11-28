@@ -7,7 +7,7 @@
     {{/if}}
 
     <br>
-    <form name="MyForm" method=post action="/validateLogin">
+    <form name="form" method=post action="/validateLogin">
         <div class="login-info">
             <label for="username">Username:</label>
             <input class="text-input" type="text" name="username" size=10 maxlength="10">
@@ -16,10 +16,12 @@
             <label for="password">Password:</label>
             <input class ="text-input" type="password" name="password" size=10 maxlength="10">
         </div>
+        <div class="info"><a href="/">Forgot password?</a></div>
 
         <div class="login-button">
             <input class="custom-button" type="submit" name="Submit2" value="Log In">
         </div>
+        <div class="info">Don't have an account? <a href="/">Sign up</a></div>
     </form>
 
 </div>
