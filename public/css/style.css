@@ -583,6 +583,7 @@ footer h3{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 20px;
 }
 .order-details {
     width: 400px;
