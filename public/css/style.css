@@ -653,8 +653,9 @@ footer h3{
     margin: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.profile-actions .custom-button {
+.profile-actions .navigate {
     margin-top: 20px;
+    font-size: 16px;
 }
 .profile-field {
     font-weight: bold;

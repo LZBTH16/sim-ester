@@ -1,0 +1,40 @@
+<div class="customer-page">
+    <div class="customer-account">
+        <h1>Edit Your Details</h1>
+
+        <form action="/customerEdit" method="POST">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName">
+
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName">
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email">
+
+            <label for="phonenum">Phone Number</label>
+            <input type="text" id="phonenum" name="phonenum">
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address">
+
+            <label for="city">City</label>
+            <input type="text" id="city" name="city">
+
+            <label for="state">State</label>
+            <input type="text" id="state" name="state">
+
+            <label for="postalCode">Postal Code</label>
+            <input type="text" id="postalCode" name="postalCode">
+
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+
+            {{!-- submit button to confirm changes --}}
+            <input type="submit" value="Save Changes">
+        </form>
+    </div>
+</div>
