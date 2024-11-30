@@ -1,11 +1,18 @@
 <div class="admin">
+    {{!-- to show that the product has been updated/deleted/added --}}
+    {{#if successMessage}}
+        <div class="decorative-button">
+            {{successMessage}}
+        </div>
+    {{/if}}
+
     {{!-- to update products --}}
     <div class="container">
         <h2>Update Product</h2>
         
         <form action="/adminActions/updateProduct" method="POST">
             <label for="productId">Product ID</label>
-            <input type="text" name="productId" placeholder="Product ID" required>
+            <input type="number" name="productId" placeholder="Product ID" required>
 
             <label for="productName">Product Name</label>
             <input type="text" name="productName" placeholder="Product Name">
@@ -18,13 +25,6 @@
 
             <input type="submit" value="Update Product">
         </form>
-
-        {{!-- to show that the product has been updated --}}
-        {{#if successMessage}}
-            <div class="decorative-button">
-                {{successMessage}}
-            </div>
-        {{/if}}
     </div>
 
     {{!-- to delete products --}}
@@ -33,17 +33,10 @@
 
         <form action="/adminActions/deleteProduct" method="POST">
             <label for="productId">Product ID</label>
-            <input type="text" name="productId" placeholder="Product ID" required>
+            <input type="number" name="productId" placeholder="Product ID" required>
 
             <input type="submit" value="Delete Product">
         </form>
-
-        {{!-- to show that the product has been deleted --}}
-        {{#if successMessage}}
-            <div class="decorative-button">
-                {{successMessage}}
-            </div>
-        {{/if}}
     </div>
 
     {{!-- to add a new product --}}
@@ -51,27 +44,20 @@
         <h2>Add Product</h2>
 
         <form action="/adminActions/addProduct" method="POST">
-            <label for="productId">Product ID</label>
-            <input type="text" name="productId" placeholder="Product ID" required>
-
             <label for="productName">Product Name</label>
             <input type="text" name="productName" placeholder="Product Name">
 
             <label for="productPrice">Product Price</label>
             <input type="text" name="productPrice" placeholder="Product Price">
 
+            <label for="categoryId">Category ID (1: COSC, 2: MATH, 3: STAT)</label>
+            <input type="number" name="categoryId">
+
             <label for="productDesc">Product Description</label>
             <textarea type="text" name="productDesc" placeholder="Description"></textarea>
 
-            <input type="submit" value="Update Product">
+            <input type="submit" value="Add Product">
         </form>
-
-        {{!-- to show that the product has been added --}}
-        {{#if successMessage}}
-            <div class="decorative-button">
-                {{successMessage}}
-            </div>
-        {{/if}}
     </div>
 
 </div>
