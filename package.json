@@ -6,8 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon -L --inspect=0.0.0.0 server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "nest build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
