@@ -50,12 +50,15 @@ dbConfig = {
 app.use(session({
   secret: 'COSC 304 Rules!',
   resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
+  // saveUninitialized: false,
+  // to have the session stored by the server instead of the client
+  cookie:{
     secure: true,
-    maxAge: 60000,
-  }
+    maxAge:60000
+  },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
 }))
 
 // Setting up the rendering engine
