@@ -20,6 +20,8 @@ let product = require('./routes/product');
 let login = require('./routes/login');
 let customer = require('./routes/customer');
 let logout = require('./routes/logout');
+let register = require('./routes/register');
+let validateRegister = require('./routes/validateRegister');
 
 
 const app = express();
@@ -94,6 +96,8 @@ app.use('/product', product);
 app.use('/login', login);
 app.use('/customer', customer);
 app.use('/logout', logout);
+app.use('/register', register);
+app.use('/validateRegister', validateRegister);
 
 // setting up CSS & images
 app.use(express.static('public'));
