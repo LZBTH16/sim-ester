@@ -30,19 +30,19 @@ const app = express();
 
 // This DB Config is accessible globally
 dbConfig = {    
-  server: 'cosc304_sqlserver',
-  database: 'orders',
+  server: 'simester-server.database.windows.net',
+  database: 'simester',
   authentication: {
       type: 'default',
       options: {
-          userName: 'sa', 
-          password: '304#sa#pw'
+          userName: 'user', 
+          password: 'COSC304rootpw'
       }
   },   
   options: {      
-    encrypt: false,      
+    encrypt: true,      
     enableArithAbort:false,
-    database: 'orders'
+    database: 'simester'
   }
 }
 
