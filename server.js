@@ -1,8 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
-const session = require('express-session');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const { Sequelize } = require('sequelize');
+const session = require('express-session')
 
 let loadData = require('./routes/loaddata');
 let listOrder = require('./routes/listorder');
@@ -24,20 +22,9 @@ let customer = require('./routes/customer');
 let logout = require('./routes/logout');
 let register = require('./routes/register');
 let validateRegister = require('./routes/validateRegister');
-let review = require('./routes/review');
 
 
 const app = express();
-
-const sequelize = new Sequelize('orders', 'sa', '304#sa#pw', {
-  host: 'cosc304_sqlserver',
-  dialect: 'mssql',
-  logging: false
-});
-
-const sessionStore = new SequelizeStore({
-  db: sequelize
-});
 
 // This DB Config is accessible globally
 dbConfig = {    
@@ -63,15 +50,16 @@ dbConfig = {
 app.use(session({
   secret: 'COSC 304 Rules!',
   resave: false,
-  saveUninitialized: false,
-  store: sessionStore,  // Use Sequelize session store
-  cookie: {
-    secure: true, // Set to true in production if using https
-    maxAge: 60000
-  }
-}));
-
-sessionStore.sync();
+  // saveUninitialized: false,
+  // to have the session stored by the server instead of the client
+  cookie:{
+    secure: true,
+    maxAge:60000
+  },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
+}))
 
 // Setting up the rendering engine
 app.engine('handlebars', exphbs({
@@ -113,7 +101,6 @@ app.use('/customer', customer);
 app.use('/logout', logout);
 app.use('/register', register);
 app.use('/validateRegister', validateRegister);
-app.use('/review', review);
 
 // setting up CSS & images
 app.use(express.static('public'));
@@ -126,4 +113,4 @@ app.get('/', function (req, res) {
 })
 
 // Starting our Express app
-app.listen(3000);
+app.listen(3000)

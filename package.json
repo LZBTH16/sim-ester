@@ -11,14 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "connect-session-sequelize": "^7.1.7",
     "express": "^4.21.1",
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.1",
     "moment": "^2.28.0",
     "mssql": "^6.4.1",
     "nodemon": "^2.0.22",
-    "sequelize": "^6.37.5",
     "tedious": "^9.2.1"
   }
 }

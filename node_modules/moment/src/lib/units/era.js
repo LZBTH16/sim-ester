@@ -24,17 +24,19 @@ addRegexToken('NNN', matchEraAbbr);
 addRegexToken('NNNN', matchEraName);
 addRegexToken('NNNNN', matchEraNarrow);
 
-addParseToken(
-    ['N', 'NN', 'NNN', 'NNNN', 'NNNNN'],
-    function (input, array, config, token) {
-        var era = config._locale.erasParse(input, token, config._strict);
-        if (era) {
-            getParsingFlags(config).era = era;
-        } else {
-            getParsingFlags(config).invalidEra = input;
-        }
+addParseToken(['N', 'NN', 'NNN', 'NNNN', 'NNNNN'], function (
+    input,
+    array,
+    config,
+    token
+) {
+    var era = config._locale.erasParse(input, token, config._strict);
+    if (era) {
+        getParsingFlags(config).era = era;
+    } else {
+        getParsingFlags(config).invalidEra = input;
     }
-);
+});
 
 addRegexToken('y', matchUnsigned);
 addRegexToken('yy', matchUnsigned);
@@ -265,22 +267,16 @@ function computeErasParse() {
         mixedPieces = [],
         i,
         l,
-        erasName,
-        erasAbbr,
-        erasNarrow,
         eras = this.eras();
 
     for (i = 0, l = eras.length; i < l; ++i) {
-        erasName = regexEscape(eras[i].name);
-        erasAbbr = regexEscape(eras[i].abbr);
-        erasNarrow = regexEscape(eras[i].narrow);
+        namePieces.push(regexEscape(eras[i].name));
+        abbrPieces.push(regexEscape(eras[i].abbr));
+        narrowPieces.push(regexEscape(eras[i].narrow));
 
-        namePieces.push(erasName);
-        abbrPieces.push(erasAbbr);
-        narrowPieces.push(erasNarrow);
-        mixedPieces.push(erasName);
-        mixedPieces.push(erasAbbr);
-        mixedPieces.push(erasNarrow);
+        mixedPieces.push(regexEscape(eras[i].name));
+        mixedPieces.push(regexEscape(eras[i].abbr));
+        mixedPieces.push(regexEscape(eras[i].narrow));
     }
 
     this._erasRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');

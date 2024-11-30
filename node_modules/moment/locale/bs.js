@@ -1,7 +1,6 @@
 //! moment.js locale configuration
 //! locale : Bosnian [bs]
 //! author : Nedim Cholich : https://github.com/frontyard
-//! author : Rasid Redzic : https://github.com/rasidre
 //! based on (hr) translation by Bojan Marković
 
 ;(function (global, factory) {
@@ -12,17 +11,6 @@
 }(this, (function (moment) { 'use strict';
 
     //! moment.js locale configuration
-
-    function processRelativeTime(number, withoutSuffix, key, isFuture) {
-        switch (key) {
-            case 'm':
-                return withoutSuffix
-                    ? 'jedna minuta'
-                    : isFuture
-                      ? 'jednu minutu'
-                      : 'jedne minute';
-        }
-    }
 
     function translate(number, withoutSuffix, key) {
         var result = number + ' ';
@@ -36,6 +24,8 @@
                     result += 'sekundi';
                 }
                 return result;
+            case 'm':
+                return withoutSuffix ? 'jedna minuta' : 'jedne minute';
             case 'mm':
                 if (number === 1) {
                     result += 'minuta';
@@ -46,7 +36,7 @@
                 }
                 return result;
             case 'h':
-                return withoutSuffix ? 'jedan sat' : 'jedan sat';
+                return withoutSuffix ? 'jedan sat' : 'jednog sata';
             case 'hh':
                 if (number === 1) {
                     result += 'sat';
@@ -88,10 +78,9 @@
         months: 'januar_februar_mart_april_maj_juni_juli_august_septembar_oktobar_novembar_decembar'.split(
             '_'
         ),
-        monthsShort:
-            'jan._feb._mar._apr._maj._jun._jul._aug._sep._okt._nov._dec.'.split(
-                '_'
-            ),
+        monthsShort: 'jan._feb._mar._apr._maj._jun._jul._aug._sep._okt._nov._dec.'.split(
+            '_'
+        ),
         monthsParseExact: true,
         weekdays: 'nedjelja_ponedjeljak_utorak_srijeda_četvrtak_petak_subota'.split(
             '_'
@@ -147,7 +136,7 @@
             past: 'prije %s',
             s: 'par sekundi',
             ss: translate,
-            m: processRelativeTime,
+            m: translate,
             mm: translate,
             h: translate,
             hh: translate,
