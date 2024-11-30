@@ -23,6 +23,7 @@ let logout = require('./routes/logout');
 let register = require('./routes/register');
 let validateRegister = require('./routes/validateRegister');
 let customerEdit = require('./routes/customerEdit');
+let adminActions = require('./routes/adminActions');
 
 
 const app = express();
@@ -100,6 +101,7 @@ app.use('/logout', logout);
 app.use('/register', register);
 app.use('/validateRegister', validateRegister);
 app.use('/customerEdit', customerEdit);
+app.use('/adminActions', adminActions);
 
 // setting up CSS & images
 app.use(express.static('public'));
