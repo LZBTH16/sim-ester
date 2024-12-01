@@ -17,7 +17,9 @@
         <p>{{productDesc}}</p>
         <h3>Id: {{productId}}</h3>
         <h3>Price: ${{productPrice}}</h3>
-
+        {{#if averageRating}}
+            <h3>Average Rating: {{averageRating}}/5</h3>
+        {{/if}}
         <h3 class="navigate"><a href="/addcart?id={{productId}}&name={{productName}}&price={{productPrice}}">Add to cart</a></h3>
         <h3 class="navigate"><a href="/listprod">Continue shopping</a></h3>
     </div>
@@ -56,7 +58,7 @@
             </form>
         {{/if}}
 
-        <h2>Reviews</h2>
+        <h2>Reviews {{#if totalReviews}}({{totalReviews}}){{/if}}</h2>
         {{#if reviews}}
             <ul>
                 {{#each reviews}}

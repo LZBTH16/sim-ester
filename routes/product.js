@@ -20,7 +20,7 @@ router.get('/', async function(req, res) {
         result = await pool.request()
             .input('productId', sql.Int, productId)
             .query(sqlQuery);
-
+        
         let reviews = result.recordset;
 
         // Loop through each review and format the reviewDate
@@ -30,7 +30,15 @@ router.get('/', async function(req, res) {
             // Replace the original reviewDate with the formatted date
             review.reviewDate = formattedDate;
             return review;
-        });            
+        });           
+        
+        sqlQuery = "SELECT AVG(CAST(reviewRating AS FLOAT)) averageReviewRating, COUNT(*) totalReviews FROM review WHERE productId = @productId";
+        result = await pool.request()
+                    .input('productId', sql.Int, productId)
+                    .query(sqlQuery);
+
+        const averageRating = result.recordset.length > 0 ? result.recordset[0].averageReviewRating : false;
+        const totalReviews = result.recordset.length > 0 ? result.recordset[0].totalReviews : false;
 
         res.render('product', {
             productId: productId,
@@ -40,6 +48,8 @@ router.get('/', async function(req, res) {
             productDesc: product.productDesc,
             username: req.session.authenticatedUser,
             title: product.productName,
+            averageRating: averageRating,
+            totalReviews: totalReviews,
             reviews: reviews,
             successMessage: success ? "Your review has been successfully submitted!" : null
         });
