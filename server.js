@@ -25,6 +25,7 @@ let validateRegister = require('./routes/validateRegister');
 let customerEdit = require('./routes/customerEdit');
 let adminActions = require('./routes/adminActions');
 let review = require('./routes/review');
+let notAuthorized = require('./routes/notAuthorized');
 
 
 const app = express();
@@ -129,6 +130,7 @@ app.use('/validateRegister', validateRegister);
 app.use('/customerEdit', customerEdit);
 app.use('/adminActions', adminActions);
 app.use('/review', review);
+app.use('/notAuthorized', notAuthorized);
 
 // setting up CSS & images
 app.use(express.static('public'));

@@ -9,13 +9,18 @@ const auth = {
         }
     
         if (!authenticated) {
-            let url = req.protocol + '://' + req.get('host') + req.originalUrl;
-            let loginMessage = "You have not been authorized to access the URL " + url;
+            let loginMessage = "You are not logged in. Please login.";
             req.session.loginMessage = loginMessage;
             res.redirect("/login");
         }
     
         return authenticated;
+    },
+    checkAdmin: function(req, res) {
+        if(req.session.admin == 0) {
+            res.redirect("/notAuthorized");
+        }
+        return req.session.admin;
     }
 }
 

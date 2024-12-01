@@ -428,6 +428,7 @@ footer h3{
 
 /* SHOWCART */
 .your-cart {
+    min-height: 60vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -743,6 +744,9 @@ input:not(:placeholder-shown) + span {
 /* using same styles as REGISTER */
 
 /* CHECKOUT */
+.checkout-page {
+    min-height: 60vh;
+}
 .checkout {
     width: 500px;
     margin: 50px auto;
@@ -804,6 +808,9 @@ input:not(:placeholder-shown) + span {
 }
 
 /* LOGIN */
+.login-page {
+    min-height: 60vh;
+}
 .login {
     width: 300px;
     margin: 50px auto;
@@ -976,4 +983,12 @@ input:not(:placeholder-shown) + span {
 .customer-account p{
     padding-left: 20px;
     padding-right: 20px;
+}
+
+/* NOT AUTHORIZED */
+.error {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

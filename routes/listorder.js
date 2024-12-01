@@ -4,6 +4,8 @@ const sql = require('mssql');
 const moment = require('moment');
 
 router.get('/', async function (req, res, next) {
+    auth.checkAuthentication(req, res);
+    auth.checkAdmin(req, res);
     try {
         const pool = await sql.connect(dbConfig);
 

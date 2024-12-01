@@ -28,7 +28,7 @@ async function validateLogin(req) {
         try {
             const pool = await sql.connect(dbConfig);
 
-            const sqlQuery = "SELECT customerId FROM customer WHERE userid = @username AND password = @password";
+            const sqlQuery = "SELECT customerId, admin FROM customer WHERE userid = @username AND password = @password";
             const result = await pool.request()
                 .input('username', sql.VarChar, username)
                 .input('password', sql.VarChar, password)
@@ -36,6 +36,7 @@ async function validateLogin(req) {
             
             // Check if the credentials match an valid account
             if(result.recordset.length > 0){
+                req.session.admin = result.recordset[0].admin;
                 return username;
             }
 
