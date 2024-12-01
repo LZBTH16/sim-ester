@@ -13,20 +13,37 @@
             <h1>Search for Products</h1>
 
             <!-- product search bar & buttons -->
-            <form method="get" action="/listprod" class="search-form">
+            <form method="get" action="/listprod" class="search-form" id="searchForm">
                 {{!-- category filter --}}
-                <select class="category-select" name="category">
+                <select class="category-select" name="category" id="categorySelect">
                     <option value="">Category</option>
+                    <option value="ALL">ALL</option>
                     <option value="COSC">COSC</option>
                     <option value="MATH">MATH</option>
                     <option value="STAT">STAT</option>
                 </select>
                 {{!-- search for... --}}
-                <input class="text-input" type="text" name="productName" size="30" placeholder="Enter product name">
-                <input class="custom-button" type="submit" value="Submit">
-                <input class="custom-button" type="reset" value="Reset">
+                <input class="text-input" type="text" name="productName" id="productNameInput" size="30" placeholder="Enter product name">
+                <input class="custom-button" type="submit" value="Search">
             </form>
         </div>
+    </div>
+
+    <script>
+        // Get form and input elements
+        const searchForm = document.getElementById('searchForm');
+        const categorySelect = document.getElementById('categorySelect');
+        const productNameInput = document.getElementById('productNameInput');
+
+        // Trigger form submission on category change
+        categorySelect.addEventListener('change', function() {
+            // If "ALL" is selected, reset the form
+            if (categorySelect.value === 'ALL') {
+                searchForm.reset();
+            }
+            searchForm.submit(); // Submit the form after reset or category change
+        });
+    </script>
 
         {{!-- The products --}}
         <div class="products-container">
