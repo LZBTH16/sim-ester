@@ -485,88 +485,6 @@ footer h3{
     margin-top: 20px;
 }
 
-/* LOGIN */
-.login {
-    width: 300px;
-    margin: 50px auto;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #F9F9F9;
-    padding: 20px;
-}
-.login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin: 0;
-}
-.login label {
-    display: block;
-    position: relative;
-    text-align: left;
-    font-size: 14px;
-    color: #6c757d;
-    flex: 1 1 45%;
-}
-
-.login input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="password"] {
-    padding: 12px 10px;
-    font-size: 14px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-    transition: all 0.3s ease-in-out;
-}
-.login input:focus {
-    outline: none;
-    border-color: #002145;
-    background-color: #f9f9f9;
-}
-.login label span {
-    position: absolute;
-    left: 10px;
-    top: 12px;
-    font-size: 14px;
-    color: #002145;
-    transition: all 0.3s ease-in-out;
-    pointer-events: none;
-}
-
-.login input:focus + span,
-input:not(:placeholder-shown) + span {
-    top: -10px;
-    font-size: 12px;
-    color: #002145;
-    background: #f9f9f9;
-    padding: 0 5px;
-}
-.login-form .custom-button {
-    padding: 7px 60px;
-    border-radius: 5px;
-}
-.form .info {
-    margin: 20px;
-}
-.form .info a {
-    color:#004176;
-}
-.form .info a:visited {
-    color:#004176;
-}
-/* styling the login message */
-.login p {
-    padding: 5px 10px;
-    background:#990000;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
 /* ORDER */
 .order-checkout {
     display: flex;
@@ -687,6 +605,73 @@ input:not(:placeholder-shown) + span {
     border-radius: 0px;
 }
 
+/* ADMIN ACTIONS */
+.admin-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+.all-actions {
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+}
+.all-actions .container {
+    margin: 20px;
+}
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+}
+.admin-actions label {
+    display: block;
+    position: relative;
+    text-align: left;
+    font-size: 14px;
+    color: #6c757d;
+    flex: 1 1 45%;
+}
+
+.admin-actions input[type="text"],
+.admin-actions input[type="number"],
+.admin-actions textarea {
+    padding: 12px 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease-in-out;
+}
+.admin-actions input:focus {
+    outline: none;
+    border-color: #002145;
+    background-color: #f9f9f9;
+}
+.admin-actions label span {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    font-size: 14px;
+    color: #002145;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+}
+.admin-actions input:focus + span,
+input:not(:placeholder-shown) + span {
+    top: -10px;
+    font-size: 12px;
+    color: #002145;
+    background: #f9f9f9;
+    padding: 0 5px;
+}
+.action-actions {
+    margin-top: 20px;
+}
+
 /* CUSTOMER */
 .customer-page {
     display: flex;
@@ -715,6 +700,86 @@ input:not(:placeholder-shown) + span {
     color: #002145;;
     font-size: 16px;
     text-align: left;
+}
+
+/* LOGIN */
+.login {
+    width: 300px;
+    margin: 50px auto;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #F9F9F9;
+    padding: 20px;
+}
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+}
+.login label {
+    display: block;
+    position: relative;
+    text-align: left;
+    font-size: 14px;
+    color: #6c757d;
+    flex: 1 1 45%;
+}
+
+.login input[type="text"],
+input[type="password"] {
+    padding: 12px 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease-in-out;
+}
+.login input:focus {
+    outline: none;
+    border-color: #002145;
+    background-color: #f9f9f9;
+}
+.login label span {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    font-size: 14px;
+    color: #002145;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.login input:focus + span,
+input:not(:placeholder-shown) + span {
+    top: -10px;
+    font-size: 12px;
+    color: #002145;
+    background: #f9f9f9;
+    padding: 0 5px;
+}
+.login-form .custom-button {
+    padding: 7px 60px;
+    border-radius: 5px;
+}
+.form .info {
+    margin: 20px;
+}
+.form .info a {
+    color:#004176;
+}
+.form .info a:visited {
+    color:#004176;
+}
+/* styling the login message */
+.login p {
+    padding: 5px 10px;
+    background:#990000;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* REGISTER */

@@ -1,4 +1,4 @@
-<div class="admin">
+<div class="admin-actions">
     {{!-- to show that the product has been updated/deleted/added --}}
     {{#if successMessage}}
         <div class="decorative-button">
@@ -7,57 +7,79 @@
     {{/if}}
 
     {{!-- to update products --}}
-    <div class="container">
-        <h2>Update Product</h2>
-        
-        <form action="/adminActions/updateProduct" method="POST">
-            <label for="productId">Product ID</label>
-            <input type="number" name="productId" placeholder="Product ID" required>
+    <div class="all-actions">
+        <div class="container">
+            <h2>Update Product</h2>
+            
+            <form class="admin-form" action="/adminActions/updateProduct" method="POST">
+                <label>
+                    <input type="number" name="productId" placeholder="" required>
+                    <span>Product ID</span>
+                </label>
 
-            <label for="productName">Product Name</label>
-            <input type="text" name="productName" placeholder="Product Name">
+                <label>
+                    <input type="text" name="productName" placeholder="">
+                    <span>Product Name</span>
+                </label>
+                
+                <label>
+                    <input type="text" name="productPrice" placeholder="">
+                    <span>Price</span>
+                </label>
 
-            <label for="productPrice">Product Price</label>
-            <input type="text" name="productPrice" placeholder="Product Price">
+                <label>
+                    <textarea type="text" name="productDesc" placeholder="Description"></textarea>
+                </label>
 
-            <label for="productDesc">Product Description</label>
-            <textarea type="text" name="productDesc" placeholder="Description"></textarea>
+                <input class="custom-button" type="submit" value="Update Product">
+            </form>
+        </div>
 
-            <input type="submit" value="Update Product">
-        </form>
-    </div>
+        {{!-- to delete products --}}
+        <div class="container">
+            <h2>Delete Product</h2>
 
-    {{!-- to delete products --}}
-    <div class="container">
-        <h2>Delete Product</h2>
+            <form class="admin-form" action="/adminActions/deleteProduct" method="POST">
+                <label>
+                    <input type="number" name="productId" placeholder="" required>
+                    <span>Product ID</span>
+                </label>
 
-        <form action="/adminActions/deleteProduct" method="POST">
-            <label for="productId">Product ID</label>
-            <input type="number" name="productId" placeholder="Product ID" required>
+                <div class="action">
+                    <input class="custom-button" type="submit" value="Delete Product">
+                </div>
+            </form>
+        </div>
 
-            <input type="submit" value="Delete Product">
-        </form>
-    </div>
+        {{!-- to add a new product --}}
+        <div class="container">
+            <h2>Add Product</h2>
 
-    {{!-- to add a new product --}}
-    <div class="container">
-        <h2>Add Product</h2>
+            <form class="admin-form" action="/adminActions/addProduct" method="POST">
+                <label>
+                    <input type="text" name="productName" placeholder="">
+                    <span>Product Name</span>
+                </label>
 
-        <form action="/adminActions/addProduct" method="POST">
-            <label for="productName">Product Name</label>
-            <input type="text" name="productName" placeholder="Product Name">
+                <label>
+                    <input type="text" name="productPrice" placeholder="">
+                    <span>Price</span>
+                </label>
 
-            <label for="productPrice">Product Price</label>
-            <input type="text" name="productPrice" placeholder="Product Price">
+                <label>
+                    <input type="number" name="categoryId" placeholder="">
+                    <span>Category ID</span>
+                </label>
 
-            <label for="categoryId">Category ID (1: COSC, 2: MATH, 3: STAT)</label>
-            <input type="number" name="categoryId">
+                <label>
+                    <textarea type="text" name="productDesc" placeholder="Description"></textarea>
+                </label>
 
-            <label for="productDesc">Product Description</label>
-            <textarea type="text" name="productDesc" placeholder="Description"></textarea>
-
-            <input type="submit" value="Add Product">
-        </form>
+                <div class="action">
+                    <input class="custom-button" type="submit" value="Add Product">
+                </div>
+            </form>
+        </div>
     </div>
 
 </div>
