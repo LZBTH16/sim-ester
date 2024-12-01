@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Your Shopping Cart</title>
-</head>
-<body>
+<div class="your-cart">
     <div class="showcart">
         {{#if productList.length}}
             <h1>Your Shopping Cart</h1>
@@ -50,17 +44,16 @@
 
             <h3 class="navigate"><a href="/checkout">Check Out</a></h3>
         {{else}}
-            <h1>Your shopping cart is empty!</h1>
+            <h2>Your shopping cart is empty!</h2>
         {{/if}}
 
         <h3 class="navigate"><a href="/listprod">Continue Shopping</a></h3>
     </div>
+</div>
 
-    <script>
-        function updateQuantity(id) {
-            let quantity = document.getElementById(id).value;
-            window.location.href = `updatequantity?id=${id}&quantity=${quantity}`;
-        }
-    </script>
-</body>
-</html>
+<script>
+    function updateQuantity(id) {
+        let quantity = document.getElementById(id).value;
+        window.location.href = `updatequantity?id=${id}&quantity=${quantity}`;
+    }
+</script>
