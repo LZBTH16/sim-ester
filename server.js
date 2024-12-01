@@ -24,6 +24,7 @@ let register = require('./routes/register');
 let validateRegister = require('./routes/validateRegister');
 let customerEdit = require('./routes/customerEdit');
 let adminActions = require('./routes/adminActions');
+let review = require('./routes/review');
 
 
 const app = express();
@@ -77,7 +78,7 @@ app.use(session({
   cookie: {
     httpOnly: false,
     secure: false,
-    maxAge: 60000,
+    // maxAge: 60000,
   }
 }))
 
@@ -123,6 +124,7 @@ app.use('/register', register);
 app.use('/validateRegister', validateRegister);
 app.use('/customerEdit', customerEdit);
 app.use('/adminActions', adminActions);
+app.use('/review', review);
 
 // setting up CSS & images
 app.use(express.static('public'));

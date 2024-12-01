@@ -6,14 +6,22 @@ router.get('/', async function(req, res) {
     try {
         const pool = await sql.connect(dbConfig);
 
+        const success = req.query.success === 'true';
         const productId = req.query.id;
 
-        const sqlQuery = "SELECT productName, productPrice, productImageURL, productDesc FROM product WHERE productId = @productId";
-        const result = await pool.request()
+        let sqlQuery = "SELECT productName, productPrice, productImageURL, productDesc FROM product WHERE productId = @productId";
+        let result = await pool.request()
             .input('productId', sql.Int, productId)
             .query(sqlQuery);
 
         const product = result.recordset[0];
+
+        sqlQuery = "SELECT reviewRating, reviewComment, reviewDate FROM review WHERE productId = @productId";
+        result = await pool.request()
+            .input('productId', sql.Int, productId)
+            .query(sqlQuery)
+
+        const reviews = result.recordset;
 
         res.render('product', {
             productId: productId,
@@ -22,8 +30,11 @@ router.get('/', async function(req, res) {
             productImageURL: product.productImageURL,
             productDesc: product.productDesc,
             username: req.session.authenticatedUser,
-            title: product.productName
+            title: product.productName,
+            reviews: reviews,
+            successMessage: success ? "Your review has been successfully submitted!" : null
         });
+
     } catch (err) {
         console.dir(err);
         res.write(err + "")
