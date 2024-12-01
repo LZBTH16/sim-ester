@@ -235,7 +235,7 @@ footer h3{
     gap: 20px;
 }
 .showcase-product {
-    width: 400px;
+    width: 500px;
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -247,7 +247,7 @@ footer h3{
     transform: scale(1.05);
 }
 .showcase-product img {
-    width: 200px; /* ensuring all images are same size */
+    width: 400px; /* ensuring all images are same size */
 }
 .showcase-product .product-action {
     margin: 20px; /* specific margin for this page */
@@ -366,7 +366,7 @@ footer h3{
     padding: 10px;
 }
 .product-display img {
-    width: 300px;
+    width: 400px;
     height: auto;
     margin: 10px 0;
     border-radius: 5px;
