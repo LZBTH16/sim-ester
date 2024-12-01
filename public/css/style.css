@@ -631,8 +631,11 @@ footer h3{
     text-align: center;
     color: white;
     background-color: #002145;
-    padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+.admin-landing .navigate {
+    padding: 0px;
 }
 .admin-landing .navigate a:hover {
     background-color: #002145;
