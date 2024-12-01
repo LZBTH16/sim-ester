@@ -31,58 +31,62 @@ router.get('/', async function(req, res, next) {
 
             // Base query to join the product and category tables
             let sqlQuery = `
-                SELECT p.productId, p.productName, p.productPrice, c.categoryName 
-                FROM product p
-                JOIN category c ON p.categoryId = c.categoryId
-                WHERE 1=1
-            `;
-
-            // If a product name is provided, add it to the query
-            if (name) {
-                sqlQuery += " AND p.productName LIKE @name";
-            }
-
-            // If a category is provided, add it to the query
-            if (category) {
-                sqlQuery += " AND c.categoryName = @category"; // Filtering by categoryName
-            }
-
-            let results;
-            if (name && category) {
-                results = await pool.request()
-                    .input('name', sql.VarChar, `%${name}%`)
-                    .input('category', sql.VarChar, category)
-                    .query(sqlQuery); // Results filtered by both name and category
-            } else if (name) {
-                results = await pool.request()
-                    .input('name', sql.VarChar, `%${name}%`)
-                    .query(sqlQuery); // Filter by name only
-            } else if (category) {
-                results = await pool.request()
-                    .input('category', sql.VarChar, category)
-                    .query(sqlQuery); // Filter by category only
-            } else {
-                results = await pool.request().query(sqlQuery); // No filter, get all products
-            }
-
-            // Formatting the products
-            const products = results.recordset.map(result => ({
-                id: result.productId,
-                name: result.productName,
-                price: result.productPrice.toFixed(2),
-                category: result.categoryName // Add categoryName to the product object
-            }));
-
-            // Title to send to listprod.handlebars
-            const searchTitle = name ? `Products containing '${name}'` : (category ? `Products in '${category}' category` : "All Products");
-
-            res.render('listprod', { searchTitle, products, username: req.session.authenticatedUser, title: "Products" });
+            SELECT p.productId, p.productName, p.productPrice, c.categoryName 
+            FROM product p
+            JOIN category c ON p.categoryId = c.categoryId
+            WHERE 1=1
+        `;
+        
+        // Dynamic parameters for the query
+        const request = pool.request();
+        
+        // If a product name is provided, add it to the query and bind the parameter
+        if (name) {
+            sqlQuery += " AND p.productName LIKE @name";
+            request.input('name', sql.VarChar, `%${name}%`);
+        }
+        
+        // If a category is provided (and not null/empty), add it to the query and bind the parameter
+        if (category) {
+            sqlQuery += " AND c.categoryName = @category";
+            request.input('category', sql.VarChar, category);
+        }
+        
+        // Execute the query
+        const results = await request.query(sqlQuery);
+        
+        // Formatting the products
+        const products = results.recordset.map(result => ({
+            id: result.productId,
+            name: result.productName,
+            price: result.productPrice.toFixed(2),
+            category: result.categoryName
+        }));
+        
+        // Determine the title to send to the template
+        let searchTitle = "All Products";
+        if (name && category) {
+            searchTitle = `Products in '${category}' category containing '${name}'`;
+        } else if (name) {
+            searchTitle = `Products containing '${name}'`;
+        } else if (category) {
+            searchTitle = `Products in '${category}' category`;
+        }
+        
+        // Render the template
+        res.render('listprod', { 
+            searchTitle, 
+            products, 
+            username: req.session.authenticatedUser, 
+            title: "Products", 
+            category 
+        });
                 
     
-            } catch(err) {
-                console.dir(err);
-                res.write(JSON.stringify(err));
-            }})();
+        } catch(err) {
+            console.dir(err);
+            res.write(JSON.stringify(err));
+        }})();
 });
 
 module.exports = router;

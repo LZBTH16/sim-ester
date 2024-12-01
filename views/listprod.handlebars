@@ -15,13 +15,13 @@
             <!-- product search bar & buttons -->
             <form method="get" action="/listprod" class="search-form" id="searchForm">
                 {{!-- category filter --}}
-                <select class="category-select" name="category" id="categorySelect">
-                    <option value="">Category</option>
-                    <option value="ALL">ALL</option>
-                    <option value="COSC">COSC</option>
-                    <option value="MATH">MATH</option>
-                    <option value="STAT">STAT</option>
-                </select>
+            <select class="category-select" name="category" id="categorySelect">
+                {{!-- <option value="" {{#unless category}}selected{{/unless}}>Category</option> --}}
+                <option value="" {{#unless category}}selected{{/unless}}>ALL</option>
+                <option value="COSC" {{#if (eq category "COSC")}}selected{{/if}}>COSC</option>
+                <option value="MATH" {{#if (eq category "MATH")}}selected{{/if}}>MATH</option>
+                <option value="STAT" {{#if (eq category "STAT")}}selected{{/if}}>STAT</option>
+            </select>
                 {{!-- search for... --}}
                 <input class="text-input" type="text" name="productName" id="productNameInput" size="30" placeholder="Enter product name">
                 <input class="custom-button" type="submit" value="Search">
@@ -39,8 +39,8 @@
                 // If "ALL" is selected, reset the form
                 if (categorySelect.value === 'ALL') {
                     searchForm.reset();
-                }
-                searchForm.submit(); // Submit the form after reset or category change
+                    categorySelect.value = 'ALL';
+                } searchForm.submit(); // Submit the form after reset or category change
             });
         </script>
 

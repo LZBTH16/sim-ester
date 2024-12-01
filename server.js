@@ -91,7 +91,11 @@ app.engine('handlebars', exphbs({
 
     formatPrice: (value) => Number(value).toFixed(2),
 
-    multiplyAndFormat: (a, b) => (a * b).toFixed(2)
+    multiplyAndFormat: (a, b) => (a * b).toFixed(2),
+
+    eq: function (a, b) {
+      return a === b;
+    }
   }
 }));
 app.set('view engine', 'handlebars');
