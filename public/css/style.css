@@ -371,6 +371,60 @@ footer h3{
     margin: 10px 0;
     border-radius: 5px;
 }
+/* REVIEW */
+.review-section .category-select {
+    font-size: 16px;
+}
+.review-section .custom-button {
+    margin-bottom: 20px;
+}
+.review-section label {
+    font-weight: bold;
+    color: #002145;
+}
+.review-section textarea {
+    padding: 12px 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease-in-out
+}
+.success-message {
+    width: 500px;
+    margin: 50px auto;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #002145;
+    color: white;
+    padding: 10px;
+}
+.review-section {
+    width: 500px;
+    margin: 50px auto;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #F9F9F9;
+    padding: 10px;
+}
+.review {
+    background: #eeeeee;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.review p {
+    margin: 0 10px;
+}
+.left-text {
+    padding: 10px 0;
+    text-align: left;
+}
+.center-text {
+    text-align: center;
+}
 
 /* SHOWCART */
 .your-cart {

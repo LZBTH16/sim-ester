@@ -1,79 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{productName}}</title>
-</head>
-<body>
-    <div class="product-display">
-        <h1>{{productName}}</h1>
+<div class="product-display">
+    <h1>{{productName}}</h1>
 
-        {{#if productImageURL}}
-            <img src="{{productImageURL}}" alt="{{productName}}">
-        {{else}}
-            <img src="/displayImage?id={{productId}}" alt="{{productName}}">
-        {{/if}}
-
-        <p>{{productDesc}}</p>
-        <h3>Id: {{productId}}</h3>
-        <h3>Price: ${{productPrice}}</h3>
-        {{#if averageRating}}
-            <h3>Average Rating: {{averageRating}}/5</h3>
-        {{/if}}
-        <h3 class="navigate"><a href="/addcart?id={{productId}}&name={{productName}}&price={{productPrice}}">Add to cart</a></h3>
-        <h3 class="navigate"><a href="/listprod">Continue shopping</a></h3>
-    </div>
-
-    <!-- Success Message -->
-    {{#if successMessage}}
-        <div class="success-message">
-            {{successMessage}}
-        </div>
+    {{#if productImageURL}}
+        <img src="{{productImageURL}}" alt="{{productName}}">
+    {{else}}
+        <img src="/displayImage?id={{productId}}" alt="{{productName}}">
     {{/if}}
 
-    <!-- Review Section -->
-    {{#if username}}
-        <div class="review-section">
-            <h2>Leave a Review</h2>
-            <form action="/review" method="POST">
-                <input type="hidden" name="productId" value="{{productId}}">
+    <p>{{productDesc}}</p>
+    <h3>Id: {{productId}}</h3>
+    <h3>Price: ${{productPrice}}</h3>
+    {{#if averageRating}}
+        <h3>Average Rating: {{averageRating}}/5</h3>
+    {{/if}}
+    <h3 class="navigate"><a href="/addcart?id={{productId}}&name={{productName}}&price={{productPrice}}">Add to cart</a></h3>
+    <h3 class="navigate"><a href="/listprod">Continue shopping</a></h3>
+</div>
 
-                <label for="reviewRating">Rating:</label>
-                <select name="reviewRating" id="reviewRating" required>
-                    <option value="" disabled selected>Choose a rating</option>
-                    <option value="1">1 - Poor</option>
-                    <option value="2">2 - Fair</option>
-                    <option value="3">3 - Good</option>
-                    <option value="4">4 - Very Good</option>
-                    <option value="5">5 - Excellent</option>
-                </select>
-                <br><br>
-
-                <label for="reviewComment">Your Review:</label>
-                <br>
-                <textarea name="reviewComment" id="reviewComment" rows="5" cols="50" maxlength="1000" placeholder="Write your review here..."></textarea>
-                <br><br>
-
-                <button type="submit">Submit Review</button>
-            </form>
-        {{/if}}
-
-        <h2>Reviews {{#if totalReviews}}({{totalReviews}}){{/if}}</h2>
-        {{#if reviews}}
-            <ul>
-                {{#each reviews}}
-                    <li>
-                        <strong>Rating:</strong> {{this.reviewRating}}/5<br>
-                        {{!-- <strong>Comment:</strong>  --}}
-                        <textarea rows="4" cols="50" readonly>{{this.reviewComment}}</textarea><br>
-                        <strong>Date:</strong> {{this.reviewDate}}
-                    </li>
-                    <hr>
-                {{/each}}
-            </ul>
-        {{else}}
-            <p>No reviews yet for this product.</p>
-        {{/if}}
+<!-- Success Message -->
+{{#if successMessage}}
+    <div class="success-message">
+        {{successMessage}}
     </div>
-</body>
-</html>
+{{/if}}
+
+<!-- Review Section -->
+{{#if username}}
+    <div class="review-section">
+        <h2>Leave a Review</h2>
+        <form action="/review" method="POST">
+            <input type="hidden" name="productId" value="{{productId}}">
+
+            <label for="reviewRating">Rating:</label>
+            <select class="category-select" name="reviewRating" id="reviewRating" required>
+                <option value="" disabled selected>Choose a rating</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Very Good</option>
+                <option value="5">5 - Excellent</option>
+            </select>
+            <br><br>
+
+            <label for="reviewComment">Your Review:</label>
+            <br>
+            <textarea name="reviewComment" id="reviewComment" rows="5" cols="50" maxlength="1000" placeholder="Write your review here..."></textarea>
+            <br><br>
+
+            <button class="custom-button" type="submit">Submit Review</button>
+        </form>
+    </div>
+{{/if}}
+
+<div class="review-section">
+    <h2>Reviews {{#if totalReviews}}({{totalReviews}}){{/if}}</h2>
+    {{#if reviews}}
+        {{!-- <ul> --}}
+            {{#each reviews}}
+                <div class="review">
+                    <p class="center-text"><strong>Rating:</strong> {{this.reviewRating}}/5</p>
+                    {{!-- <p class="center-text"><strong>Comment:</strong></p> --}}
+                    <p class="left-text">{{this.reviewComment}}</p>
+                    <p class="center-text"><strong>Posted:</strong> {{this.reviewDate}}</p>
+                </div>
+            {{/each}}
+        {{!-- </ul> --}}
+    {{else}}
+        <p>No reviews for this product yet.</p>
+    {{/if}}
+</div>
