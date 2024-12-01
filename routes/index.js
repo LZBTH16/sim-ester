@@ -27,7 +27,7 @@ router.get('/', async function (req, res) {
 
         // Render the index page, passing the products and username (if logged in)
         res.render('index', {
-            title: "Main Page",
+            title: "SIM-ESTER",
             username: username,
             products: products
         });

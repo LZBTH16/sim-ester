@@ -1,59 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration Form</title>
-</head>
-<body>
-    <h2>User Registration</h2>
-    <form action="/validateRegister" method="POST">
-        <!-- First Name -->
-        <label for="first_name">First Name</label>
-        <input type="text" id="firstName" name="firstName" required>
+<div class="register">
+    <form class="register-form" action="/validateRegister" method="POST">
+        <h1>Register</h1>
+        <p>Sign up now to get full access to all features</p>
 
-        <!-- Last Name -->
-        <label for="last_name">Last Name</label>
-        <input type="text" id="lastName" name="lastName" required>
+        <div class="register-group">
+            <label>
+                <input type="text" id="firstName" name="firstName" placeholder=" " size=15 maxlength="15" required>
+                <span>First name</span>
+            </label>
+            <label>
+                <input type="text" id="lastName" name="lastName" placeholder=" " size=15 maxlength="15" required>
+                <span>Last name</span>
+            </label>
+        </div>
 
-        <!-- Email -->
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+        <label>
+            <input type="email" id="email" name="email" placeholder=" " size=40 maxlength="40" required>
+            <span>Email</span>
+        </label>
 
-        <!-- Phone Number -->
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" required>
+        <label>
+            <input type="tel" id="phone" name="phone" placeholder=" " size=40 maxlength="40" required>
+            <span>Phone number</span>
+        </label>
 
-        <!-- Address -->
-        <label for="address">Address</label>
-        <input type="text" id="address" name="address" required>
+        <label>
+            <input type="text" id="address" name="address" placeholder=" " size=40 maxlength="40" required>
+            <span>Street address</span>
+        </label>
 
-        <!-- City -->
-        <label for="city">City</label>
-        <input type="text" id="city" name="city" required>
+        <div class="register-group">
+            <label>
+                <input type="text" id="city" name="city" placeholder=" " size=15 maxlength="15" required>
+                <span>City</span>
+            </label>
+            <label>
+                <input type="text" id="state" name="state" placeholder=" " size=15 maxlength="15" required>
+                <span>State</span>
+            </label>
+        </div>
+        
+        <div class="register-group">
+            <label>
+                <input type="text" id="postalCode" name="postalCode" placeholder=" " size=15 maxlength="15" required>
+                <span>Postal Code</span>
+            </label>
+            <label>
+                <input type="text" id="country" name="country" placeholder=" " size=15 maxlength="15" required>
+                <span>Country</span>
+            </label>
+        </div>
 
-        <!-- State -->
-        <label for="state">State/Province</label>
-        <input type="text" id="state" name="state" required>
+        <label>
+            <input type="text" id="username" name="username" placeholder=" " size=40 maxlength="40" required>
+            <span>Username</span>
+        </label>
 
-        <!-- Postal Code -->
-        <label for="postalCode">Postal Code</label>
-        <input type="text" id="postalCode" name="postalCode" required>
-
-        <!-- Country -->
-        <label for="country">Country</label>
-        <input type="text" id="country" name="country">
-
-        <!-- Username -->
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
-
-        <!-- Password -->
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <label>
+            <input type="password" id="password" name="password" placeholder=" " size=40 maxlength="40" required>
+            <span>Password</span>
+        </label>
 
         <!-- Submit Button -->
-        <input type="submit" value="Register">
+        <input class="custom-button" type="submit" value="Register">
+        {{!-- to sign in instead --}}
+        <p>Already have an account? <a href="/login">Login</a></p>
     </form>
-</body>
-</html>
+</div>

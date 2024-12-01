@@ -1,8 +1,8 @@
---CREATE DATABASE orders;
---go
+CREATE DATABASE orders;
+go
 
---USE orders;
---go
+USE orders;
+go
 
 DROP TABLE review;
 DROP TABLE shipment;

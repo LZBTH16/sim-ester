@@ -677,3 +677,84 @@ footer h3{
     font-size: 16px;
     text-align: left;
 }
+
+/* REGISTER */
+.register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: #F9F9F9;
+    width: 400px;
+    border-radius: 10px;
+    margin: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    gap: 10px;
+}
+.register h1 {
+    padding: 0;
+    margin: 0;
+}
+.register p {
+    color: #002145;
+    margin-bottom: 20px;
+}
+.register p a {
+    color: #004176;
+}
+.register-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 0;
+}
+.register label {
+    display: block;
+    position: relative;
+    text-align: left;
+    font-size: 14px;
+    color: #6c757d;
+    flex: 1 1 45%;
+}
+
+.register input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+    padding: 12px 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease-in-out;
+}
+.register input:focus {
+    outline: none;
+    border-color: #002145;
+    background-color: #f9f9f9;
+}
+.register label span {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    font-size: 14px;
+    color: #002145;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.register input:focus + span,
+input:not(:placeholder-shown) + span {
+    top: -10px;
+    font-size: 12px;
+    color: #002145;
+    background: #f9f9f9;
+    padding: 0 5px;
+}

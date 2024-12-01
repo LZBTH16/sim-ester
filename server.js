@@ -29,20 +29,41 @@ let adminActions = require('./routes/adminActions');
 const app = express();
 
 // This DB Config is accessible globally
+// USE THIS ONE FOR PROD
+
+// dbConfig = {    
+//   server: 'simester-server.database.windows.net',
+//   database: 'simester',
+//   authentication: {
+//       type: 'default',
+//       options: {
+//           userName: 'user', 
+//           password: 'COSC304rootpw'
+//       }
+//   },   
+//   options: {      
+//     encrypt: true,      
+//     enableArithAbort:false,
+//     database: 'simester'
+//   }
+// }
+
+// OG DB Config
+// USE THIS FOR DOCKER + testing
 dbConfig = {    
-  server: 'simester-server.database.windows.net',
-  database: 'simester',
+  server: 'cosc304_sqlserver',
+  database: 'orders',
   authentication: {
       type: 'default',
       options: {
-          userName: 'user', 
-          password: 'COSC304rootpw'
+          userName: 'sa', 
+          password: '304#sa#pw'
       }
   },   
   options: {      
-    encrypt: true,      
+    encrypt: false,      
     enableArithAbort:false,
-    database: 'simester'
+    database: 'orders'
   }
 }
 
