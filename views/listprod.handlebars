@@ -27,23 +27,22 @@
                 <input class="custom-button" type="submit" value="Search">
             </form>
         </div>
-    </div>
 
-    <script>
-        // Get form and input elements
-        const searchForm = document.getElementById('searchForm');
-        const categorySelect = document.getElementById('categorySelect');
-        const productNameInput = document.getElementById('productNameInput');
+        <script>
+            // Get form and input elements
+            const searchForm = document.getElementById('searchForm');
+            const categorySelect = document.getElementById('categorySelect');
+            const productNameInput = document.getElementById('productNameInput');
 
-        // Trigger form submission on category change
-        categorySelect.addEventListener('change', function() {
-            // If "ALL" is selected, reset the form
-            if (categorySelect.value === 'ALL') {
-                searchForm.reset();
-            }
-            searchForm.submit(); // Submit the form after reset or category change
-        });
-    </script>
+            // Trigger form submission on category change
+            categorySelect.addEventListener('change', function() {
+                // If "ALL" is selected, reset the form
+                if (categorySelect.value === 'ALL') {
+                    searchForm.reset();
+                }
+                searchForm.submit(); // Submit the form after reset or category change
+            });
+        </script>
 
         {{!-- The products --}}
         <div class="products-container">
@@ -60,6 +59,7 @@
                 </div>
             </div>
             {{/each}}
+            </div>
         </div>
     </div>
 

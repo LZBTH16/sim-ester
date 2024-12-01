@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get('/', function(req, res, next) {
     res.render('checkout', {
-        title: "SIM-ESTER Checkout Line"
+        title: "SIM-ESTER Checkout"
     }); 
 });
 
