@@ -8,6 +8,12 @@ router.post('/', function(req, res) {
         const pool = await sql.connect(dbConfig);
 
         const userid = req.session.authenticatedUser;
+
+        if(!userid){
+            // If not logged in, go back (will change later)
+            res.redirect("/index");
+        }
+
         const reviewRating = req.body.reviewRating;
         let reviewDate = new Date();
         reviewDate = moment(reviewDate).format('YYYY-MM-DD');
@@ -15,7 +21,7 @@ router.post('/', function(req, res) {
         const reviewComment = req.body.reviewComment;
 
         // Get customerId for insert
-        let sqlQuery = "SELECT customerId FROM customers WHERE userid = @userid";
+        let sqlQuery = "SELECT customerId FROM customer WHERE userid = @userid";
         let result = await pool.request()
                         .input('userid', sql.VarChar, userid)
                         .query(sqlQuery);
@@ -25,7 +31,7 @@ router.post('/', function(req, res) {
         sqlQuery = "INSERT INTO review (reviewRating, reviewDate, customerId, productId, reviewComment) VALUES (@reviewRating, @reviewDate, @customerId, @productId, @reviewComment)";
         result = await pool.request()
                     .input('reviewRating', sql.Int, reviewRating)
-                    .input('reviewDate', sql.DateTime, reviewDate)
+                    .input('reviewDate', sql.Date, reviewDate)
                     .input('customerId', sql.Int, customerId)
                     .input('productId', sql.Int, productId)
                     .input('reviewComment', sql.VarChar, reviewComment)

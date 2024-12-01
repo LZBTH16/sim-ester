@@ -19,9 +19,18 @@ router.get('/', async function(req, res) {
         sqlQuery = "SELECT reviewRating, reviewComment, reviewDate FROM review WHERE productId = @productId";
         result = await pool.request()
             .input('productId', sql.Int, productId)
-            .query(sqlQuery)
+            .query(sqlQuery);
 
-        const reviews = result.recordset;
+        let reviews = result.recordset;
+
+        // Loop through each review and format the reviewDate
+        reviews = reviews.map(review => {
+            // Convert the reviewDate to a Date object
+            let formattedDate = new Date(review.reviewDate).toDateString();  
+            // Replace the original reviewDate with the formatted date
+            review.reviewDate = formattedDate;
+            return review;
+        });            
 
         res.render('product', {
             productId: productId,
