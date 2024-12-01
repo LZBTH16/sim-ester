@@ -56,12 +56,15 @@ router.get('/', async function(req, res, next) {
         const results = await request.query(sqlQuery);
         
         // Formatting the products
-        const products = results.recordset.map(result => ({
+        let products = results.recordset.map(result => ({
             id: result.productId,
             name: result.productName,
             price: result.productPrice.toFixed(2),
             category: result.categoryName
         }));
+
+        // Sort alphabetically
+        products.sort((a, b) => a.name.localeCompare(b.name));
         
         // Determine the title to send to the template
         let searchTitle = "All Products";
