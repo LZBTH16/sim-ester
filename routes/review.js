@@ -34,3 +34,5 @@ router.post('/', function(req, res) {
         res.redirect(`/product?id=${productId}&success=true`);
      })();
 });
+
+module.exports = router;
