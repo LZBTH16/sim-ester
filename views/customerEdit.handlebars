@@ -1,40 +1,63 @@
-<div class="customer-page">
-    <div class="customer-account">
-        <h1>Edit Your Details</h1>
+<div class="register">
+    <form class="register-form" action="/customerEdit" method="POST">
+        <h1>Edit Your Profile</h1>
 
-        <form action="/customerEdit" method="POST">
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName">
+        <div class="register-group">
+            <label>
+                <input type="text" id="firstName" name="firstName" placeholder=" " size=15 maxlength="15">
+                <span>First name</span>
+            </label>
+            <label>
+                <input type="text" id="lastName" name="lastName" placeholder=" " size=15 maxlength="15">
+                <span>Last name</span>
+            </label>
+        </div>
 
-            <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName">
+        <label>
+            <input type="email" id="email" name="email" placeholder=" " size=40 maxlength="40">
+            <span>Email</span>
+        </label>
 
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email">
+        <label>
+            <input type="tel" id="phone" name="phone" placeholder=" " size=40 maxlength="40">
+            <span>Phone number</span>
+        </label>
 
-            <label for="phonenum">Phone Number</label>
-            <input type="text" id="phonenum" name="phonenum">
+        <label>
+            <input type="text" id="address" name="address" placeholder=" " size=40 maxlength="40">
+            <span>Street address</span>
+        </label>
 
-            <label for="address">Address</label>
-            <input type="text" id="address" name="address">
+        <div class="register-group">
+            <label>
+                <input type="text" id="city" name="city" placeholder=" " size=15 maxlength="15">
+                <span>City</span>
+            </label>
+            <label>
+                <input type="text" id="state" name="state" placeholder=" " size=15 maxlength="15">
+                <span>State</span>
+            </label>
+        </div>
 
-            <label for="city">City</label>
-            <input type="text" id="city" name="city">
+        <div class="register-group">
+            <label>
+                <input type="text" id="postalCode" name="postalCode" placeholder=" " size=15 maxlength="15">
+                <span>Postal Code</span>
+            </label>
+            <label>
+                <input type="text" id="country" name="country" placeholder=" " size=15 maxlength="15">
+                <span>Country</span>
+            </label>
+        </div>
 
-            <label for="state">State</label>
-            <input type="text" id="state" name="state">
+        <label>
+            <input type="password" id="password" name="password" placeholder=" " size=40 maxlength="40">
+            <span>Password</span>
+        </label>
 
-            <label for="postalCode">Postal Code</label>
-            <input type="text" id="postalCode" name="postalCode">
-
-            <label for="country">Country</label>
-            <input type="text" id="country" name="country">
-
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password">
-
-            {{!-- submit button to confirm changes --}}
-            <input type="submit" value="Save Changes">
-        </form>
-    </div>
+        {{!-- submit button to confirm changes --}}
+        <div class="register-button">
+            <input class="custom-button" type="submit" value="Confirm">
+        </div>
+    </form>
 </div>

@@ -653,7 +653,7 @@ input:not(:placeholder-shown) + span {
 }
 
 /* CUSTOMER */
-.customer-page {
+.customer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -681,6 +681,9 @@ input:not(:placeholder-shown) + span {
     font-size: 16px;
     text-align: left;
 }
+
+/* CUSTOMER EDIT */
+/* using same styles as REGISTER */
 
 /* CHECKOUT */
 .checkout {
@@ -770,7 +773,7 @@ input:not(:placeholder-shown) + span {
 }
 
 .login input[type="text"],
-input[type="password"] {
+.login input[type="password"] {
     padding: 12px 10px;
     font-size: 14px;
     border: 1px solid #ced4da;
