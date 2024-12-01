@@ -465,31 +465,6 @@ footer h3{
     border-radius: 10px;
 }
 
-/* CHECKOUT */
-.checkout {
-    width: 500px;
-    margin: 50px auto;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #F9F9F9;
-    padding: 20px;
-}
-.user-info {
-    margin-bottom: 20px;
-}
-.user-info label {
-    display: block;
-    text-align: left;
-    margin-left: 130px;
-    font-weight: bold;
-    font-size: 16px;
-    padding-bottom: 5px;
-}
-.checkout-buttons {
-    margin-top: 20px;
-}
-
 /* ORDER */
 .order-checkout {
     display: flex;
@@ -707,6 +682,67 @@ input:not(:placeholder-shown) + span {
     text-align: left;
 }
 
+/* CHECKOUT */
+.checkout {
+    width: 500px;
+    margin: 50px auto;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #F9F9F9;
+    padding: 20px;
+}
+.checkout-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+}
+.checkout label {
+    display: block;
+    position: relative;
+    text-align: left;
+    font-size: 14px;
+    color: #6c757d;
+    flex: 1 1 45%;
+}
+.checkout input[type="text"],
+.checkout input[type="password"] {
+    padding: 12px 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease-in-out;
+}
+.checkout input:focus {
+    outline: none;
+    border-color: #002145;
+    background-color: #f9f9f9;
+}
+.checkout label span {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    font-size: 14px;
+    color: #002145;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.checkout input:focus + span,
+input:not(:placeholder-shown) + span {
+    top: -10px;
+    font-size: 12px;
+    color: #002145;
+    background: #f9f9f9;
+    padding: 0 5px;
+}
+.checkout-buttons {
+    margin-top: 10px;
+}
+
 /* LOGIN */
 .login {
     width: 300px;
@@ -769,13 +805,13 @@ input:not(:placeholder-shown) + span {
     padding: 7px 60px;
     border-radius: 5px;
 }
-.form .info {
+.info {
     margin: 20px;
 }
-.form .info a {
+.info a {
     color:#004176;
 }
-.form .info a:visited {
+.info a:visited {
     color:#004176;
 }
 /* styling the login message */

@@ -1,25 +1,17 @@
-<!-- views/checkout.handlebars -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
 <body>
     <div class="checkout">
         <h2>Enter your customer ID and password to complete the transaction:</h2>
 
-        <form method="get" action="order">
-            <div class="user-info">
-                <label for="customerId">Customer ID:</label>
-                <input class="text-input" type="text" name="customerId" size="20" required>
-            </div>
+        <form class="checkout-form" method="get" action="order">
+            <label>
+                <input type="text" name="customerId" size="20" placeholder="" required>
+                <span>Customer ID</span>
+            </label>
 
-            <div class="user-info">
-                <label for="password">Password:</label>
-                <input class="text-input" type="password" name="password" size="20" required>
-            </div>
+            <label>
+                <input type="password" name="password" size="20" placeholder="" required>
+                <span>Password</span>
+            </label>
 
             <div class="checkout-buttons">
                 <input class="custom-button" type="submit" value="Submit">
