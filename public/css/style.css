@@ -909,3 +909,11 @@ input:not(:placeholder-shown) + span {
     margin-top: 20px;
     font-size: 20px;
 }
+/* ACCOUNT CREATED */
+/* using CUSTOMER CSS */
+
+/* REGISTRATION ERROR */
+.customer-account p{
+    padding-left: 20px;
+    padding-right: 20px;
+}

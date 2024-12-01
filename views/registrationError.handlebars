@@ -1,28 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Error</title>
-</head>
-<body>
-    <h1>Registration Error</h1>
+<div class="customer-page">
+    <div class="customer-account">
+        <h1>Registration Error</h1>
 
-    {{!-- Display the email error if emailInUse is true --}}
-    {{#if emailInUse}}
-        <p>The email address you provided is already in use. Please use a different email address.</p>
-    {{/if}}
+        {{!-- Display the email error if emailInUse is true --}}
+        {{#if emailInUse}}
+            <p>The email address you provided is already in use. Please use a different email address.</p>
+        {{/if}}
 
-    {{!-- Display the username error if usernameInUse is true --}}
-    {{#if usernameInUse}}
-        <p>The username you selected is already in use. Please choose a different username.</p>
-    {{/if}}
+        {{!-- Display the username error if usernameInUse is true --}}
+        {{#if usernameInUse}}
+            <p>The username you selected is already in use. Please choose a different username.</p>
+        {{/if}}
 
-    {{#if invalidPhoneNumber}}
-        <p>The phone number you entered is invalid. Please enter a valid phone number.</p>
-    {{/if}}
+        {{#if invalidPhoneNumber}}
+            <p>The phone number you entered is invalid. Please enter a valid phone number.</p>
+        {{/if}}
 
-    {{!-- Provide a link to go back to the registration form --}}
-    <p><a href="/register">Go back to the registration page</a></p>
-</body>
-</html>
+        {{!-- Provide a link to go back to the registration form --}}
+        <p class="navigate"><a href="/register">Go back to the registration page</a></p>
+    </div>
+</div>

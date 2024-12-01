@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Success</title>
-</head>
-<body>
-    <h2>Registration Successful!</h2>
-    <p>Thank you for registering, {{firstName}} {{lastName}}!</p>
-    <h3>Your Information:</h3>
-    <ul>
-        <li>Email: {{email}}</li>
-        <li>Phone: {{phone}}</li>
-        <li>Address: {{address}}, {{city}}, {{state}} {{postalCode}}, {{country}}</li>
-        <li>Username: {{username}}</li>
-    </ul>
-</body>
-</html>
+<div class="customer-page">
+    <div class="customer-account">
+        <h2>Registration Successful!</h2>
+        <p>Thank you for registering, {{firstName}} {{lastName}}!</p>
+        <h3>Your Information:</h3>
+        <div class="your-info">
+            <p><strong>Email:</strong> {{email}}</p>
+            <p><strong>Phone:</strong> {{phone}}</p>
+            <p><strong>Address:</strong> {{address}}, {{city}}, {{state}} {{postalCode}}, {{country}}</p>
+            <p><strong>Username:</strong> {{username}}</p>
+        </div>
+    </div>
+</div>
