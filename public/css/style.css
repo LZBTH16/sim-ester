@@ -247,7 +247,8 @@ footer h3{
     transform: scale(1.05);
 }
 .showcase-product img {
-    width: 400px; /* ensuring all images are same size */
+    /* width: 400px; ensuring all images are same size */
+    height: 290px;
 }
 .showcase-product .product-action {
     margin: 20px; /* specific margin for this page */
