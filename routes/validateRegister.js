@@ -17,7 +17,7 @@ router.post('/', function(req, res) {
 
         // If the email already exists do not create the account
         if(result.recordset.length > 0){
-            res.render('registrationError', { emailInUse: true });
+            return res.render('registrationError', { emailInUse: true });
         }
         
         sqlQuery = "SELECT firstName FROM customer WHERE userid = @username";
@@ -27,13 +27,13 @@ router.post('/', function(req, res) {
 
         // If the username already exists do not create the account
         if(result.recordset.length > 0){
-            res.render('registrationError', { emailInUse: true });
+            return res.render('registrationError', { usernameInUse: true });
         }
 
         // Check if phone number is valid
         const phoneRegex = /^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
         if(!phoneRegex.test(phone)){
-            res.render('registrationError', { invalidPhoneNumber: true })
+            return res.render('registrationError', { invalidPhoneNumber: true })
         }
 
         // If successful, insert into database
