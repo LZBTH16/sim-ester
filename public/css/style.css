@@ -416,6 +416,7 @@ footer h3{
     padding: 5px;
     border-radius: 5px;
     margin-bottom: 20px;
+    overflow-wrap: break-word;
 }
 .review p {
     margin: 0 10px;
