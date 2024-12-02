@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sql = require('mssql');
 const moment = require('moment');
+const auth = require('../auth');
 
 router.get('/', async function (req, res, next) {
     auth.checkAuthentication(req, res);

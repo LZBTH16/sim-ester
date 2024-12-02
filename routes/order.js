@@ -15,27 +15,27 @@ router.get('/', async function (req, res, next) {
         let sqlQuery = "";
         let results = [];
 
-        // Verify customerId and password
-        let customerId = req.query.customerId;
-        customerId = Number(customerId);
+        // Verify userid and password
+        const userid = req.query.userid;
 
         const password = req.query.password;
 
         const pool = await sql.connect(dbConfig);
 
-        sqlQuery = "SELECT firstName, lastName FROM customer WHERE customerId = @customerId AND password = @password";
+        sqlQuery = "SELECT firstName, lastName, customerId FROM customer WHERE userid = @userid AND password = @password";
         results = await pool.request()
-            .input('customerId', sql.Int, customerId)
+            .input('userid', sql.VarChar, userid)
             .input('password', sql.VarChar, password)
             .query(sqlQuery);
 
-        // Check if user exists, or if the customerId is a valid number
-        if (results.recordset.length === 0 || !Number.isInteger(customerId) || customerId < 0) {
+        // Check if user exists, or if the userid is a valid number
+        if (results.recordset.length === 0) {
             return res.render('order', { errorMessage: 'Invalid account details. Go back to the previous page and try again.' });
         }
 
         const firstName = results.recordset[0].firstName;
         const lastName = results.recordset[0].lastName;
+        const customerId = results.recordset[0].customerId;
 
         // Process the order summary
         let total = 0;
