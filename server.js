@@ -140,7 +140,11 @@ app.get('/', function (req, res) {
   res.render('index', {
     title: "Home Page"
   });
-})
+});
+
+app.get('/', (req, res) => {
+  res.redirect('/index');
+});
 
 // Starting our Express app
 app.listen(3000)
