@@ -178,6 +178,7 @@ footer {
     margin: 0 15px;
 }
 footer h3{
+    color: white;
     display:flex;
     justify-content: center;
 }

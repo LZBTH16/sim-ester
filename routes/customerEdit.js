@@ -20,7 +20,7 @@ router.post('/', async function (req, res, next) {
     const username = req.session.authenticatedUser;
 
     const formData = req.body;
-    const {firstName, lastName, email, phonenum, address, city, state, postalCode, country} = formData;
+    const {firstName, lastName, email, phonenum, address, city, state, postalCode, country, password} = formData;
 
     try {
         const pool = await sql.connect(dbConfig);
@@ -44,7 +44,8 @@ router.post('/', async function (req, res, next) {
                 city = @city,
                 state = @state,
                 postalCode = @postalCode,
-                country = @country
+                country = @country,
+                password = @password
             WHERE userid = @userid;
         `;
         const request = pool.request();
@@ -57,6 +58,7 @@ router.post('/', async function (req, res, next) {
         request.input('state', sql.VarChar, state || currentUser.state);
         request.input('postalCode', sql.VarChar, postalCode || currentUser.postalCode);
         request.input('country', sql.VarChar, country || currentUser.country);
+        request.input('password', sql.VarChar, password);
         request.input('userid', sql.VarChar, username);
 
         await request.query(updateQuery);
