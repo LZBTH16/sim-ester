@@ -136,11 +136,11 @@ app.use('/notAuthorized', notAuthorized);
 app.use(express.static('public'));
 
 // Rendering the main page
-app.get('/', function (req, res) {
-  res.render('index', {
-    title: "Home Page"
-  });
-});
+// app.get('/', function (req, res) {
+//   res.render('index', {
+//     title: "Home Page"
+//   });
+// });
 
 app.get('/', (req, res) => {
   res.redirect('/index');
