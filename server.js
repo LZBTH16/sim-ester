@@ -52,6 +52,7 @@ dbConfig = {
 
 // OG DB Config
 // USE THIS FOR DOCKER + testing
+
 // dbConfig = {    
 //   server: 'cosc304_sqlserver',
 //   database: 'orders',
