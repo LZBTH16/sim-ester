@@ -164,59 +164,31 @@ INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES (
 INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Linear Lollapalooza', 2, 'Hold on to your vectors as you dive into the world of linear equations and matrices—where determinants rule the land, eigenvalues reign supreme, and diagonalization is the ultimate party trick. It''s the math equivalent of a music festival, but with way more vectors and way fewer mosh pits! (Based on MATH221)', 60);
 
 INSERT INTO warehouse(warehouseName) VALUES ('Main warehouse');
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (1, 1, 5, 600);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (2, 1, 10, 600);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (3, 1, 3, 600);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (4, 1, 2, 600);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (5, 1, 6, 600);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (6, 1, 3, 600);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (7, 1, 1, 600);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (8, 1, 0, 600);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (9, 1, 2, 600);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (10, 1, 3, 600);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (1, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (2, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (3, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (4, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (5, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (6, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (7, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (8, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (9, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (10, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (11, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (12, 1, 100, 60);
+INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (13, 1, 100, 60);
 
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test', 1);
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby');
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Candace', 'Cole', 'cole@charity.org', '333-444-5555', '333 Central Crescent', 'Chicago', 'IL', '33333', 'United States', 'candace' , 'password');
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Darren', 'Doe', 'oe@doe.com', '250-807-2222', '444 Dover Lane', 'Kelowna', 'BC', 'V1V 2X9', 'Canada', 'darren' , 'pw');
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Elizabeth', 'Elliott', 'engel@uiowa.edu', '555-666-7777', '555 Everwood Street', 'Iowa City', 'IA', '52241', 'United States', 'beth' , 'test');
-
--- Will need to update these values later, as they do not reflect the new products.
--- Order 1 can be shipped as have enough inventory
-DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-15 10:25:55', 91.70)
-SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 1, 1, 18)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 5, 2, 21.35)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 10, 1, 31);
-
-DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 106.75)
-SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 5, 5, 21.35);
-
--- Order 3 cannot be shipped as do not have enough inventory for item 7
-DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (3, '2019-10-15 3:30:22', 140)
-SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 6, 2, 25)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 7, 3, 30);
-
-DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-17 05:45:11', 327.85)
-SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 3, 4, 10)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 8, 3, 40)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 13, 3, 23.25)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 28, 2, 21.05)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 29, 4, 14);
-
-DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (5, '2019-10-15 10:25:55', 277.40)
-SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 5, 4, 21.35)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 19, 2, 81)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 20, 3, 10);
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Ramon', 'Lawrence', 'ramon.lawrence@ubc.ca', '250-807-9390', 'SCI 200C', 'Kelowna', 'BC', 'V1V 1V7', 'Canada', 'rlawrenc', '304ramonpw', 1);
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Meghdad', 'Dehghan', 'dosomethingifyouseethis@ubc.ca', '250-304-2024', '3333 University Way', 'Kelowna', 'BC', 'Canada', 'meghdad', 'pw');
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Omar', 'Abdelaziz','iamacosc304ta@ubc.ca', '250-304-2024', '3333 University Way', 'Kelowna', 'BC', 'Canada', 'omar', 'pw');
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Bradan', 'Fleming', 'another304ta@ubc.ca', '250-304-2024', '3333 University Way', 'Kelowna', 'BC', 'Canada', 'bradan', 'pw');
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Kevin;, 'Wang', '304ta@ubc.ca', '250-304-2024', '3333 University Way', 'Kelowna', 'BC', 'Canada', 'kevin', 'pw');
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Terry', 'Davis', 'terrydavis@gmail.com', '250-304-2024', 'City Hall', 'West Allis', 'WI', 'United State', 'terry', 'terry');
 
 -- New SQL DDL for lab 8
 UPDATE Product SET productImageURL = 'images/algorithm_adventures.png' WHERE ProductId = 1;
