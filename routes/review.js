@@ -23,7 +23,7 @@ router.post('/', function(req, res) {
         // Get customerId for insert
         let sqlQuery = "SELECT customerId FROM customer WHERE userid = @userid";
         let result = await pool.request()
-                        .input('userid', sql.VarChar, userid)
+                        .input('userid', sql.NVarChar, userid)
                         .query(sqlQuery);
         
         const customerId = result.recordset[0].customerId;
