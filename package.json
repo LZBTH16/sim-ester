@@ -4,10 +4,7 @@
   "description": "COSC 304 Lab 7 Node Variant",
   "repository": "N/A",
   "main": "server.js",
-  "scripts": {
-    "start": "nodemon -L --inspect=0.0.0.0 server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  
   "author": "",
   "license": "ISC",
   "dependencies": {
