@@ -9,6 +9,20 @@ router.post('/', function(req, res) {
 
         const { firstName, lastName, email, phone, address, city, state, postalCode, country, username, password } = formData;
 
+        // Check if phone number is valid
+        const phoneRegex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+
+        if(!phoneRegex.test(phone)){
+            return res.render('registrationError', { invalidPhoneNumber: true });
+        }
+
+        // Check if email is valid
+        const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+        if(!emailRegex.test(email)){
+            return res.render('registrationError', { invalidEmail: true });
+        }
+
         // Check if the user already exists
         let sqlQuery = "SELECT firstName FROM customer WHERE email = @email";
         let result = await pool.request()
@@ -28,14 +42,6 @@ router.post('/', function(req, res) {
         // If the username already exists do not create the account
         if(result.recordset.length > 0){
             return res.render('registrationError', { usernameInUse: true });
-        }
-
-        // Check if phone number is valid
-        // const phoneRegex = /^\+?[1-9]\d{0,2}[-.\s]?(\(?\d{1,4}\)?)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
-        const phoneRegex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
-
-        if(!phoneRegex.test(phone)){
-            return res.render('registrationError', { invalidPhoneNumber: true });
         }
 
         // If successful, insert into database
