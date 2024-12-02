@@ -33,41 +33,41 @@ const app = express();
 // This DB Config is accessible globally
 // USE THIS ONE FOR PROD
 
-// dbConfig = {    
-//   server: 'simester-server.database.windows.net',
-//   database: 'simester',
-//   authentication: {
-//       type: 'default',
-//       options: {
-//           userName: 'user', 
-//           password: 'COSC304rootpw'
-//       }
-//   },   
-//   options: {      
-//     encrypt: true,      
-//     enableArithAbort:false,
-//     database: 'simester'
-//   }
-// }
-
-// OG DB Config
-// USE THIS FOR DOCKER + testing
 dbConfig = {    
-  server: 'cosc304_sqlserver',
-  database: 'orders',
+  server: 'simester-server.database.windows.net',
+  database: 'simester',
   authentication: {
       type: 'default',
       options: {
-          userName: 'sa', 
-          password: '304#sa#pw'
+          userName: 'user', 
+          password: 'COSC304rootpw'
       }
   },   
   options: {      
-    encrypt: false,      
+    encrypt: true,      
     enableArithAbort:false,
-    database: 'orders'
+    database: 'simester'
   }
 }
+
+// OG DB Config
+// USE THIS FOR DOCKER + testing
+// dbConfig = {    
+//   server: 'cosc304_sqlserver',
+//   database: 'orders',
+//   authentication: {
+//       type: 'default',
+//       options: {
+//           userName: 'sa', 
+//           password: '304#sa#pw'
+//       }
+//   },   
+//   options: {      
+//     encrypt: false,      
+//     enableArithAbort:false,
+//     database: 'orders'
+//   }
+// }
 
 // Setting up the session.
 // This uses MemoryStorage which is not
