@@ -7,8 +7,6 @@ const moment = require('moment');
 router.get('/', function(req, res, next) {
     auth.checkAuthentication(req, res);
     auth.checkAdmin(req, res);
-	
-    res.setHeader('Content-Type', 'text/html');
 
     (async function() {
         try {

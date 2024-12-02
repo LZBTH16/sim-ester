@@ -11,7 +11,7 @@ router.post('/', function(req, res) {
 
         if(!userid){
             // If not logged in, go back (will change later)
-            res.redirect("/index");
+            return res.redirect("/index");
         }
 
         const reviewRating = req.body.reviewRating;

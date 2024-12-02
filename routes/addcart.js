@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', function(req, res, next) {
-    res.setHeader('Content-Type', 'text/html');
     // If the product list isn't set in the session,
     // create a new list.
     let productList = false;
@@ -22,7 +21,7 @@ router.get('/', function(req, res, next) {
         name = req.query.name;
         price = req.query.price;
     } else {
-        res.redirect("/listprod");
+        return res.redirect("/listprod"); // added "return" so that the code below does not execute
     }
 
     // Update quantity if add same item to order again

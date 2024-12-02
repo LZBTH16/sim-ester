@@ -7,15 +7,8 @@ router.get('/', function(req, res, next) {
     auth.checkAuthentication(req, res); // display error msg if attempting to access page and not logged in
     const username = req.session.authenticatedUser;
 
-    res.setHeader('Content-Type', 'text/html');
-
-    // TODO: Print Customer information
-
     (async function() {
         try {
-
-	// TODO: Print customer info
-
             const pool = await sql.connect(dbConfig);
 
             // grabbing everything but the password
