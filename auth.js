@@ -9,7 +9,7 @@ const auth = {
         }
     
         if (!authenticated) {
-            let loginMessage = "You are not logged in. Please login.";
+            let loginMessage = "You are not logged in.";
             req.session.loginMessage = loginMessage;
             res.redirect("/login");
         }
