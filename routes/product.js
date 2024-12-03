@@ -40,6 +40,27 @@ router.get('/', async function(req, res) {
         const averageRating = result.recordset.length > 0 ? result.recordset[0].averageReviewRating : false;
         const totalReviews = result.recordset.length > 0 ? result.recordset[0].totalReviews : false;
 
+        let canReview = false;
+
+        // Get the customerId of the current user (if logged in)
+        if(req.session.authenticatedUser){
+            sqlQuery = "SELECT customerId FROM customer WHERE userid = @username";
+            result = await pool.request()
+                    .input('username', sql.VarChar, req.session.authenticatedUser)
+                    .query(sqlQuery);
+
+            const customerId = result.recordset[0].customerId;
+
+            // Check if the user has purchased this product
+            sqlQuery = "SELECT productId FROM ordersummary JOIN orderproduct ON ordersummary.orderId = orderproduct.orderId WHERE customerId = @customerId AND productId = @productId";
+            result = await pool.request()
+                    .input('customerId', sql.Int, customerId)
+                    .input('productId', sql.Int, productId)
+                    .query(sqlQuery);
+            
+            canReview = result.recordset.length > 0 ? true : false;
+        }
+
         res.render('product', {
             productId: productId,
             productName: product.productName,
@@ -51,7 +72,8 @@ router.get('/', async function(req, res) {
             averageRating: averageRating,
             totalReviews: totalReviews,
             reviews: reviews,
-            successMessage: success ? "Your review has been successfully submitted!" : null
+            canReview: canReview,
+            successMessage: success ? "Your review has been successfully submitted!" : null,
         });
 
     } catch (err) {
