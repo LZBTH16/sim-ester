@@ -1,57 +1,28 @@
-{{#if redirectCart}}
-    <div class="login-page">
-        <div class="login">
+<div class="login-page">
+    <div class="login">
 
-            <h3>Login to SIM-ESTER</h3>
+        <h3>Login to SIM-ESTER</h3>
 
-            {{#if loginMessage}}
-                <p>{{loginMessage}}</p>
-            {{/if}}
+        {{#if loginMessage}}
+            <p>{{loginMessage}}</p>
+        {{/if}}
 
-            <br>
-            <form class="login-form" method=post action="/validateLogin?redirectCart=true">
-                <label for="username">
-                    <input type="text" name="username" placeholder=" " size=20 maxlength="20">
-                    <span>Username</span>
-                </label>
-                <label for="password">
-                    <input type="password" name="password" placeholder=" " size=20 maxlength="20">
-                    <span>Password</span>
-                </label>
+        <br>
+        
+        <form class="login-form" method="post" action="/validateLogin{{#if redirectCart}}?redirectCart=true{{/if}}">
+            <label for="username">
+                <input type="text" name="username" placeholder=" " size=20 maxlength="20">
+                <span>Username</span>
+            </label>
+            <label for="password">
+                <input type="password" name="password" placeholder=" " size=20 maxlength="20">
+                <span>Password</span>
+            </label>
 
-                <div class="login-button">
-                    <input class="custom-button" type="submit" value="Log In">
-                </div>
-                <div class="info">Don't have an account? <a href="/register">Sign up</a></div>
-            </form>
-        </div>
+            <div class="login-button">
+                <input class="custom-button" type="submit" value="Log In">
+            </div>
+            <div class="info">Don't have an account? <a href="/register">Sign up</a></div>
+        </form>
     </div>
-    {{else}}
-    <div class="login-page">
-        <div class="login">
-
-            <h3>Login to SIM-ESTER</h3>
-
-            {{#if loginMessage}}
-                <p>{{loginMessage}}</p>
-            {{/if}}
-
-            <br>
-            <form class="login-form" method=post action="/validateLogin">
-                <label for="username">
-                    <input type="text" name="username" placeholder=" " size=20 maxlength="20">
-                    <span>Username</span>
-                </label>
-                <label for="password">
-                    <input type="password" name="password" placeholder=" " size=20 maxlength="20">
-                    <span>Password</span>
-                </label>
-
-                <div class="login-button">
-                    <input class="custom-button" type="submit" value="Log In">
-                </div>
-                <div class="info">Don't have an account? <a href="/register">Sign up</a></div>
-            </form>
-        </div>
-    </div>
-{{/if}}
+</div>
