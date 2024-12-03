@@ -8,13 +8,14 @@ router.post('/', function(req, res) {
     // to the database in the validateLogin function.
     (async () => {
         const authenticatedUser = await validateLogin(req);
+
+        // True if the user wanted to checkout but wasn't logged in
         const redirectCart = req.query.redirectCart
+
         if (authenticatedUser) {
             req.session.authenticatedUser = authenticatedUser;
-            res.redirect("/index");
-        } else if(redirectCart){
-            res.redirect("/showcart");
-        }
+            res.redirect(redirectCart ? "/showcart" : "/index"); // Redirect to index by default
+        } 
         else {
             res.redirect("/login");
         }
