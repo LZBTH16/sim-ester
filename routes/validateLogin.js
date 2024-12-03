@@ -8,10 +8,14 @@ router.post('/', function(req, res) {
     // to the database in the validateLogin function.
     (async () => {
         const authenticatedUser = await validateLogin(req);
+        const redirectCart = req.query.redirectCart
         if (authenticatedUser) {
             req.session.authenticatedUser = authenticatedUser;
             res.redirect("/index");
-        } else {
+        } else if(redirectCart){
+            res.redirect("/showcart");
+        }
+        else {
             res.redirect("/login");
         }
      })();

@@ -3,6 +3,8 @@ const router = express.Router();
 
 router.get('/', function(req, res, next) {
     // Set the message for the login, if present
+    let redirectCart = req.query.redirectCart;
+
     let loginMessage = false;
     if (req.session.loginMessage) {
         loginMessage = req.session.loginMessage;
@@ -11,7 +13,8 @@ router.get('/', function(req, res, next) {
 
     res.render('login', {
         title: "Login",
-        loginMessage: loginMessage
+        loginMessage: loginMessage,
+        redirectCart: redirectCart
     });
 });
 
