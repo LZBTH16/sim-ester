@@ -54,6 +54,10 @@
 <script>
     function updateQuantity(id) {
         let quantity = document.getElementById(id).value;
+        if (quantity < 1 || quantity > 100) {
+            alert("Please enter a quantity between 1 and 100.");
+            return;
+        }
         window.location.href = `updatequantity?id=${id}&quantity=${quantity}`;
     }
 </script>
