@@ -9,14 +9,14 @@ router.get('/', async function(req, res) {
         const success = req.query.success === 'true';
         const productId = req.query.id;
 
-        let sqlQuery = "SELECT productName, productPrice, productImageURL, productDesc FROM product WHERE productId = @productId ORDER BY reviewId DESC";
+        let sqlQuery = "SELECT productName, productPrice, productImageURL, productDesc FROM product WHERE productId = @productId";
         let result = await pool.request()
             .input('productId', sql.Int, productId)
             .query(sqlQuery);
 
         const product = result.recordset[0];
 
-        sqlQuery = "SELECT reviewRating, reviewComment, reviewDate FROM review WHERE productId = @productId";
+        sqlQuery = "SELECT reviewRating, reviewComment, reviewDate FROM review WHERE productId = @productId ORDER BY reviewId DESC";
         result = await pool.request()
             .input('productId', sql.Int, productId)
             .query(sqlQuery);
