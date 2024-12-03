@@ -47,9 +47,9 @@
         {{!-- The products --}}
         <div class="products-container">
             {{#each products}}
-            <div class="product-card">
+            <div class="product-card" onclick="window.location.href='product?id={{id}}'" style="cursor: pointer;">
                 <div class="product-name">
-                    <a href="product?id={{id}}" >{{name}}</a>
+                    <h2>{{name}}</h2>
                 </div>
                 <div class="product-price">
                     ${{price}}
