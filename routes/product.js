@@ -9,7 +9,7 @@ router.get('/', async function(req, res) {
         const success = req.query.success === 'true';
         const productId = req.query.id;
 
-        let sqlQuery = "SELECT productName, productPrice, productImageURL, productDesc FROM product WHERE productId = @productId";
+        let sqlQuery = "SELECT productName, productPrice, productImageURL, productDesc FROM product WHERE productId = @productId ORDER BY reviewId DESC";
         let result = await pool.request()
             .input('productId', sql.Int, productId)
             .query(sqlQuery);
