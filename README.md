@@ -24,7 +24,6 @@ DB_SERVER=cosc304_sqlserver
 DB_NAME=orders
 DB_USER=sa
 DB_PASSWORD="304#sa#pw"
-DB_ENCRYPT=false
 ADMIN_PASSWORD=adminpassword
 ```
 
@@ -34,6 +33,27 @@ docker-compose up -d
 ```
 
 Now the website should be hosted on http://127.0.0.1. To load the data, navigate to http://127.0.0.1/loaddata. Then, the website should run while accessing the data.
+
+If loading the data doesn't work initially, try commenting out `database: process.env.DB_NAME,` in `server.js` so that it looks like this:
+```Javascript
+dbConfig = {    
+  server: process.env.DB_SERVER,
+//   database: process.env.DB_NAME,
+  authentication: {
+      type: 'default',
+      options: {
+          userName: process.env.DB_USER, 
+          password: process.env.DB_PASSWORD
+      }
+  },   
+  options: {      
+    encrypt: true,      
+    enableArithAbort:false,
+    database: process.env.DB_NAME
+  }
+}
+```
+After successfully loading the data, `database: process.env.DB_NAME,` should be uncommented.
 
 
 
