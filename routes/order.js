@@ -15,23 +15,15 @@ router.get('/', async function (req, res, next) {
         let sqlQuery = "";
         let results = [];
 
-        // Verify userid and password
-        const userid = req.query.userid;
-
-        const password = req.query.password;
+        // Verify username
+        const username = req.session.authenticatedUser;
 
         const pool = await sql.connect(dbConfig);
 
-        sqlQuery = "SELECT firstName, lastName, customerId FROM customer WHERE userid = @userid AND password = @password";
+        sqlQuery = "SELECT firstName, lastName, customerId FROM customer WHERE userid = @userid";
         results = await pool.request()
-            .input('userid', sql.VarChar, userid)
-            .input('password', sql.VarChar, password)
+            .input('userid', sql.VarChar, username)
             .query(sqlQuery);
-
-        // Check if user exists, or if the userid is a valid number
-        if (results.recordset.length === 0) {
-            return res.render('order', { errorMessage: 'Invalid account details. Go back to the previous page and try again.' });
-        }
 
         const firstName = results.recordset[0].firstName;
         const lastName = results.recordset[0].lastName;
