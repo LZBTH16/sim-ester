@@ -33,8 +33,6 @@ const app = express();
 
 // This DB Config is accessible globally
 
-// Live database (used for prod)
-// ------------------------------------------------------------
 dbConfig = {    
   server: process.env.DB_SERVER,
   database: process.env.DB_NAME,
@@ -51,28 +49,6 @@ dbConfig = {
     database: process.env.DB_NAME
   }
 }
-// ------------------------------------------------------------
-
-
-// Local database (used w/ Docker)
-// ------------------------------------------------------------
-// dbConfig = {    
-//   server: 'cosc304_sqlserver',
-//   database: 'orders',
-//   authentication: {
-//       type: 'default',
-//       options: {
-//           userName: 'sa', 
-//           password: '304#sa#pw'
-//       }
-//   },   
-//   options: {      
-//     encrypt: false,      
-//     enableArithAbort:false,
-//     database: 'orders'
-//   }
-// }
-// ------------------------------------------------------------
 
 // Setting up the session.
 // This uses MemoryStorage which is not
@@ -84,7 +60,6 @@ app.use(session({
   cookie: {
     httpOnly: false,
     secure: false,
-    // maxAge: 60000,
   }
 }))
 
