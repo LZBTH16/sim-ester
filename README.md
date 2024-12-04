@@ -18,7 +18,7 @@ Install the required dependencies (ensure Node.js is installed)
 npm install
 ```
 
-Create a file named .env in the root directory containing the following:
+Create a file named `.env` in the root directory containing the following:
 ```bash
 DB_SERVER: cosc304_sqlserver
 DB_NAME: orders
