@@ -20,10 +20,10 @@ npm install
 
 Create a file named `.env` in the root directory containing the following:
 ```bash
-DB_SERVER: cosc304_sqlserver
-DB_NAME: orders
-DB_USER: user
-DB_PASSWORD: COSC304rootpw
+DB_SERVER=cosc304_sqlserver
+DB_NAME=orders
+DB_USER=sa
+DB_PASSWORD="304#sa#pw"
 ```
 
 Run the following command:
