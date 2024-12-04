@@ -3,7 +3,7 @@ Sim-ester is a website that was developed for the COSC304 project. It is an onli
 
 Documentation can be found [here](https://rheiley.github.io/simester-documentation/documentation.pdf).
 
-Simester is hosted on https://sim-ester.onrender.com/ but can be accessed locally with Docker.
+Sim-ester is hosted on https://sim-ester.onrender.com/ but can be accessed locally with Docker.
 
 ## Technologies & Tools
 - [Node.js](https://nodejs.org/en)
@@ -69,5 +69,11 @@ Now the website should be hosted on http://127.0.0.1. To load the data, navigate
 
 
 ## Screenshots
-![](src/screenshots/01.png)
-![](src/screenshots/02.png)
+![](public/images/screenshot01.png)
+![](public/images/screenshot02.png)
+![](public/images/screenshot03.png)
+![](public/images/screenshot04.png)
+![](public/images/screenshot05.png)
+![](public/images/screenshot06.png)
+![](public/images/screenshot07.png)
+![](public/images/screenshot08.png)
