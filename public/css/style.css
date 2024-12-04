@@ -681,6 +681,7 @@ footer h3{
 
 .admin-actions input[type="text"],
 .admin-actions input[type="number"],
+.admin-actions input[type="password"],
 .admin-actions textarea {
     padding: 12px 10px;
     font-size: 14px;
