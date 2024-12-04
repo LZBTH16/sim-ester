@@ -162,6 +162,7 @@ INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES (
 INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Derivative Delight', 2, 'Get ready to "derive" some fun as you tackle the ever-exciting world of limits and derivatives! From graphing to optimization, it''s the rollercoaster ride of calculus where you’ll learn how to find the steepest slope and maximize your "fun" (or at least your functions). (Based on MATH100)', 60);
 INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Discrete Dynamics', 1, 'Step into the world of sets, logic, and Boolean algebra, where every permutation and combination brings you closer to solving the ultimate puzzle. It’s like a game of "connect the dots," except the dots are graphs, and the connections are... well, discrete. (Based on COSC221)', 60);
 INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Linear Lollapalooza', 2, 'Hold on to your vectors as you dive into the world of linear equations and matrices—where determinants rule the land, eigenvalues reign supreme, and diagonalization is the ultimate party trick. It''s the math equivalent of a music festival, but with way more vectors and way fewer mosh pits! (Based on MATH221)', 60);
+INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Dumpster Fire Simulator', 1, 'Instead of spending $336-million on this, UBC should''ve spent it on Ramon''s bonus', 3300000);
 
 INSERT INTO warehouse(warehouseName) VALUES ('Main warehouse');
 INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (1, 1, 100, 60);
@@ -203,3 +204,4 @@ UPDATE Product SET productImageURL = 'images/sigma_statistics.png' WHERE Product
 UPDATE Product SET productImageURL = 'images/derivative_delight.png' WHERE ProductId = 11;
 UPDATE Product SET productImageURL = 'images/discrete_dynamics.png' WHERE ProductId = 12;
 UPDATE Product SET productImageURL = 'images/linear_lollapalooza.png' WHERE ProductId = 13;
+UPDATE Product SET productImageURL = 'images/dumpster_fire.png' WHERE ProductId = 14;
