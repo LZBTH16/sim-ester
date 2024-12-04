@@ -1,6 +1,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
-const session = require('express-session')
+const session = require('express-session');
+require('dotenv').config(); 
 
 let loadData = require('./routes/loaddata');
 let listOrder = require('./routes/listorder');
@@ -31,28 +32,30 @@ let notAuthorized = require('./routes/notAuthorized');
 const app = express();
 
 // This DB Config is accessible globally
-// USE THIS ONE FOR PROD
 
+// Live database (used for prod)
+// ------------------------------------------------------------
 dbConfig = {    
-  server: 'simester-server.database.windows.net',
-  database: 'simester',
+  server: process.env.DB_SERVER,
+  database: process.env.DB_NAME,
   authentication: {
       type: 'default',
       options: {
-          userName: 'user', 
-          password: 'COSC304rootpw'
+          userName: process.env.DB_USER, 
+          password: process.env.DB_PASSWORD
       }
   },   
   options: {      
     encrypt: true,      
     enableArithAbort:false,
-    database: 'simester'
+    database: process.env.DB_NAME
   }
 }
+// ------------------------------------------------------------
 
-// OG DB Config
-// USE THIS FOR DOCKER + testing
 
+// Local database (used w/ Docker)
+// ------------------------------------------------------------
 // dbConfig = {    
 //   server: 'cosc304_sqlserver',
 //   database: 'orders',
@@ -69,6 +72,7 @@ dbConfig = {
 //     database: 'orders'
 //   }
 // }
+// ------------------------------------------------------------
 
 // Setting up the session.
 // This uses MemoryStorage which is not

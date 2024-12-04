@@ -4,10 +4,10 @@
   "description": "COSC 304 Lab 7 Node Variant",
   "repository": "N/A",
   "main": "server.js",
-  
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.1",
