@@ -648,7 +648,9 @@ footer h3{
 
 /* ADMIN ACTIONS */
 .admin-actions {
+    min-height: 60vh;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 0;
@@ -760,6 +762,9 @@ input:not(:placeholder-shown) + span {
     background-color: #F9F9F9;
     padding: 20px;
 }
+.checkout h2 {
+    margin-bottom: 50px;
+}
 .checkout-form {
     display: flex;
     flex-direction: column;
@@ -808,7 +813,23 @@ input:not(:placeholder-shown) + span {
     padding: 0 5px;
 }
 .checkout-buttons {
-    margin-top: 10px;
+    margin-top: 30px;
+}
+.checkout-button {
+    border: none;
+    border-radius: 10px;
+    padding: 15px 160px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+    font-size: 18px;
+    background-color: #002145;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.checkout-button:hover {
+    background-color: #004176;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* LOGIN */

@@ -70,7 +70,7 @@ router.post('/', function(req, res) {
             state: state,
             postalCode: postalCode,
             country: country,
-            username: username
+            newUsername: username
         });
     })();
 
