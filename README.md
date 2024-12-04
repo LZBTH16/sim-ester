@@ -18,13 +18,14 @@ Install the required dependencies (ensure Node.js is installed)
 npm install
 ```
 
-Create a file named `.env` in the root directory containing the following:
+Create a file named `.env` in the root directory containing the following (note that `ADMIN_PASSWORD` is the password used in the admin portal):
 ```bash
 DB_SERVER=cosc304_sqlserver
 DB_NAME=orders
 DB_USER=sa
 DB_PASSWORD="304#sa#pw"
 DB_ENCRYPT=false
+ADMIN_PASSWORD=adminpassword
 ```
 
 Run the following command:
