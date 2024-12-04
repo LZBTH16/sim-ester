@@ -44,7 +44,7 @@ dbConfig = {
       }
   },   
   options: {      
-    encrypt: true,      
+    encrypt: process.env.DB_ENCRYPT,      
     enableArithAbort:false,
     database: process.env.DB_NAME
   }
