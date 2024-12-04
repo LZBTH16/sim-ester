@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../auth');
 const sql = require('mssql');
-const moment = require('moment');
 
 // to display the page
 router.get('/', async function(req, res, next) {
@@ -25,7 +24,11 @@ router.post('/updateProduct', async function (req, res, next) {
     auth.checkAuthentication(req, res);
 
     const updateData = req.body;
-    const {productId, productName, productPrice, productDesc} = updateData;
+    const {productId, productName, productPrice, productDesc, adminPassword} = updateData;
+
+    if(adminPassword !== process.env.ADMIN_PASSWORD){
+        return res.redirect('/notAuthorized');
+    }
 
     try {
         const pool = await sql.connect(dbConfig);
@@ -67,7 +70,11 @@ router.post('/deleteProduct', async function (req, res, next) {
     auth.checkAuthentication(req, res);
 
     const updateData = req.body;
-    const {productId} = updateData;
+    const {productId, adminPassword} = updateData;
+
+    if(adminPassword !== process.env.ADMIN_PASSWORD){
+        return res.redirect('/notAuthorized');
+    }
 
     try {
         const pool = await sql.connect(dbConfig);
@@ -97,7 +104,11 @@ router.post('/addProduct', async function (req, res, next) {
     auth.checkAuthentication(req, res);
 
     const newData = req.body;
-    const {productName, productPrice, productDesc, categoryId} = newData;
+    const {productName, productPrice, productDesc, categoryId, adminPassword} = newData;
+
+    if(adminPassword !== process.env.ADMIN_PASSWORD){
+        return res.redirect('/notAuthorized');
+    }
 
     try {
         const pool = await sql.connect(dbConfig);
