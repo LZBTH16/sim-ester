@@ -32,7 +32,7 @@ router.get('/', async function(req, res) {
             return review;
         });           
         
-        sqlQuery = "SELECT AVG(CAST(reviewRating AS FLOAT)) averageReviewRating, COUNT(*) totalReviews FROM review WHERE productId = @productId";
+        sqlQuery = "SELECT ROUND(AVG(CAST(reviewRating AS FLOAT)), 2) averageReviewRating, COUNT(*) totalReviews FROM review WHERE productId = @productId";
         result = await pool.request()
                     .input('productId', sql.Int, productId)
                     .query(sqlQuery);
