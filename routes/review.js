@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
                     .input('reviewDate', sql.Date, reviewDate)
                     .input('customerId', sql.Int, customerId)
                     .input('productId', sql.Int, productId)
-                    .input('reviewComment', sql.VarChar, reviewComment)
+                    .input('reviewComment', sql.NVarChar, reviewComment)
                     .query(sqlQuery);
 
         res.redirect(`/product?id=${productId}&success=true`);
