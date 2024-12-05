@@ -6,6 +6,10 @@ const fs = require('fs');
 router.get('/', function(req, res, next) {
     (async function() {
         try {
+            if(process.env.ENVIRONMENT === 'production'){
+                return res.redirect('/index');
+            }
+
             const pool = await sql.connect(dbConfig);
 
             res.setHeader('Content-Type', 'text/html');
