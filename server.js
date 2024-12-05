@@ -35,7 +35,7 @@ const app = express();
 
 dbConfig = {    
   server: process.env.DB_SERVER,
-  // database: process.env.DB_NAME,
+  database: process.env.DB_NAME,
   authentication: {
       type: 'default',
       options: {
