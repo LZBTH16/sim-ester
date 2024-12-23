@@ -148,7 +148,6 @@ INSERT INTO category(categoryName) VALUES ('COSC');
 INSERT INTO category(categoryName) VALUES ('MATH');
 INSERT INTO category(categoryName) VALUES ('STAT');
 
--- Temporarily setting the descriptions as a course code, will update later.
 INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Algorithm Adventures', 1, 'Embark on a quest through the magical world of algorithm design with Algorithm Adventures! Tackle the epic challenges of optimizing, analyzing, and conquering algorithmic problems, all while discovering the mystical art of turning real-world tasks into codeable quests! (Based on COSC 320)', 60);
 INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Assembly Architecture', 1, 'Gear up for Assembly Architecture, where you''ll step behind the scenes of computer systems and explore the MIPS architecture through assembly programming. Unlock the secrets of performance optimization and real-time system design - it''s time to assemble your understanding! (Based on COSC 211)', 60);
 INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Computer Creativity', 1, 'Unleash your inner coder in Computer Creativity, where programming meets imagination! You’ll explore the world of graphics, events, and 2D games while practicing the basics of decision-making and iteration. Ready to code your own masterpiece? (Based on COSC 123)', 60);
@@ -190,7 +189,6 @@ INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Kevin', 'Wang', '304ta@ubc.ca', '250-304-2024', '3333 University Way', 'Kelowna', 'BC', 'V1V 1V7', 'Canada', 'kevin', 'pw');
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Terry', 'Davis', 'terrydavis@gmail.com', '250-304-2024', 'City Hall', 'West Allis', 'WI', 'V1V 1V1', 'United States', 'terry', 'terry');
 
--- New SQL DDL for lab 8
 UPDATE Product SET productImageURL = 'images/algorithm_adventures.png' WHERE ProductId = 1;
 UPDATE Product SET productImageURL = 'images/assembly_architecture.png' WHERE ProductId = 2;
 UPDATE Product SET productImageURL = 'images/computer_creativity.png' WHERE ProductId = 3;

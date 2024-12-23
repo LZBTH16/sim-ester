@@ -1,8 +1,43 @@
+require('dotenv').config();
 const express = require('express');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
-require('dotenv').config(); 
+const { neon } = require('@neondatabase/serverless'); // Neon DB integration
 
+const sql = neon(process.env.DATABASE_URL); // Connect to Neon DB
+
+const app = express();
+
+// Setting up the session.
+app.use(session({
+  secret: 'COSC 304 Rules!',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: false,
+    secure: false,
+  }
+}));
+
+// Setting up the rendering engine
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main',
+  partialsDir: 'views/partials',
+  helpers: {
+    multiply: (a, b) => (a * b).toFixed(2),
+    formatPrice: (value) => Number(value).toFixed(2),
+    multiplyAndFormat: (a, b) => (a * b).toFixed(2),
+    eq: function (a, b) {
+      return a === b;
+    }
+  }
+}));
+app.set('view engine', 'handlebars');
+
+// Parses req.body
+app.use(express.urlencoded({ extended: true }));
+
+// Define routes
 let loadData = require('./routes/loaddata');
 let listOrder = require('./routes/listorder');
 let listProd = require('./routes/listprod');
@@ -10,7 +45,7 @@ let addCart = require('./routes/addcart');
 let showCart = require('./routes/showcart');
 let checkout = require('./routes/checkout');
 let order = require('./routes/order');
-let deleteItem = require('./routes/deleteitem'); // might show an error, but nothing to worry about
+let deleteItem = require('./routes/deleteitem');
 let updateQuantity = require('./routes/updatequantity');
 let displayImage = require('./routes/displayImage');
 let index = require('./routes/index');
@@ -28,65 +63,6 @@ let adminActions = require('./routes/adminActions');
 let review = require('./routes/review');
 let notAuthorized = require('./routes/notAuthorized');
 
-
-const app = express();
-
-// This DB Config is accessible globally
-
-dbConfig = {    
-  server: process.env.DB_SERVER,
-  database: process.env.DB_NAME,
-  authentication: {
-      type: 'default',
-      options: {
-          userName: process.env.DB_USER, 
-          password: process.env.DB_PASSWORD
-      }
-  },   
-  options: {      
-    encrypt: true,      
-    enableArithAbort:false,
-    database: process.env.DB_NAME
-  }
-}
-
-// Setting up the session.
-// This uses MemoryStorage which is not
-// recommended for production use.
-app.use(session({
-  secret: 'COSC 304 Rules!',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: false,
-    secure: false,
-  }
-}))
-
-// Setting up the rendering engine
-app.engine('handlebars', exphbs({
-  defaultLayout: 'main', // use this as the default layout for rendered views
-  partialsDir: 'views/partials', // directory for partials
-  helpers: {
-    multiply: (a, b) => (a * b).toFixed(2),
-
-    formatPrice: (value) => Number(value).toFixed(2),
-
-    multiplyAndFormat: (a, b) => (a * b).toFixed(2),
-
-    eq: function (a, b) {
-      return a === b;
-    }
-  }
-}));
-app.set('view engine', 'handlebars');
-
-// Parses req.body
-app.use(express.urlencoded({ extended: true }));
-
-// Setting up Express.js routes.
-// These present a "route" on the URL of the site.
-// Eg: http://127.0.0.1/loaddata
 app.use('/loaddata', loadData);
 app.use('/listorder', listOrder);
 app.use('/listprod', listProd);
@@ -115,16 +91,12 @@ app.use('/notAuthorized', notAuthorized);
 // setting up CSS & images
 app.use(express.static('public'));
 
-// Rendering the main page
-// app.get('/', function (req, res) {
-//   res.render('index', {
-//     title: "Home Page"
-//   });
-// });
-
+// Redirect root to /index
 app.get('/', (req, res) => {
   res.redirect('/index');
 });
 
-// Starting our Express app
-app.listen(3000)
+// Start the server
+app.listen(3000, () => {
+  console.log('Server running at http://localhost:3000');
+});
