@@ -3,10 +3,18 @@ const router = express.Router();
 const { Client } = require('pg'); 
 const moment = require('moment');
 
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+
+client.connect();
+
 router.get('/', async function (req, res, next) {
     let productList = req.session.productList || [];
 
-    // Check if the shopping cart is empty
     if (productList.length === 0) {
         return res.render('order', { emptyCart: true });
     }
@@ -15,31 +23,26 @@ router.get('/', async function (req, res, next) {
         let sqlQuery = "";
         let results = [];
 
-        // Verify username
         const username = req.session.authenticatedUser;
 
-        const pool = await sql.connect(dbConfig);
+        // Verify username
+        sqlQuery = "SELECT first_name, last_name, customer_id FROM customers WHERE username = $1";
+        results = await client.query(sqlQuery, [username]);
 
-        sqlQuery = "SELECT first_name, last_name, customer_id FROM customers WHERE username = @username";
-        results = await pool.request()
-            .input('username', sql.VarChar, username)
-            .query(sqlQuery);
+        const firstName = results.rows[0].first_name;
+        const lastName = results.rows[0].last_name;
+        const customerId = results.rows[0].customer_id;
 
-        const firstName = results.recordset[0].first_name;
-        const lastName = results.recordset[0].last_name;
-        const customerId = results.recordset[0].customer_id;
-
-        // Process the order summary
         let total = 0;
         let orderItems = [];
         let subtotal = 0;
         
         for (let i = 0; i < productList.length; i++) {
-            product = productList[i];
+            const product = productList[i];
             
             if (!product){
                 continue;
-            }   
+            }
             
             subtotal = (Number(product.quantity) * Number(product.price)).toFixed(2);
             total += product.quantity * product.price;
@@ -55,28 +58,24 @@ router.get('/', async function (req, res, next) {
 
         // Insert into order_summaries
         let currentDate = new Date();
-        sqlQuery = "INSERT INTO order_summaries (order_date, total_amount, customer_id) VALUES (@order_date, @total_amount, @customer_id) RETURNING order_id;";
-        let result = await pool.request()
-            .input('order_date', sql.DateTime, currentDate)
-            .input('total_amount', sql.Decimal, total)
-            .input('customer_id', sql.Int, customerId)
-            .query(sqlQuery);
+        sqlQuery = "INSERT INTO order_summaries (order_date, total_amount, customer_id) VALUES ($1, $2, $3) RETURNING order_id;";
+        let result = await client.query(sqlQuery, [currentDate, total, customerId]);
 
         let orderId = result.rows[0].order_id;
 
         // Insert into order_products
         for (let product of productList) {
-            if (!product){ 
+            if (!product) { 
                 continue;
             }
 
-            sqlQuery = "INSERT INTO order_products VALUES (@order_id, @product_id, @quantity, @price)";
-            await pool.request()
-                .input('order_id', sql.Int, orderId)
-                .input('product_id', sql.Int, product.id)
-                .input('quantity', sql.Int, product.quantity)
-                .input('price', sql.Decimal, product.price)
-                .query(sqlQuery);
+            sqlQuery = "INSERT INTO order_products (order_id, product_id, quantity, price) VALUES ($1, $2, $3, $4)";
+            await client.query(sqlQuery, [
+                orderId, 
+                product.id, 
+                product.quantity, 
+                product.price
+            ]);
         }
 
         // Clear shopping cart (sessional variable)

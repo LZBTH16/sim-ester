@@ -11,7 +11,7 @@
     {{!-- <h3>Id: {{productId}}</h3> --}}
     <h3>Price: ${{productPrice}}</h3>
     {{#if averageRating}}
-        <h3>Average Rating: {{averageRating}}/5</h3>
+        <h3>Average Rating: {{averageRating}}/5.0</h3>
     {{/if}}
     <h3 class="navigate"><a href="/addcart?id={{productId}}&name={{productName}}&price={{productPrice}}">Add to cart</a></h3>
     <h3 class="navigate"><a href="/listprod">Continue shopping</a></h3>
@@ -61,7 +61,7 @@
                     <p class="center-text"><strong>Rating:</strong> {{this.reviewRating}}/5</p>
                     {{!-- <p class="center-text"><strong>Comment:</strong></p> --}}
                     <p class="left-text">{{this.reviewComment}}</p>
-                    <p class="center-text"><strong>Posted:</strong> {{this.review_date}}</p>
+                    <p class="center-text"><strong>Posted:</strong> {{this.reviewDate}}</p>
                 </div>
             {{/each}}
         {{!-- </ul> --}}

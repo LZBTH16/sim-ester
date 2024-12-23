@@ -3,37 +3,46 @@ const router = express.Router();
 const { Client } = require('pg'); 
 const moment = require('moment');
 
-router.post('/', function(req, res) {
-    (async () => {
-        const pool = await sql.connect(dbConfig);
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
 
+client.connect();
+
+router.post('/', async function(req, res) {
+    try {
         const username = req.session.authenticatedUser;
 
-        const reviewRating = req.body.review_rating;
+        const reviewRating = req.body.reviewRating;
         let reviewDate = new Date();
-        reviewDate = moment(review_date).format('YYYY-MM-DD');
-        const productId = req.body.product_id;
-        const reviewComment = req.body.review_comment;
+        reviewDate = moment(reviewDate).format('YYYY-MM-DD');
+        const productId = req.body.productId;
+        const reviewComment = req.body.reviewComment;
 
         // Get customer_id for insert
-        let sqlQuery = "SELECT customer_id FROM customers WHERE username = @username";
-        let result = await pool.request()
-                        .input('username', sql.NVarChar, username)
-                        .query(sqlQuery);
+        let sqlQuery = "SELECT customer_id FROM customers WHERE username = $1";
+        let result = await client.query(sqlQuery, [username]);
         
-        const customerId = result.recordset[0].customer_id;
+        const customerId = result.rows[0].customer_id;
 
-        sqlQuery = "INSERT INTO reviews (review_rating, review_date, customer_id, product_id, review_comment) VALUES (@review_rating, @review_date, @customer_id, @product_id, @review_comment)";
-        result = await pool.request()
-                    .input('review_rating', sql.Int, reviewRating)
-                    .input('review_date', sql.Date, reviewDate)
-                    .input('customer_id', sql.Int, customerId)
-                    .input('product_id', sql.Int, productId)
-                    .input('review_comment', sql.NVarChar, reviewComment)
-                    .query(sqlQuery);
+        // Insert the review into the reviews table
+        sqlQuery = "INSERT INTO reviews (review_rating, review_date, customer_id, product_id, review_comment) VALUES ($1, $2, $3, $4, $5)";
+        await client.query(sqlQuery, [
+            reviewRating,
+            reviewDate,
+            customerId,
+            productId,
+            reviewComment
+        ]);
 
-        res.redirect(`/product?id=${product_id}&success=true`);
-     })();
+        res.redirect(`/product?id=${productId}&success=true`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("An error occurred while posting the review.");
+    }
 });
 
 module.exports = router;

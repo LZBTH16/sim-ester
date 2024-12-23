@@ -23,16 +23,24 @@ router.get('/', async function(req, res) {
 
         sqlQuery = "SELECT review_rating, review_comment, review_date FROM reviews WHERE product_id = $1 ORDER BY review_id DESC";
         result = await client.query(sqlQuery, [productId]);
+
+        reviews = result.rows.map(review => {
+            let formattedReviewRating;
         
-        let reviews = result.rows;
-
-        reviews = reviews.map(review => {
-            let formattedDate = new Date(review.review_date).toDateString();
-            review.review_date = formattedDate;
-            return review;
+            if (Number.isInteger(review.review_rating)) {
+                formattedReviewRating = review.review_rating.toString(); // Remove .00 for integers
+            } else {
+                formattedReviewRating = review.review_rating.toFixed(2); // Show two decimal places if it's a decimal
+            }
+        
+            return {
+                reviewRating: formattedReviewRating,
+                reviewComment: review.review_comment,
+                reviewDate: new Date(review.review_date).toDateString()
+            };
         });
-
-        sqlQuery = "SELECT ROUND(AVG(review_rating::NUMERIC), 2) AS average_review_rating, COUNT(*) AS total_reviews FROM reviews WHERE product_id = $1";
+        
+        sqlQuery = "SELECT ROUND(AVG(review_rating::NUMERIC), 1) AS average_review_rating, COUNT(*) AS total_reviews FROM reviews WHERE product_id = $1";
         result = await client.query(sqlQuery, [productId]);
 
         const averageRating = result.rows.length > 0 ? result.rows[0].average_review_rating : false;
