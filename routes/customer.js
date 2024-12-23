@@ -1,7 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const { Client } = require('pg'); 
+const { Client } = require('pg');  // PostgreSQL client
 const auth = require('../auth');
+
+// Create a new Postgres client instance and connect
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+
+client.connect();
 
 router.get('/', function(req, res, next) {
     auth.checkAuthentication(req, res); // display error msg if attempting to access page and not logged in
@@ -9,24 +19,23 @@ router.get('/', function(req, res, next) {
 
     (async function() {
         try {
-            const pool = await sql.connect(dbConfig);
+            // Query to get customer details excluding the password
+            const sqlQuery = "SELECT customer_id, first_name, last_name, email, phone_num, address, city, state, postal_code, country, username FROM customers WHERE username = $1";
+            const result = await client.query(sqlQuery, [username]);
 
-            // grabbing everything but the password
-            const sqlQuery = "SELECT customer_id, first_name, last_name, email, phone_num, address, city, state, postal_code, country, username FROM customers WHERE username LIKE @username";
-            const result = await pool.request().input('username', sql.VarChar, username).query(sqlQuery);
+            // Grab the first (and only) part of the queried result
+            const customer = result.rows[0];
 
-            // grabbing the first (and only) part of the queried array to be displayed on the site
-            const customer = result.recordset[0];
-
-            // send the query to be displayed
-            res.render('customer', {customer,
+            // Send the query result to be displayed
+            res.render('customer', { 
+                customer,
                 username: req.session.authenticatedUser,
                 title: "Your Profile"
             });
 
-        } catch(err) {
+        } catch (err) {
             console.dir(err);
-            res.write(err + "")
+            res.write(err + "");
             res.end();
         }
     })();
