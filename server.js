@@ -2,9 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
-const { neon } = require('@neondatabase/serverless'); // Neon DB integration
-
-const sql = neon(process.env.DATABASE_URL); // Connect to Neon DB
 
 const app = express();
 
