@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Client } = require('pg'); 
+const { Client } = require('pg'); // Using pg for PostgreSQL
 const auth = require('../auth');
 
 // displaying the edit page
@@ -23,50 +23,60 @@ router.post('/', async function (req, res, next) {
     const {firstName, lastName, email, phoneNum, address, city, state, postalCode, country, password} = formData;
 
     try {
-        const pool = await sql.connect(dbConfig);
+        const client = new Client({
+            connectionString: process.env.DATABASE_URL,  
+            ssl: {
+                rejectUnauthorized: false 
+            }
+        });
+        await client.connect();
 
-        // to preserve other data if the user doesn't want to edit all fields
-        const currentData = "SELECT * FROM customers WHERE username = @username";
-        const dataRequest = pool.request();
-        dataRequest.input('username', sql.VarChar, username);
-        const result = await dataRequest.query(currentData);
+        // Get current user data
+        const currentDataQuery = "SELECT * FROM customers WHERE username = $1";
+        const currentDataResult = await client.query(currentDataQuery, [username]);
 
-        const currentUser = result.recordset[0];
+        const currentUser = currentDataResult.rows[0];
 
+        // Update query
         const updateQuery = `
             UPDATE customers
             SET
-                first_name = @first_name,
-                last_name = @last_name,
-                email = @email,
-                phone_num = @phone_num,
-                address = @address,
-                city = @city,
-                state = @state,
-                postal_code = @postal_code,
-                country = @country,
-                password = @password
-            WHERE username = @username;
+                first_name = $1,
+                last_name = $2,
+                email = $3,
+                phone_num = $4,
+                address = $5,
+                city = $6,
+                state = $7,
+                postal_code = $8,
+                country = $9,
+                password = $10
+            WHERE username = $11;
         `;
-        const request = pool.request();
-        request.input('first_name', sql.VarChar, firstName || currentUser.first_name);
-        request.input('last_name', sql.VarChar, lastName || currentUser.last_name);
-        request.input('email', sql.VarChar, email || currentUser.email);
-        request.input('phone_num', sql.VarChar, phoneNum || currentUser.phone_num);
-        request.input('address', sql.VarChar, address || currentUser.address);
-        request.input('city', sql.VarChar, city || currentUser.city);
-        request.input('state', sql.VarChar, state || currentUser.state);
-        request.input('postal_code', sql.VarChar, postalCode || currentUser.postal_code);
-        request.input('country', sql.VarChar, country || currentUser.country);
-        request.input('password', sql.VarChar, password);
-        request.input('username', sql.VarChar, username);
 
-        await request.query(updateQuery);
+        // Execute the update query
+        await client.query(updateQuery, [
+            firstName || currentUser.first_name,
+            lastName || currentUser.last_name,
+            email || currentUser.email,
+            phoneNum || currentUser.phone_num,
+            address || currentUser.address,
+            city || currentUser.city,
+            state || currentUser.state,
+            postalCode || currentUser.postal_code,
+            country || currentUser.country,
+            password || currentUser.password,
+            username
+        ]);
 
+        // Close PostgreSQL client connection
+        await client.end();
+
+        // Redirect to the customer profile page after update
         res.redirect('/customer');
     } catch (err) {
         console.error(err);
-        res.write(err + "")
+        res.write(err + "");
         res.end();
     }
 });

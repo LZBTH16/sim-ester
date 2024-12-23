@@ -1,6 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { Client } = require('pg'); 
+const { Client } = require('pg');  // PostgreSQL client
+
+// Create a new Postgres client instance and connect
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+
+client.connect();
 
 router.get('/', function(req, res, next) {
     res.setHeader('Content-Type', 'image/jpeg');
@@ -14,20 +24,17 @@ router.get('/', function(req, res, next) {
 
     (async function() {
         try {
-            const pool = await sql.connect(dbConfig);
+            // PostgreSQL query to retrieve the product image
+            const sqlQuery = "SELECT product_image FROM products WHERE product_id = $1";
 
-            const sqlQuery = "SELECT product_image FROM products WHERE product_id = @product_id";
+            const result = await client.query(sqlQuery, [productId]);
 
-            const result = await pool.request()
-                .input('product_id', sql.Int, productId)
-                .query(sqlQuery);
-
-            if (result.recordset.length === 0) {
+            if (result.rows.length === 0) {
                 console.log("No image record");
                 res.end();
                 return;
             } else {
-                const productImage = result.recordset[0].product_image;
+                const productImage = result.rows[0].product_image;
 
                 res.write(productImage);
             }
@@ -35,7 +42,7 @@ router.get('/', function(req, res, next) {
             res.end();
         } catch(err) {
             console.dir(err);
-            res.write(err + "")
+            res.write(err + "");
             res.end();
         }
     })();
