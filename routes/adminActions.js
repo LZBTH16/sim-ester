@@ -69,8 +69,8 @@ router.post('/updateProduct', async function (req, res, next) {
 router.post('/deleteProduct', async function (req, res, next) {
     auth.checkAuthentication(req, res);
 
-    const updateData = req.body;
-    const {productId, adminPassword} = updateData;
+    const deleteData = req.body;
+    const {productId, adminPassword} = deleteData;
 
     if(adminPassword !== process.env.ADMIN_PASSWORD){
         return res.redirect('/notAuthorized');

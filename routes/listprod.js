@@ -7,24 +7,6 @@ router.get('/', async function(req, res, next) {
     let name = req.query.productName;
     let category = req.query.category; // Category filter
 
-    /** $name and $category now contain the search string and category */
-    /** Use them to build a query and print out the results **/
-
-    /** Create and validate connection **/
-
-    /** Print out the ResultSet **/
-
-    /** 
-    For each product create a link of the form
-    addcart?id=<productId>&name=<productName>&price=<productPrice>
-    **/
-
-    /**
-        Useful code for formatting currency:
-        let num = 2.89999;
-        num = num.toFixed(2);
-    **/
-
     (async function() {
         try {
             const pool = await sql.connect(dbConfig);
@@ -85,7 +67,6 @@ router.get('/', async function(req, res, next) {
             category 
         });
                 
-    
         } catch(err) {
             console.dir(err);
             res.write(JSON.stringify(err));
