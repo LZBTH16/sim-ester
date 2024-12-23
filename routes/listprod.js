@@ -1,53 +1,58 @@
 const express = require('express');
 const router = express.Router();
-const sql = require('mssql');
+const { Client } = require('pg');  
 
-router.get('/', async function(req, res, next) {
-    // Get the product name to search for
-    let name = req.query.productName;
-    let category = req.query.category; // Category filter
+const client = new Client({
+    connectionString: process.env.DATABASE_URL, 
+    ssl: {
+        rejectUnauthorized: false 
+    }
+});
 
-    (async function() {
-        try {
-            const pool = await sql.connect(dbConfig);
+client.connect();
 
-            // Base query to join the product and category tables
-            let sqlQuery = `
+router.get('/', async function(req, res) {
+    try {
+        const name = req.query.productName;
+        const category = req.query.category; // Category filter
+
+        // Base query to join the product and category tables
+        let sqlQuery = `
             SELECT p.productId, p.productName, p.productPrice, c.categoryName 
             FROM product p
             JOIN category c ON p.categoryId = c.categoryId
             WHERE 1=1
         `;
-        
-        // Dynamic parameters for the query
-        const request = pool.request();
-        
+
+        // Array to hold query parameters
+        let queryParams = [];
+
         // If a product name is provided, add it to the query and bind the parameter
         if (name) {
-            sqlQuery += " AND p.productName LIKE @name";
-            request.input('name', sql.VarChar, `%${name}%`);
+            sqlQuery += " AND p.productName ILIKE $1"; 
+            queryParams.push(`%${name}%`);
         }
-        
-        // If a category is provided (and not null/empty), add it to the query and bind the parameter
+
+        // If a category is provided, add it to the query and bind the parameter
         if (category) {
-            sqlQuery += " AND c.categoryName = @category";
-            request.input('category', sql.VarChar, category);
+            sqlQuery += " AND c.categoryName = $2";
+            queryParams.push(category);
         }
-        
+
         // Execute the query
-        const results = await request.query(sqlQuery);
+        let result = await client.query(sqlQuery, queryParams);
         
         // Formatting the products
-        let products = results.recordset.map(result => ({
-            id: result.productId,
-            name: result.productName,
-            price: result.productPrice.toFixed(2),
-            category: result.categoryName
+        let products = result.rows.map(product => ({
+            id: product.productid,
+            name: product.productname,
+            price: parseFloat(product.productprice).toFixed(2),
+            category: product.categoryname
         }));
 
         // Sort alphabetically
         products.sort((a, b) => a.name.localeCompare(b.name));
-        
+
         // Determine the title to send to the template
         let searchTitle = "All Products";
         if (name && category) {
@@ -57,7 +62,7 @@ router.get('/', async function(req, res, next) {
         } else if (category) {
             searchTitle = `Products in '${category}' category`;
         }
-        
+
         // Render the template
         res.render('listprod', { 
             searchTitle, 
@@ -66,11 +71,11 @@ router.get('/', async function(req, res, next) {
             title: "Products", 
             category 
         });
-                
-        } catch(err) {
-            console.dir(err);
-            res.write(JSON.stringify(err));
-        }})();
+
+    } catch (err) {
+        console.error(err);
+        res.write(err + "");
+    }
 });
 
 module.exports = router;

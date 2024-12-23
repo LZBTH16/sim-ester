@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { Client } = require('pg');  
 
-// PostgreSQL connection setup (NeonDB)
 const client = new Client({
     connectionString: process.env.DATABASE_URL, 
     ssl: {
