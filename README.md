@@ -8,9 +8,10 @@ Sim-ester is hosted on https://sim-ester.onrender.com/.
 ## Technologies & Tools
 - [Node.js](https://nodejs.org/en)
 - [Express.js](https://expressjs.com/)
-- [Microsoft Azure](https://azure.microsoft.com/en-ca)
+- [Neon](https://console.neon.tech/)
 - [Render](https://render.com/)
 - [Docker](https://www.docker.com/)
+- [PostgreSQL](https://www.postgresql.org/)
 
 ## Screenshots
 ![](public/images/screenshot01.png)
