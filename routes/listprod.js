@@ -14,9 +14,8 @@ client.connect();
 router.get('/', async function(req, res) {
     try {
         const name = req.query.product_name;
-        const category = req.query.category; // Category filter
+        const category = req.query.category;
 
-        // Base query to join the product and category tables
         let sqlQuery = `
             SELECT p.product_id, p.product_name, p.product_price, c.category_name 
             FROM products p
@@ -24,36 +23,29 @@ router.get('/', async function(req, res) {
             WHERE 1=1
         `;
 
-        // Array to hold query parameters
         let queryParams = [];
-
-        // If a product name is provided, add it to the query and bind the parameter
-        if (name) {
-            sqlQuery += " AND p.product_name ILIKE $1"; 
+        if (name && category) {
+            sqlQuery += " AND p.product_name ILIKE $1 AND c.category_name = $2";
+            queryParams.push(`%${name}%`, category);
+        } else if (name) {
+            sqlQuery += " AND p.product_name ILIKE $1";
             queryParams.push(`%${name}%`);
-        }
-
-        // If a category is provided, add it to the query and bind the parameter
-        if (category) {
-            sqlQuery += " AND c.category_name = $2";
+        } else if (category) {
+            sqlQuery += " AND c.category_name = $1";
             queryParams.push(category);
         }
 
-        // Execute the query
         let result = await client.query(sqlQuery, queryParams);
-        
-        // Formatting the products
+
         let products = result.rows.map(product => ({
-            id: product.productid,
-            name: product.productname,
-            price: parseFloat(product.productprice).toFixed(2),
-            category: product.categoryname
+            id: product.product_id,
+            name: product.product_name,
+            price: parseFloat(product.product_price).toFixed(2),
+            category: product.category_name
         }));
 
-        // Sort alphabetically
         products.sort((a, b) => a.name.localeCompare(b.name));
 
-        // Determine the title to send to the template
         let searchTitle = "All Products";
         if (name && category) {
             searchTitle = `Products in '${category}' category containing '${name}'`;
@@ -63,7 +55,6 @@ router.get('/', async function(req, res) {
             searchTitle = `Products in '${category}' category`;
         }
 
-        // Render the template
         res.render('listprod', { 
             searchTitle, 
             products, 
@@ -73,9 +64,10 @@ router.get('/', async function(req, res) {
         });
 
     } catch (err) {
-        console.error(err);
-        res.write(err + "");
+        console.error("Error:", err);
+        res.status(500).send(err.message);
     }
 });
+
 
 module.exports = router;

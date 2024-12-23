@@ -18,16 +18,16 @@
         <div class="showcase-container">
             {{#each products}}
                 <div class="showcase-product">
-                    <h2>{{product_name}}</h2>
+                    <h2>{{productName}}</h2>
 
-                    {{#if product_image_url}}
-                        <img src="{{product_image_url}}" alt="{{product_name}}">
+                    {{#if productImageURL}}
+                        <img src="{{productImageURL}}" alt="{{productName}}">
                     {{else}}
-                        <!-- If product_image_url is not available, load directly from the database using displayImage -->
-                        <img src="/displayImage?id={{product_id}}" alt="{{product_name}}">
+                        <!-- If productImageURL is not available, load directly from the database using displayImage -->
+                        <img src="/displayImage?id={{productId}}" alt="{{productName}}">
                     {{/if}}
                     <div class="product-action">
-                        <a href="product?id={{product_id}}" >Details</a>
+                        <a href="product?id={{productId}}" >Details</a>
                     </div>
                 </div>
             {{/each}}
