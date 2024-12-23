@@ -149,19 +149,19 @@ INSERT INTO products(product_name, category_id, product_desc, product_price) VAL
 INSERT INTO products(product_name, category_id, product_desc, product_price) VALUES ('Dumpster Fire Simulator', 1, 'Instead of spending $336-million on this, UBC should''ve spent it on Ramon''s bonus', 3300000);
 
 INSERT INTO warehouses(warehouse_name) VALUES ('Main warehouses');
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (1, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (2, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (3, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (4, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (5, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (6, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (7, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (8, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (9, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (10, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (11, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (12, 1, 100, 60);
-INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (13, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (1, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (2, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (3, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (4, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (5, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (6, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (7, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (8, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (9, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (10, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (11, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (12, 1, 100, 60);
+INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (13, 1, 100, 60);
 
 INSERT INTO customers (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test');
 INSERT INTO customers (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby');
@@ -178,13 +178,13 @@ UPDATE products SET product_image_url = 'images/algorithm_adventures.png' WHERE 
 UPDATE products SET product_image_url = 'images/assembly_architecture.png' WHERE product_id = 2;
 UPDATE products SET product_image_url = 'images/computer_creativity.png' WHERE product_id = 3;
 UPDATE products SET product_image_url = 'images/covariance_conundrum.png' WHERE product_id = 4;
-UPDATE products SET product_image_url = 'https://media.discordapp.net/attachments/1320850475481956513/1320851862383104201/database_dynasty.png?ex=676b1aa8&is=6769c928&hm=4ee4684758acaf07fa905dc88852b2b7ae810b854d4e61dafbf6583822882fde&=&format=webp&quality=lossless' WHERE product_id = 5;
+UPDATE products SET product_image_url = 'images/database_dynasty.png' WHERE product_id = 5;
 UPDATE products SET product_image_url = 'images/hashmap_simulator.png' WHERE product_id = 6;
 UPDATE products SET product_image_url = 'images/integration_sensation.png' WHERE product_id = 7;
 UPDATE products SET product_image_url = 'images/matrix_mayhem.png' WHERE product_id = 8;
 UPDATE products SET product_image_url = 'images/object_oriented_odyssey.png' WHERE product_id = 9;
 UPDATE products SET product_image_url = 'images/sigma_statistics.png' WHERE product_id = 10;
-UPDATE products SET product_image_url = 'https://media.discordapp.net/attachments/1320850475481956513/1320850658328317973/derivative_delight.png?ex=676b1989&is=6769c809&hm=d81afd605b09f79f75f68b33656e9e37c086eeba92e90321abfa56efaa519b52&=&format=webp&quality=lossless&width=420&height=350' WHERE product_id = 11;
+UPDATE products SET product_image_url = 'images/derivative_delight.png' WHERE product_id = 11;
 UPDATE products SET product_image_url = 'images/discrete_dynamics.png' WHERE product_id = 12;
 UPDATE products SET product_image_url = 'images/linear_lollapalooza.png' WHERE product_id = 13;
 UPDATE products SET product_image_url = 'images/dumpster_fire.png' WHERE product_id = 14;

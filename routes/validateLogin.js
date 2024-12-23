@@ -1,24 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const sql = require('mssql');
+const { Client } = require('pg');
+
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+
+client.connect();
 
 router.post('/', function(req, res) {
-    // Have to preserve async context since we make an async call
-    // to the database in the validateLogin function.
     (async () => {
         const authenticatedUser = await validateLogin(req);
 
-        // True if the user wanted to checkout but wasn't logged in
-        const redirectCart = req.query.redirectCart
+        const redirectCart = req.query.redirectCart;
 
         if (authenticatedUser) {
             req.session.authenticatedUser = authenticatedUser;
-            res.redirect(redirectCart ? "/showcart" : "/index"); // Redirect to index by default
-        } 
-        else {
+            res.redirect(redirectCart ? "/showcart" : "/index");
+        } else {
             res.redirect("/login");
         }
-     })();
+    })();
 });
 
 async function validateLogin(req) {
@@ -28,24 +33,18 @@ async function validateLogin(req) {
 
     const username = req.body.username;
     const password = req.body.password;
-    const authenticatedUser =  await (async function() {
+    const authenticatedUser = await (async function() {
         try {
-            const pool = await sql.connect(dbConfig);
-
-            const sqlQuery = "SELECT customer_id, admin FROM customers WHERE username = @username AND password = @password";
-            const result = await pool.request()
-                .input('username', sql.VarChar, username)
-                .input('password', sql.VarChar, password)
-                .query(sqlQuery);
+            const sqlQuery = "SELECT customer_id, admin FROM customers WHERE username = $1 AND password = $2";
+            const result = await client.query(sqlQuery, [username, password]);
             
-            // Check if the credentials match an valid account
-            if(result.recordset.length > 0){
-                req.session.admin = result.recordset[0].admin;
+            if (result.rows.length > 0) {
+                req.session.admin = result.rows[0].admin;
                 return username;
             }
 
-           return false;
-        } catch(err) {
+            return false;
+        } catch (err) {
             console.dir(err);
             return false;
         }
