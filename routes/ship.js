@@ -24,8 +24,8 @@ router.get('/', async function(req, res, next) {
             const result = await pool.request().input('orderId', sql.Int, orderId).query(sqlQuery);
 
             let ship_date = moment(new Date()).format('YYYY-MM-DD'); // check this
-            const sql_ship_query = "INSERT INTO shipments (shipment_date, shipment_desc, warehouse_id) VALUES (@ship_date, 'Shipment for order @orderId', 1)";  
-            await pool.request().input('ship_date', sql.DateTime, ship_date).query(sql_ship_query);
+            const sqlShipQuery = "INSERT INTO shipments (shipment_date, shipment_desc, warehouse_id) VALUES (@ship_date, 'Shipment for order @orderId', 1)";  
+            await pool.request().input('ship_date', sql.DateTime, ship_date).query(sqlShipQuery);
             
             // an array to store the shipment details for rendering
             let shipmentDetails = [];
@@ -55,8 +55,8 @@ router.get('/', async function(req, res, next) {
                 });
 
                 // update the inventory
-                const sql_update_query = "UPDATE product_inventory SET quantity = quantity - @qty WHERE product_id = @product_id AND warehouse_id = 1";
-                await pool.request().input('product_id', sql.Int, product_id).input('qty', sql.Int, quantity).query(sql_update_query); 
+                const sqlUpdateQuery = "UPDATE product_inventory SET quantity = quantity - @qty WHERE product_id = @product_id AND warehouse_id = 1";
+                await pool.request().input('product_id', sql.Int, product_id).input('qty', sql.Int, quantity).query(sqlUpdateQuery); 
             }
 
             // commit the transaction after successfully updating all inventories 

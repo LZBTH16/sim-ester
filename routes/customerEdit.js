@@ -20,7 +20,7 @@ router.post('/', async function (req, res, next) {
     const username = req.session.authenticatedUser;
 
     const formData = req.body;
-    const {first_name, last_name, email, phone_num, address, city, state, postal_code, country, password} = formData;
+    const {firstName, lastName, email, phoneNum, address, city, state, postalCode, country, password} = formData;
 
     try {
         const pool = await sql.connect(dbConfig);
@@ -49,14 +49,14 @@ router.post('/', async function (req, res, next) {
             WHERE username = @username;
         `;
         const request = pool.request();
-        request.input('first_name', sql.VarChar, first_name || currentUser.first_name);
-        request.input('last_name', sql.VarChar, last_name || currentUser.last_name);
+        request.input('first_name', sql.VarChar, firstName || currentUser.first_name);
+        request.input('last_name', sql.VarChar, lastName || currentUser.last_name);
         request.input('email', sql.VarChar, email || currentUser.email);
-        request.input('phone_num', sql.VarChar, phone_num || currentUser.phone_num);
+        request.input('phone_num', sql.VarChar, phoneNum || currentUser.phone_num);
         request.input('address', sql.VarChar, address || currentUser.address);
         request.input('city', sql.VarChar, city || currentUser.city);
         request.input('state', sql.VarChar, state || currentUser.state);
-        request.input('postal_code', sql.VarChar, postal_code || currentUser.postal_code);
+        request.input('postal_code', sql.VarChar, postalCode || currentUser.postal_code);
         request.input('country', sql.VarChar, country || currentUser.country);
         request.input('password', sql.VarChar, password);
         request.input('username', sql.VarChar, username);

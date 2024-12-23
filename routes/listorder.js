@@ -20,11 +20,11 @@ router.get('/', async function (req, res, next) {
         const orders = [];
         for (let result of results.recordset) {
             let order = {
-                order_id: result.order_id,
-                order_date: moment(result.order_date).format("YYYY-MM-DD HH:mm:ss.0"),
-                customer_id: result.customer_id,
+                orderId: result.order_id,
+                orderDate: moment(result.order_date).format("YYYY-MM-DD HH:mm:ss.0"),
+                customerId: result.customer_id,
                 customerName: result.first_name + " " + result.last_name,
-                total_amount: result.total_amount.toFixed(2),
+                totalAmount: result.total_amount.toFixed(2),
                 products: []
             };
 
@@ -33,7 +33,7 @@ router.get('/', async function (req, res, next) {
 
             for (let product of results2.recordset) {
                 order.products.push({
-                    product_id: product.product_id,
+                    productId: product.product_id,
                     quantity: product.quantity,
                     price: `$${product.price.toFixed(2)}`
                 });
@@ -42,7 +42,8 @@ router.get('/', async function (req, res, next) {
             orders.push(order);
         }
 
-        res.render('listorder', { orders,
+        res.render('listorder', { 
+            orders,
             username: req.session.authenticatedUser,
             title: "All Orders"
          });

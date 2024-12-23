@@ -24,7 +24,7 @@ router.post('/updateProduct', async function (req, res, next) {
     auth.checkAuthentication(req, res);
 
     const updateData = req.body;
-    const {product_id, product_name, product_price, product_desc, adminPassword} = updateData;
+    const {productId, productName, productPrice, productDesc, adminPassword} = updateData;
 
     if(adminPassword !== process.env.ADMIN_PASSWORD){
         return res.redirect('/notAuthorized');
@@ -36,7 +36,7 @@ router.post('/updateProduct', async function (req, res, next) {
         // to preserve other data if admin doesn't update all fields
         const currentData = "SELECT * FROM product WHERE product_id = @product_id";
         const dataRequest = pool.request();
-        dataRequest.input('product_id', sql.Int, product_id);
+        dataRequest.input('product_id', sql.Int, productId);
         const result = await dataRequest.query(currentData);
         const currentProduct = result.recordset[0];
 
@@ -49,10 +49,10 @@ router.post('/updateProduct', async function (req, res, next) {
             WHERE product_id = @product_id`;
 
         await pool.request()
-            .input('product_id', sql.Int, product_id)
-            .input('product_name', sql.VarChar, product_name || currentProduct.product_name)
-            .input('product_price', sql.Decimal, product_price || currentProduct.product_price)
-            .input('product_desc', sql.VarChar, product_desc || currentProduct.product_desc)
+            .input('product_id', sql.Int, productId)
+            .input('product_name', sql.VarChar, productName || currentProduct.product_name)
+            .input('product_price', sql.Decimal, productPrice || currentProduct.product_price)
+            .input('product_desc', sql.VarChar, productDesc || currentProduct.product_desc)
             .query(updateQuery);
 
         req.session.successMessage = 'Product updated successfully!';
@@ -70,7 +70,7 @@ router.post('/deleteProduct', async function (req, res, next) {
     auth.checkAuthentication(req, res);
 
     const deleteData = req.body;
-    const {product_id, adminPassword} = deleteData;
+    const {productId, adminPassword} = deleteData;
 
     if(adminPassword !== process.env.ADMIN_PASSWORD){
         return res.redirect('/notAuthorized');
@@ -81,13 +81,13 @@ router.post('/deleteProduct', async function (req, res, next) {
 
         // need to delete from the other tables first
         const deleteOrderProduct = "DELETE FROM order_products WHERE product_id = @product_id";
-        await pool.request().input('product_id', sql.Int, product_id).query(deleteOrderProduct);
+        await pool.request().input('product_id', sql.Int, productId).query(deleteOrderProduct);
         const deleteProductInventory = "DELETE FROM product_inventory WHERE product_id = @product_id";
-        await pool.request().input('product_id', sql.Int, product_id).query(deleteProductInventory);
+        await pool.request().input('product_id', sql.Int, productId).query(deleteProductInventory);
 
         // now to delete from the product table
         const deleteQuery = "DELETE FROM product WHERE product_id = @product_id";
-        await pool.request().input('product_id', sql.Int, product_id).query(deleteQuery);
+        await pool.request().input('product_id', sql.Int, productId).query(deleteQuery);
         
         req.session.successMessage = 'Product deleted successfully!';
 
@@ -104,7 +104,7 @@ router.post('/addProduct', async function (req, res, next) {
     auth.checkAuthentication(req, res);
 
     const newData = req.body;
-    const {product_name, product_price, product_desc, category_id, adminPassword} = newData;
+    const {productName, productPrice, productDesc, categoryId, adminPassword} = newData;
 
     if(adminPassword !== process.env.ADMIN_PASSWORD){
         return res.redirect('/notAuthorized');
@@ -115,10 +115,10 @@ router.post('/addProduct', async function (req, res, next) {
         
         const addQuery = "INSERT INTO products(product_name, category_id, product_desc, product_price) VALUES (@product_name, @category_id, @product_desc, @product_price)";
         await pool.request()
-        .input('product_name', sql.VarChar, product_name)
-        .input('category_id', sql.Int, category_id)
-        .input('product_desc', sql.VarChar, product_desc)
-        .input('product_price', sql.Decimal, product_price)
+        .input('product_name', sql.VarChar, productName)
+        .input('category_id', sql.Int, categoryId)
+        .input('product_desc', sql.VarChar, productDesc)
+        .input('product_price', sql.Decimal, productPrice)
         .query(addQuery);
     
         req.session.successMessage = 'Product added successfully!';

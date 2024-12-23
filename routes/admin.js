@@ -18,8 +18,8 @@ router.get('/', function(req, res, next) {
 
             // Iterate through every order in the recordset
             const orders = results.recordset.map(order => ({
-                order_date: moment(order.order_date).format('YYYY-MM-DD'),
-                sum_total: order.sum_total
+                orderDate: moment(order.order_date).format('YYYY-MM-DD'),
+                sumTotal: order.sum_total
             }));
 
 
