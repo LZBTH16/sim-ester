@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const sql = require('mssql');
+const { Client } = require('pg'); 
 const moment = require('moment');
 
 router.get('/', async function (req, res, next) {
@@ -20,14 +20,14 @@ router.get('/', async function (req, res, next) {
 
         const pool = await sql.connect(dbConfig);
 
-        sqlQuery = "SELECT firstName, lastName, customerId FROM customer WHERE userid = @userid";
+        sqlQuery = "SELECT first_name, last_name, customer_id FROM customers WHERE username = @username";
         results = await pool.request()
-            .input('userid', sql.VarChar, username)
+            .input('username', sql.VarChar, username)
             .query(sqlQuery);
 
-        const firstName = results.recordset[0].firstName;
-        const lastName = results.recordset[0].lastName;
-        const customerId = results.recordset[0].customerId;
+        const firstName = results.recordset[0].first_name;
+        const lastName = results.recordset[0].last_name;
+        const customerId = results.recordset[0].customer_id;
 
         // Process the order summary
         let total = 0;
@@ -53,27 +53,27 @@ router.get('/', async function (req, res, next) {
             });
         }
 
-        // Insert into ordersummary
+        // Insert into order_summaries
         let currentDate = new Date();
-        sqlQuery = "INSERT INTO ordersummary (orderDate, totalAmount, customerId) OUTPUT INSERTED.orderId VALUES(@orderDate, @totalAmount, @customerId)";
+        sqlQuery = "INSERT INTO order_summaries (order_date, total_amount, customer_id) VALUES (@order_date, @total_amount, @customer_id) RETURNING order_id;";
         let result = await pool.request()
-            .input('orderDate', sql.DateTime, currentDate)
-            .input('totalAmount', sql.Decimal, total)
-            .input('customerId', sql.Int, customerId)
+            .input('order_date', sql.DateTime, currentDate)
+            .input('total_amount', sql.Decimal, total)
+            .input('customer_id', sql.Int, customerId)
             .query(sqlQuery);
 
-        let orderId = result.recordset[0].orderId;
+        let orderId = result.rows[0].order_id;
 
-        // Insert into orderproduct
+        // Insert into order_products
         for (let product of productList) {
             if (!product){ 
                 continue;
             }
 
-            sqlQuery = "INSERT INTO orderproduct VALUES (@orderId, @productId, @quantity, @price)";
+            sqlQuery = "INSERT INTO order_products VALUES (@order_id, @product_id, @quantity, @price)";
             await pool.request()
-                .input('orderId', sql.Int, orderId)
-                .input('productId', sql.Int, product.id)
+                .input('order_id', sql.Int, orderId)
+                .input('product_id', sql.Int, product.id)
                 .input('quantity', sql.Int, product.quantity)
                 .input('price', sql.Decimal, product.price)
                 .query(sqlQuery);

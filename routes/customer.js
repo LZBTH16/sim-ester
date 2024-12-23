@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const sql = require('mssql');
+const { Client } = require('pg'); 
 const auth = require('../auth');
 
 router.get('/', function(req, res, next) {
@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
             const pool = await sql.connect(dbConfig);
 
             // grabbing everything but the password
-            const sqlQuery = "SELECT customerId, firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid FROM customer WHERE userid LIKE @username";
+            const sqlQuery = "SELECT customer_id, first_name, last_name, email, phone_num, address, city, state, postal_code, country, username FROM customers WHERE username LIKE @username";
             const result = await pool.request().input('username', sql.VarChar, username).query(sqlQuery);
 
             // grabbing the first (and only) part of the queried array to be displayed on the site

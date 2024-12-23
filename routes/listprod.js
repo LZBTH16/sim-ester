@@ -13,14 +13,14 @@ client.connect();
 
 router.get('/', async function(req, res) {
     try {
-        const name = req.query.productName;
+        const name = req.query.product_name;
         const category = req.query.category; // Category filter
 
         // Base query to join the product and category tables
         let sqlQuery = `
-            SELECT p.productId, p.productName, p.productPrice, c.categoryName 
-            FROM product p
-            JOIN category c ON p.categoryId = c.categoryId
+            SELECT p.product_id, p.product_name, p.product_price, c.category_name 
+            FROM products p
+            JOIN categories c ON p.category_id = c.category_id
             WHERE 1=1
         `;
 
@@ -29,13 +29,13 @@ router.get('/', async function(req, res) {
 
         // If a product name is provided, add it to the query and bind the parameter
         if (name) {
-            sqlQuery += " AND p.productName ILIKE $1"; 
+            sqlQuery += " AND p.product_name ILIKE $1"; 
             queryParams.push(`%${name}%`);
         }
 
         // If a category is provided, add it to the query and bind the parameter
         if (category) {
-            sqlQuery += " AND c.categoryName = $2";
+            sqlQuery += " AND c.category_name = $2";
             queryParams.push(category);
         }
 

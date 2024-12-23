@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../auth');
-const sql = require('mssql');
+const { Client } = require('pg'); 
 const moment = require('moment');
 
 router.get('/', function(req, res, next) {
@@ -13,18 +13,18 @@ router.get('/', function(req, res, next) {
             const pool = await sql.connect(dbConfig);
 
             // getting orders per day
-            const sqlQuery = "SELECT CAST(orderDate AS DATE) orderDate, SUM(totalAmount) sumTotal FROM ordersummary GROUP BY CAST(orderDate AS DATE)";
+            const sqlQuery = "SELECT CAST(order_date AS DATE) order_date, SUM(total_amount) sum_total FROM order_summaries GROUP BY CAST(order_date AS DATE)";
             const results = await pool.request().query(sqlQuery);
 
             // Iterate through every order in the recordset
             const orders = results.recordset.map(order => ({
-                orderDate: moment(order.orderDate).format('YYYY-MM-DD'),
-                sumTotal: order.sumTotal
+                order_date: moment(order.order_date).format('YYYY-MM-DD'),
+                sum_total: order.sum_total
             }));
 
 
             // getting customer info
-            const sqlQuery2 = "SELECT * FROM customer";
+            const sqlQuery2 = "SELECT * FROM customers";
             const results2 = await pool.request().query(sqlQuery2);
             const customerInfo = results2.recordset;
 

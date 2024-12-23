@@ -8,7 +8,7 @@
 
     <body>
         <h1>{{message}}</h1> <!-- displaying whether the shipment was successful or not -->
-        <!-- for each ordered product, display the id, qty, and prev & new inventories -->
+        <!-- for each ordered product, display the id, quantity, and prev & new inventories -->
         <table>
             <thead>
                 <tr>
@@ -22,7 +22,7 @@
                 {{#each shipmentDetails}}
                     <tr>
                         <td>{{this.productId}}</td>
-                        <td>{{this.qty}}</td>
+                        <td>{{this.quantity}}</td>
                         <td>{{this.prevInventory}}</td>
                         <td>{{this.newInventory}}</td>
                     </tr>

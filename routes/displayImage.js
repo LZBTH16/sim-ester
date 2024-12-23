@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const sql = require('mssql');
+const { Client } = require('pg'); 
 
 router.get('/', function(req, res, next) {
     res.setHeader('Content-Type', 'image/jpeg');
 
-    let productId = req.query.id;
-    productId = parseInt(productId);
-    if (isNaN(productId)) {
+    let product_id = req.query.id;
+    product_id = parseInt(product_id);
+    if (isNaN(product_id)) {
         res.end();
         return;
     }
@@ -16,10 +16,10 @@ router.get('/', function(req, res, next) {
         try {
             const pool = await sql.connect(dbConfig);
 
-            const sqlQuery = "SELECT productImage FROM product WHERE productId = @productId";
+            const sqlQuery = "SELECT product_image FROM products WHERE product_id = @product_id";
 
             const result = await pool.request()
-                .input('productId', sql.Int, productId)
+                .input('product_id', sql.Int, product_id)
                 .query(sqlQuery);
 
             if (result.recordset.length === 0) {
@@ -27,9 +27,9 @@ router.get('/', function(req, res, next) {
                 res.end();
                 return;
             } else {
-                const productImage = result.recordset[0].productImage;
+                const product_image = result.recordset[0].product_image;
 
-                res.write(productImage);
+                res.write(product_image);
             }
 
             res.end();

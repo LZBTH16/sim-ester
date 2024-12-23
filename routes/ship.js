@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const sql = require('mssql');
+const { Client } = require('pg'); 
 const moment = require('moment');
 
 router.get('/', async function(req, res, next) {
     res.setHeader('Content-Type', 'text/html');
 
-    const orderId = parseInt(req.query.orderId);
+    const orderId = parseInt(req.query.order_id);
           
     if(!orderId) {
         return res.render('ship', {message: 'Invalid Order ID'});
@@ -20,42 +20,43 @@ router.get('/', async function(req, res, next) {
            const transaction = new sql.Transaction(pool); 
            await transaction.begin();
 	   	
-            const sqlQuery = "SELECT * FROM orderproduct WHERE orderId = @orderId";
+            const sqlQuery = "SELECT * FROM order_products WHERE order_id = @orderId";
             const result = await pool.request().input('orderId', sql.Int, orderId).query(sqlQuery);
 
-            let shipDate = moment(new Date()).format('YYYY-MM-DD'); // check this
-            const sqlShipQuery = "INSERT INTO shipment (shipmentDate, shipmentDesc, warehouseId) VALUES (@shipDate, 'Shipment for order @orderId', 1)";  
-            await pool.request().input('shipDate', sql.DateTime, shipDate).query(sqlShipQuery);
+            let ship_date = moment(new Date()).format('YYYY-MM-DD'); // check this
+            const sql_ship_query = "INSERT INTO shipments (shipment_date, shipment_desc, warehouse_id) VALUES (@ship_date, 'Shipment for order @orderId', 1)";  
+            await pool.request().input('ship_date', sql.DateTime, ship_date).query(sql_ship_query);
             
             // an array to store the shipment details for rendering
             let shipmentDetails = [];
 
             for(let item of result.recordset) {
-                const {productId, quantity} = item;
+                const productId = item.product_id;
+                const quantity = item.quantity;
 
                 // getting available inventory
-                const sqlInvQuery = "SELECT quantity FROM productinventory WHERE productId = @productId AND warehouseId = 1"; 
-                const inventoryCheck = await pool.request().input('productId', sql.Int, productId).query(sqlInvQuery);
+                const sqlInvQuery = "SELECT quantity FROM product_inventory WHERE product_id = @product_id AND warehouse_id = 1"; 
+                const inventoryCheck = await pool.request().input('product_id', sql.Int, productId).query(sqlInvQuery);
 
-                const availableQty = inventoryCheck.recordset[0]?.quantity || 0;
+                const availableQuantity = inventoryCheck.recordset[0]?.quantity || 0;
 
                 // checking if there is enough inventory
-                if(availableQty < quantity) {
+                if(availableQuantity < quantity) {
                     await transaction.rollback();
-                    return res.render('ship', {message: `Not enough inventory for product ${productId}. Required: ${quantity}, Available: ${availableQty}`});
+                    return res.render('ship', {message: `Not enough inventory for product ${productId}. Required: ${quantity}, Available: ${availableQuantity}`});
                 }
 
                 // updating shipment details for rendering
                 shipmentDetails.push({
                     productId: productId,
-                    qty: quantity,
-                    prevInventory: availableQty,
-                    newInventory: availableQty - quantity
+                    quantity: quantity,
+                    prevInventory: availableQuantity,
+                    newInventory: availableQuantity - quantity
                 });
 
                 // update the inventory
-                const sqlUpdateQuery = "UPDATE productinventory SET quantity = quantity - @qty WHERE productId = @productId AND warehouseId = 1";
-                await pool.request().input('productId', sql.Int, productId).input('qty', sql.Int, quantity).query(sqlUpdateQuery); 
+                const sql_update_query = "UPDATE product_inventory SET quantity = quantity - @qty WHERE product_id = @product_id AND warehouse_id = 1";
+                await pool.request().input('product_id', sql.Int, product_id).input('qty', sql.Int, quantity).query(sql_update_query); 
             }
 
             // commit the transaction after successfully updating all inventories 

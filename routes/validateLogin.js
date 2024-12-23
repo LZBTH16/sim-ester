@@ -32,7 +32,7 @@ async function validateLogin(req) {
         try {
             const pool = await sql.connect(dbConfig);
 
-            const sqlQuery = "SELECT customerId, admin FROM customer WHERE userid = @username AND password = @password";
+            const sqlQuery = "SELECT customer_id, admin FROM customers WHERE username = @username AND password = @password";
             const result = await pool.request()
                 .input('username', sql.VarChar, username)
                 .input('password', sql.VarChar, password)

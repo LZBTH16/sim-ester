@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const sql = require('mssql');
+const { Client } = require('pg'); 
 
 router.post('/', function(req, res) {
     (async () => {
         const pool = await sql.connect(dbConfig);
         const formData = req.body;
 
-        const { firstName, lastName, email, phone, address, city, state, postalCode, country, username, password } = formData;
+        const { first_name, last_name, email, phone, address, city, state, postal_code, country, username, password } = formData;
 
         // Check if phone number is valid
         const phoneRegex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
@@ -24,7 +24,7 @@ router.post('/', function(req, res) {
         }
 
         // Check if the user already exists
-        let sqlQuery = "SELECT firstName FROM customer WHERE email = @email";
+        let sqlQuery = "SELECT first_name FROM customer WHERE email = @email";
         let result = await pool.request()
             .input('email', sql.VarChar, email)
             .query(sqlQuery);
@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
             return res.render('registrationError', { emailInUse: true });
         }
         
-        sqlQuery = "SELECT firstName FROM customer WHERE userid = @username";
+        sqlQuery = "SELECT first_name FROM customer WHERE username = @username";
         result = await pool.request()
             .input('username', sql.VarChar, username)
             .query(sqlQuery);
@@ -45,30 +45,30 @@ router.post('/', function(req, res) {
         }
 
         // If successful, insert into database
-        sqlQuery = "INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES (@firstName, @lastName, @email, @phone, @address, @city, @state, @postalCode, @country, @userid, @password)";
+        sqlQuery = "INSERT INTO customer (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES (@first_name, @last_name, @email, @phone, @address, @city, @state, @postal_code, @country, @username, @password)";
         result = await pool.request()
-            .input('firstName', sql.VarChar, firstName)
-            .input('lastName', sql.VarChar, lastName)
+            .input('first_name', sql.VarChar, first_name)
+            .input('last_name', sql.VarChar, last_name)
             .input('email', sql.VarChar, email)
             .input('phone', sql.VarChar, phone)
             .input('address', sql.VarChar, address)
             .input('city', sql.VarChar, city)
             .input('state', sql.VarChar, state)
-            .input('postalCode', sql.VarChar, postalCode)
+            .input('postal_code', sql.VarChar, postal_code)
             .input('country', sql.VarChar, country)
-            .input('userid', sql.VarChar, username)
+            .input('username', sql.VarChar, username)
             .input('password', sql.VarChar, password)
             .query(sqlQuery);
 
         res.render('accountCreated', {
-            firstName: firstName,
-            lastName: lastName,
+            first_name: first_name,
+            last_name: last_name,
             email: email,
             phone: phone,
             address: address,
             city: city,
             state: state,
-            postalCode: postalCode,
+            postal_code: postal_code,
             country: country,
             newUsername: username
         });

@@ -2,7 +2,7 @@ DROP TABLE reviews;
 DROP TABLE shipments;
 DROP TABLE product_inventory;
 DROP TABLE warehouses;
-DROP TABLE orderproducts;
+DROP TABLE order_products;
 DROP TABLE in_cart;
 DROP TABLE products;
 DROP TABLE categories;
@@ -66,7 +66,7 @@ CREATE TABLE products (
     FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 
-CREATE TABLE orderproducts (
+CREATE TABLE order_products (
     order_id INT,
     product_id INT,
     quantity INT,
