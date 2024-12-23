@@ -1,178 +1,190 @@
+DROP TABLE review;
+DROP TABLE shipment;
+DROP TABLE productinventory;
+DROP TABLE warehouse;
+DROP TABLE orderproduct;
+DROP TABLE incart;
+DROP TABLE product;
+DROP TABLE category;
+DROP TABLE ordersummary;
+DROP TABLE paymentmethod;
+DROP TABLE customer;
+
 CREATE TABLE customer (
-    customerId SERIAL PRIMARY KEY,
-    firstName VARCHAR(40),
-    lastName VARCHAR(40),
+    customer_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(40),
+    last_name VARCHAR(40),
     email VARCHAR(50),
-    phonenum VARCHAR(20),
+    phone_num VARCHAR(20),
     address VARCHAR(50),
     city VARCHAR(40),
     state VARCHAR(20),
-    postalCode VARCHAR(20),
+    postal_code VARCHAR(20),
     country VARCHAR(40),
-    userid VARCHAR(20),
+    username VARCHAR(20),
     password VARCHAR(30),
     admin BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE paymentmethod (
-    paymentMethodId SERIAL PRIMARY KEY,
-    paymentType VARCHAR(20),
-    paymentNumber VARCHAR(30),
-    paymentExpiryDate DATE,
-    customerId INT,
-    FOREIGN KEY (customerId) REFERENCES customer(customerId)
+    payment_method_id SERIAL PRIMARY KEY,
+    payment_type VARCHAR(20),
+    payment_number VARCHAR(30),
+    payment_expiry_date DATE,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE ordersummary (
-    orderId SERIAL PRIMARY KEY,
-    orderDate TIMESTAMP,
-    totalAmount DECIMAL(10, 2),
-    shiptoAddress VARCHAR(50),
-    shiptoCity VARCHAR(40),
-    shiptoState VARCHAR(20),
-    shiptoPostalCode VARCHAR(20),
-    shiptoCountry VARCHAR(40),
-    customerId INT,
-    FOREIGN KEY (customerId) REFERENCES customer(customerId)
+    order_id SERIAL PRIMARY KEY,
+    order_date TIMESTAMP,
+    total_amount DECIMAL(10, 2),
+    ship_to_address VARCHAR(50),
+    ship_to_city VARCHAR(40),
+    ship_to_state VARCHAR(20),
+    ship_to_postal_code VARCHAR(20),
+    ship_to_country VARCHAR(40),
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE category (
-    categoryId SERIAL PRIMARY KEY,
-    categoryName VARCHAR(50)
+    category_id SERIAL PRIMARY KEY,
+    category_name VARCHAR(50)
 );
 
 CREATE TABLE product (
-    productId SERIAL PRIMARY KEY,
-    productName VARCHAR(40),
-    productPrice DECIMAL(10, 2),
-    productImageURL VARCHAR(100),
-    productImage BYTEA,
-    productDesc VARCHAR(1000),
-    categoryId INT,
-    FOREIGN KEY (categoryId) REFERENCES category(categoryId)
+    product_id SERIAL PRIMARY KEY,
+    product_name VARCHAR(40),
+    product_price DECIMAL(10, 2),
+    product_image_url VARCHAR(100),
+    product_image BYTEA,
+    product_desc VARCHAR(1000),
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES category(category_id)
 );
 
 CREATE TABLE orderproduct (
-    orderId INT,
-    productId INT,
+    order_id INT,
+    product_id INT,
     quantity INT,
     price DECIMAL(10, 2),
-    PRIMARY KEY (orderId, productId),
-    FOREIGN KEY (orderId) REFERENCES ordersummary(orderId)
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id) REFERENCES ordersummary(order_id)
         ON UPDATE CASCADE ON DELETE NO ACTION,
-    FOREIGN KEY (productId) REFERENCES product(productId)
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
         ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
 CREATE TABLE incart (
-    orderId INT,
-    productId INT,
+    order_id INT,
+    product_id INT,
     quantity INT,
     price DECIMAL(10, 2),
-    PRIMARY KEY (orderId, productId),
-    FOREIGN KEY (orderId) REFERENCES ordersummary(orderId)
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id) REFERENCES ordersummary(order_id)
         ON UPDATE CASCADE ON DELETE NO ACTION,
-    FOREIGN KEY (productId) REFERENCES product(productId)
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
         ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
 CREATE TABLE warehouse (
-    warehouseId SERIAL PRIMARY KEY,
-    warehouseName VARCHAR(30)
+    warehouse_id SERIAL PRIMARY KEY,
+    warehouse_name VARCHAR(30)
 );
 
 CREATE TABLE shipment (
-    shipmentId SERIAL PRIMARY KEY,
-    shipmentDate TIMESTAMP,
-    shipmentDesc VARCHAR(100),
-    warehouseId INT,
-    FOREIGN KEY (warehouseId) REFERENCES warehouse(warehouseId)
+    shipment_id SERIAL PRIMARY KEY,
+    shipment_date TIMESTAMP,
+    shipment_desc VARCHAR(100),
+    warehouse_id INT,
+    FOREIGN KEY (warehouse_id) REFERENCES warehouse(warehouse_id)
         ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
 CREATE TABLE productinventory (
-    productId INT,
-    warehouseId INT,
+    product_id INT,
+    warehouse_id INT,
     quantity INT,
     price DECIMAL(10, 2),
-    PRIMARY KEY (productId, warehouseId),
-    FOREIGN KEY (productId) REFERENCES product(productId)
+    PRIMARY KEY (product_id, warehouse_id),
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
         ON UPDATE CASCADE ON DELETE NO ACTION,
-    FOREIGN KEY (warehouseId) REFERENCES warehouse(warehouseId)
+    FOREIGN KEY (warehouse_id) REFERENCES warehouse(warehouse_id)
         ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
 CREATE TABLE review (
-    reviewId SERIAL PRIMARY KEY,
-    reviewRating INT,
-    reviewDate TIMESTAMP,
-    customerId INT,
-    productId INT,
-    reviewComment TEXT,
-    FOREIGN KEY (customerId) REFERENCES customer(customerId)
+    review_id SERIAL PRIMARY KEY,
+    review_rating INT,
+    review_date TIMESTAMP,
+    customer_id INT,
+    product_id INT,
+    review_comment TEXT,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
         ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (productId) REFERENCES product(productId)
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-INSERT INTO category(categoryName) VALUES ('COSC');
-INSERT INTO category(categoryName) VALUES ('MATH');
-INSERT INTO category(categoryName) VALUES ('STAT');
+INSERT INTO category(category_name) VALUES ('COSC');
+INSERT INTO category(category_name) VALUES ('MATH');
+INSERT INTO category(category_name) VALUES ('STAT');
 
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Algorithm Adventures', 1, 'Embark on a quest through the magical world of algorithm design with Algorithm Adventures! Tackle the epic challenges of optimizing, analyzing, and conquering algorithmic problems, all while discovering the mystical art of turning real-world tasks into codeable quests! (Based on COSC 320)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Assembly Architecture', 1, 'Gear up for Assembly Architecture, where you''ll step behind the scenes of computer systems and explore the MIPS architecture through assembly programming. Unlock the secrets of performance optimization and real-time system design - it''s time to assemble your understanding! (Based on COSC 211)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Computer Creativity', 1, 'Unleash your inner coder in Computer Creativity, where programming meets imagination! You’ll explore the world of graphics, events, and 2D games while practicing the basics of decision-making and iteration. Ready to code your own masterpiece? (Based on COSC 123)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Covariance Conundrum', 3, 'Welcome to the Covariance Conundrum, where probability and random variables come to life in a thrilling quest! Tackle discrete and continuous distributions, joint probabilities, and transformations like a true statistical hero, all while unlocking the secrets of calculus. (Based on STAT 303)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Database Dynasty', 1, 'Step into Database Dynasty, where you’ll build, query, and conquer the kingdom of data! From mastering SQL and designing powerful databases with ER diagrams to automating data analysis, become the ruler of relational databases. Ready to claim your database crown? (Based on COSC 304)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Hashmap Simulator', 1, 'Join the Hashmap Simulator, where data structures meet strategy! Dive deep into the world of Java and explore how to efficiently organize and access information in limited memory – because in the world of programming, efficiency is key! Ready to hash it out? (Based on COSC 222)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Integration Sensation', 2, 'Feel the Integration Sensation as you explore the world of integrals and their powerful applications! From mastering definite integrals to solving linear ODEs, you’ll learn how to apply integration techniques in ways that make modeling and real-world problems a breeze. (Based on MATH 101)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Matrix Mayhem', 2, 'Prepare for Matrix Mayhem, where linear algebra gets turned into a wild adventure! Battle through LU-factorization, QR-factorization, and eigenvalue estimates, while navigating the chaotic world of dynamical systems and orthogonality – all in the name of mastering the matrix! (Based on MATH 307)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Object Oriented Odyssey', 1, 'Embark on an Object Oriented Odyssey where you''ll master the art of Java programming! Learn to create powerful, reusable programs using concepts like encapsulation, inheritance, and polymorphism, while tackling exceptions, streams, and recursion along the way. Ready to code like a pro? (Based on COSC 121)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Sigma Statistics', 3, 'Get ready for Sigma Statistics, where data analysis and real-world application meet! From hypothesis testing and regression analysis to diving into the world of variance and non-parametrics, this course will give you the tools to turn numbers into meaningful insights. (Based on STAT 230)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Derivative Delight', 2, 'Get ready to "derive" some fun as you tackle the ever-exciting world of limits and derivatives! From graphing to optimization, it''s the rollercoaster ride of calculus where you’ll learn how to find the steepest slope and maximize your "fun" (or at least your functions). (Based on MATH100)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Discrete Dynamics', 1, 'Step into the world of sets, logic, and Boolean algebra, where every permutation and combination brings you closer to solving the ultimate puzzle. It’s like a game of "connect the dots," except the dots are graphs, and the connections are... well, discrete. (Based on COSC221)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Linear Lollapalooza', 2, 'Hold on to your vectors as you dive into the world of linear equations and matrices—where determinants rule the land, eigenvalues reign supreme, and diagonalization is the ultimate party trick. It''s the math equivalent of a music festival, but with way more vectors and way fewer mosh pits! (Based on MATH221)', 60);
-INSERT INTO product(productName, categoryId, productDesc, productPrice) VALUES ('Dumpster Fire Simulator', 1, 'Instead of spending $336-million on this, UBC should''ve spent it on Ramon''s bonus', 3300000);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Algorithm Adventures', 1, 'Embark on a quest through the magical world of algorithm design with Algorithm Adventures! Tackle the epic challenges of optimizing, analyzing, and conquering algorithmic problems, all while discovering the mystical art of turning real-world tasks into codeable quests! (Based on COSC 320)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Assembly Architecture', 1, 'Gear up for Assembly Architecture, where you''ll step behind the scenes of computer systems and explore the MIPS architecture through assembly programming. Unlock the secrets of performance optimization and real-time system design - it''s time to assemble your understanding! (Based on COSC 211)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Computer Creativity', 1, 'Unleash your inner coder in Computer Creativity, where programming meets imagination! You’ll explore the world of graphics, events, and 2D games while practicing the basics of decision-making and iteration. Ready to code your own masterpiece? (Based on COSC 123)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Covariance Conundrum', 3, 'Welcome to the Covariance Conundrum, where probability and random variables come to life in a thrilling quest! Tackle discrete and continuous distributions, joint probabilities, and transformations like a true statistical hero, all while unlocking the secrets of calculus. (Based on STAT 303)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Database Dynasty', 1, 'Step into Database Dynasty, where you’ll build, query, and conquer the kingdom of data! From mastering SQL and designing powerful databases with ER diagrams to automating data analysis, become the ruler of relational databases. Ready to claim your database crown? (Based on COSC 304)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Hashmap Simulator', 1, 'Join the Hashmap Simulator, where data structures meet strategy! Dive deep into the world of Java and explore how to efficiently organize and access information in limited memory – because in the world of programming, efficiency is key! Ready to hash it out? (Based on COSC 222)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Integration Sensation', 2, 'Feel the Integration Sensation as you explore the world of integrals and their powerful applications! From mastering definite integrals to solving linear ODEs, you’ll learn how to apply integration techniques in ways that make modeling and real-world problems a breeze. (Based on MATH 101)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Matrix Mayhem', 2, 'Prepare for Matrix Mayhem, where linear algebra gets turned into a wild adventure! Battle through LU-factorization, QR-factorization, and eigenvalue estimates, while navigating the chaotic world of dynamical systems and orthogonality – all in the name of mastering the matrix! (Based on MATH 307)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Object Oriented Odyssey', 1, 'Embark on an Object Oriented Odyssey where you''ll master the art of Java programming! Learn to create powerful, reusable programs using concepts like encapsulation, inheritance, and polymorphism, while tackling exceptions, streams, and recursion along the way. Ready to code like a pro? (Based on COSC 121)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Sigma Statistics', 3, 'Get ready for Sigma Statistics, where data analysis and real-world application meet! From hypothesis testing and regression analysis to diving into the world of variance and non-parametrics, this course will give you the tools to turn numbers into meaningful insights. (Based on STAT 230)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Derivative Delight', 2, 'Get ready to "derive" some fun as you tackle the ever-exciting world of limits and derivatives! From graphing to optimization, it''s the rollercoaster ride of calculus where you’ll learn how to find the steepest slope and maximize your "fun" (or at least your functions). (Based on MATH100)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Discrete Dynamics', 1, 'Step into the world of sets, logic, and Boolean algebra, where every permutation and combination brings you closer to solving the ultimate puzzle. It’s like a game of "connect the dots," except the dots are graphs, and the connections are... well, discrete. (Based on COSC221)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Linear Lollapalooza', 2, 'Hold on to your vectors as you dive into the world of linear equations and matrices—where determinants rule the land, eigenvalues reign supreme, and diagonalization is the ultimate party trick. It''s the math equivalent of a music festival, but with way more vectors and way fewer mosh pits! (Based on MATH221)', 60);
+INSERT INTO product(product_name, category_id, product_desc, product_price) VALUES ('Dumpster Fire Simulator', 1, 'Instead of spending $336-million on this, UBC should''ve spent it on Ramon''s bonus', 3300000);
 
-INSERT INTO warehouse(warehouseName) VALUES ('Main warehouse');
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (1, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (2, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (3, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (4, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (5, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (6, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (7, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (8, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (9, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (10, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (11, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (12, 1, 100, 60);
-INSERT INTO productInventory(productId, warehouseId, quantity, price) VALUES (13, 1, 100, 60);
+INSERT INTO warehouse(warehouse_name) VALUES ('Main warehouse');
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (1, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (2, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (3, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (4, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (5, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (6, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (7, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (8, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (9, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (10, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (11, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (12, 1, 100, 60);
+INSERT INTO productInventory(product_id, warehouse_id, quantity, price) VALUES (13, 1, 100, 60);
 
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Candace', 'Cole', 'cole@charity.org', '333-444-5555', '333 Central Crescent', 'Chicago', 'IL', '33333', 'United States', 'candace' , 'password');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Darren', 'Doe', 'oe@doe.com', '250-807-2222', '444 Dover Lane', 'Kelowna', 'BC', 'V1V 2X9', 'Canada', 'darren' , 'pw');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Elizabeth', 'Elliott', 'engel@uiowa.edu', '555-666-7777', '555 Everwood Street', 'Iowa City', 'IA', '52241', 'United States', 'beth' , 'test');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Ramon', 'Lawrence', 'ramon.lawrence@ubc.ca', '250-807-9390', 'SCI 200C', 'Kelowna', 'BC', 'V1V 1V7', 'Canada', 'rlawrenc', '304ramonpw', 1);
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Omar', 'Abdelaziz','iamacosc304ta@ubc.ca', '250-304-2024', '3333 University Way', 'Kelowna', 'BC', 'V1V 1V7', 'Canada', 'omar', 'pw');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Bradan', 'Fleming', 'another304ta@ubc.ca', '250-304-2024', '3333 University Way', 'Kelowna', 'BC', 'V1V 1V7', 'Canada', 'bradan', 'pw');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Kevin', 'Wang', '304ta@ubc.ca', '250-304-2024', '3333 University Way', 'Kelowna', 'BC', 'V1V 1V7', 'Canada', 'kevin', 'pw');
-INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES ('Terry', 'Davis', 'terrydavis@gmail.com', '250-304-2024', 'City Hall', 'West Allis', 'WI', 'V1V 1V1', 'United States', 'terry', 'terry');
+INSERT INTO customer (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test');
+INSERT INTO customer (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby');
+INSERT INTO customer (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Candace', 'Cole', 'cole@charity.org', '333-444-5555', '333 Central Crescent', 'Chicago', 'IL', '33333', 'United States', 'candace' , 'password');
+INSERT INTO customer (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Darren', 'Doe', 'oe@doe.com', '250-807-2222', '444 Dover Lane', 'Kelowna', 'BC', 'V1V 2X9', 'Canada', 'darren' , 'pw');
+INSERT INTO customer (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Elizabeth', 'Elliott', 'engel@uiowa.edu', '555-666-7777', '555 Everwood Street', 'Iowa City', 'IA', '52241', 'United States', 'beth' , 'test');
+INSERT INTO customer (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password, admin) VALUES ('Ramon', 'Lawrence', 'ramon.lawrence@ubc.ca', '250-807-9390', 'SCI 200C', 'Kelowna', 'BC', 'V1V 1V7', 'Canada', 'rlawrenc', '304ramonpw', TRUE);
+INSERT INTO customer (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Omar', 'Abdelaziz','iamacosc304ta@ubc.ca', '250-304-2024', '3333 University Way', 'Kelowna', 'BC', 'V1V 1V7', 'Canada', 'omar', 'pw');
+INSERT INTO customer (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Bradan', 'Fleming', 'another304ta@ubc.ca', '250-304-2024', '3333 University Way', 'Kelowna', 'BC', 'V1V 1V7', 'Canada', 'bradan', 'pw');
+INSERT INTO customer (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Kevin', 'Wang', '304ta@ubc.ca', '250-304-2024', '3333 University Way', 'Kelowna', 'BC', 'V1V 1V7', 'Canada', 'kevin', 'pw');
+INSERT INTO customer (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Terry', 'Davis', 'terrydavis@gmail.com', '250-304-2024', 'City Hall', 'West Allis', 'WI', 'V1V 1V1', 'United States', 'terry', 'terry');
 
-UPDATE Product SET productImageURL = 'images/algorithm_adventures.png' WHERE ProductId = 1;
-UPDATE Product SET productImageURL = 'images/assembly_architecture.png' WHERE ProductId = 2;
-UPDATE Product SET productImageURL = 'images/computer_creativity.png' WHERE ProductId = 3;
-UPDATE Product SET productImageURL = 'images/covariance_conundrum.png' WHERE ProductId = 4;
-UPDATE Product SET productImageURL = 'images/database_dynasty.png' WHERE ProductId = 5;
-UPDATE Product SET productImageURL = 'images/hashmap_simulator.png' WHERE ProductId = 6;
-UPDATE Product SET productImageURL = 'images/integration_sensation.png' WHERE ProductId = 7;
-UPDATE Product SET productImageURL = 'images/matrix_mayhem.png' WHERE ProductId = 8;
-UPDATE Product SET productImageURL = 'images/object_oriented_odyssey.png' WHERE ProductId = 9;
-UPDATE Product SET productImageURL = 'images/sigma_statistics.png' WHERE ProductId = 10;
-UPDATE Product SET productImageURL = 'images/derivative_delight.png' WHERE ProductId = 11;
-UPDATE Product SET productImageURL = 'images/discrete_dynamics.png' WHERE ProductId = 12;
-UPDATE Product SET productImageURL = 'images/linear_lollapalooza.png' WHERE ProductId = 13;
-UPDATE Product SET productImageURL = 'images/dumpster_fire.png' WHERE ProductId = 14;
+UPDATE product SET product_image_url = 'images/algorithm_adventures.png' WHERE product_id = 1;
+UPDATE product SET product_image_url = 'images/assembly_architecture.png' WHERE product_id = 2;
+UPDATE product SET product_image_url = 'images/computer_creativity.png' WHERE product_id = 3;
+UPDATE product SET product_image_url = 'images/covariance_conundrum.png' WHERE product_id = 4;
+UPDATE product SET product_image_url = 'images/database_dynasty.png' WHERE product_id = 5;
+UPDATE product SET product_image_url = 'images/hashmap_simulator.png' WHERE product_id = 6;
+UPDATE product SET product_image_url = 'images/integration_sensation.png' WHERE product_id = 7;
+UPDATE product SET product_image_url = 'images/matrix_mayhem.png' WHERE product_id = 8;
+UPDATE product SET product_image_url = 'images/object_oriented_odyssey.png' WHERE product_id = 9;
+UPDATE product SET product_image_url = 'images/sigma_statistics.png' WHERE product_id = 10;
+UPDATE product SET product_image_url = 'images/derivative_delight.png' WHERE product_id = 11;
+UPDATE product SET product_image_url = 'images/discrete_dynamics.png' WHERE product_id = 12;
+UPDATE product SET product_image_url = 'images/linear_lollapalooza.png' WHERE product_id = 13;
+UPDATE product SET product_image_url = 'images/dumpster_fire.png' WHERE product_id = 14;
