@@ -1,7 +1,7 @@
 ## Description
 Sim-ester is a website that was developed for the COSC304 project. It is an online store that sells products depicting simulation-style games based on courses at UBC Okanagan.
 
-Documentation can be found [here](https://rheiley.github.io/simester-documentation/documentation.pdf).
+Documentation can be found [here](https://rheiley.github.io/simester-documentation/documentation.pdf) (Please note that the documentation only contains features that were present during submission. This project has continued development after COSC304 and may include features that are not listed).
 
 ~~Sim-ester is hosted on https://sim-ester.onrender.com/ but can be accessed locally with Docker.~~ No longer cloud hosted due to budget constraints. Will be hosted again once switched to Postgres.
 
