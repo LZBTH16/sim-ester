@@ -31,7 +31,20 @@ router.get('/', async function(req, res, next) {
         // getting customer info
         const sqlQuery2 = "SELECT * FROM customers";
         const results2 = await client.query(sqlQuery2);
-        const customerInfo = results2.rows;
+
+        const customerInfo = results2.rows.map(customer => ({
+            username: customer.username,
+            customerId: customer.customer_id,
+            firstName: customer.first_name,
+            lastName: customer.last_name,
+            email: customer.email,
+            phoneNum: customer.phone_num,
+            address: customer.address,
+            city: customer.city,
+            state: customer.state,
+            postalCode: customer.postal_code,
+            country: customer.country
+        }));
 
         // sending the data to the admin.handlebars
         res.render('admin', {
