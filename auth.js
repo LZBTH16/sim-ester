@@ -1,5 +1,3 @@
-const sql = require('mssql');
-
 const auth = {
     checkAuthentication: function(req, res) {
         let authenticated = false;

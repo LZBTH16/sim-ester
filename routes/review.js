@@ -9,11 +9,6 @@ router.post('/', function(req, res) {
 
         const userid = req.session.authenticatedUser;
 
-        if(!userid){
-            // If not logged in, go back (will change later)
-            return res.redirect("/index");
-        }
-
         const reviewRating = req.body.reviewRating;
         let reviewDate = new Date();
         reviewDate = moment(reviewDate).format('YYYY-MM-DD');
