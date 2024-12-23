@@ -27,8 +27,15 @@ router.get('/', async function (req, res) {
         
         const result = await client.query(sqlQuery, ['Database Dynasty', 'Object Oriented Odyssey', 'Hashmap Simulator']);
 
-        const products = result.rows;
-
+        const products = result.rows.map(row => {
+            return {
+                productId: row.product_id,
+                productName: row.product_name,
+                productPrice: row.product_price,
+                productImageURL: row.product_image_url
+            };
+        });
+        
         res.render('index', {
             title: "SIM-ESTER",
             username: username,

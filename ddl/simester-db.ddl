@@ -59,7 +59,7 @@ CREATE TABLE products (
     product_id SERIAL PRIMARY KEY,
     product_name VARCHAR(40),
     product_price DECIMAL(10, 2),
-    product_image_url VARCHAR(100),
+    product_image_url VARCHAR(500),
     product_image BYTEA,
     product_desc VARCHAR(1000),
     category_id INT,
@@ -178,13 +178,13 @@ UPDATE products SET product_image_url = 'images/algorithm_adventures.png' WHERE 
 UPDATE products SET product_image_url = 'images/assembly_architecture.png' WHERE product_id = 2;
 UPDATE products SET product_image_url = 'images/computer_creativity.png' WHERE product_id = 3;
 UPDATE products SET product_image_url = 'images/covariance_conundrum.png' WHERE product_id = 4;
-UPDATE products SET product_image_url = 'images/database_dynasty.png' WHERE product_id = 5;
+UPDATE products SET product_image_url = 'https://media.discordapp.net/attachments/1320850475481956513/1320851862383104201/database_dynasty.png?ex=676b1aa8&is=6769c928&hm=4ee4684758acaf07fa905dc88852b2b7ae810b854d4e61dafbf6583822882fde&=&format=webp&quality=lossless' WHERE product_id = 5;
 UPDATE products SET product_image_url = 'images/hashmap_simulator.png' WHERE product_id = 6;
 UPDATE products SET product_image_url = 'images/integration_sensation.png' WHERE product_id = 7;
 UPDATE products SET product_image_url = 'images/matrix_mayhem.png' WHERE product_id = 8;
 UPDATE products SET product_image_url = 'images/object_oriented_odyssey.png' WHERE product_id = 9;
 UPDATE products SET product_image_url = 'images/sigma_statistics.png' WHERE product_id = 10;
-UPDATE products SET product_image_url = 'images/derivative_delight.png' WHERE product_id = 11;
+UPDATE products SET product_image_url = 'https://media.discordapp.net/attachments/1320850475481956513/1320850658328317973/derivative_delight.png?ex=676b1989&is=6769c809&hm=d81afd605b09f79f75f68b33656e9e37c086eeba92e90321abfa56efaa519b52&=&format=webp&quality=lossless&width=420&height=350' WHERE product_id = 11;
 UPDATE products SET product_image_url = 'images/discrete_dynamics.png' WHERE product_id = 12;
 UPDATE products SET product_image_url = 'images/linear_lollapalooza.png' WHERE product_id = 13;
 UPDATE products SET product_image_url = 'images/dumpster_fire.png' WHERE product_id = 14;
