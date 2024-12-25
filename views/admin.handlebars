@@ -8,6 +8,12 @@
 
     <div class="container">
         <h2>Sales Graph</h2>
+        <div>
+            <!-- Buttons for filtering time range -->
+            <button id="filter-3-months">Last 3 Months</button>
+            <button id="filter-1-year">Last Year</button>
+            <button id="filter-all-time">All Time</button>
+        </div>
         <table>
             <tbody>
                 {{#each orders}}
@@ -67,26 +73,50 @@
 <script>
     const orders = JSON.parse('{{{orders}}}');
     const ctx = document.getElementById('salesReportChart').getContext('2d');
+
+    // Function to filter orders based on time range
+    const filterOrdersByTimeRange = (timeRange) => {
+        const now = new Date();
+        return orders.filter(order => {
+            const orderDate = new Date(order.orderDate);
+
+            if (timeRange === '3-months') {
+                const threeMonthsAgo = new Date();
+                threeMonthsAgo.setMonth(now.getMonth() - 3);
+                return orderDate >= threeMonthsAgo;
+            }
+
+            if (timeRange === '1-year') {
+                const oneYearAgo = new Date();
+                oneYearAgo.setFullYear(now.getFullYear() - 1);
+                return orderDate >= oneYearAgo;
+            }
+
+            return true; // "All Time" returns all orders
+        });
+    };
+
+    // Initial chart data and instance
+    const chartData = {
+        labels: orders.map(order => order.orderDate),
+        datasets: [{
+            label: 'Revenue',
+            data: orders.map(order => order.sumTotal),
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.1
+        }]
+    };
+
     const chart = new Chart(ctx, {
         type: 'line',
-        data: {
-            labels: orders.map(order => order.orderDate),
-            datasets: [{
-                label: 'Revenue',
-                data: orders.map(order => order.sumTotal),
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderWidth: 2,
-                fill: true,
-                tension: 0.1
-            }]
-        },
+        data: chartData,
         options: {
             responsive: true,
             plugins: {
-                legend: {
-                    display: false
-                },
+                legend: { display: false },
                 tooltip: {
                     backgroundColor: 'rgba(0, 0, 0, 0.7)',
                     bodyColor: '#fff',
@@ -101,15 +131,9 @@
                 }
             },
             scales: {
-                x: {
-                    title: {
-                        display: true
-                    }
-                },
+                x: { title: { display: true } },
                 y: {
-                    title: {
-                        display: true
-                    },
+                    title: { display: true },
                     beginAtZero: true,
                     ticks: {
                         callback: function(value) {
@@ -119,5 +143,28 @@
                 }
             }
         }
+    });
+
+    // Function to update the chart
+    const updateChart = (filteredOrders) => {
+        chart.data.labels = filteredOrders.map(order => order.orderDate);
+        chart.data.datasets[0].data = filteredOrders.map(order => order.sumTotal);
+        chart.update();
+    };
+
+    // Button event listeners
+    document.getElementById('filter-3-months').addEventListener('click', () => {
+        const filteredOrders = filterOrdersByTimeRange('3-months');
+        updateChart(filteredOrders);
+    });
+
+    document.getElementById('filter-1-year').addEventListener('click', () => {
+        const filteredOrders = filterOrdersByTimeRange('1-year');
+        updateChart(filteredOrders);
+    });
+
+    document.getElementById('filter-all-time').addEventListener('click', () => {
+        const filteredOrders = filterOrdersByTimeRange('all-time');
+        updateChart(filteredOrders);
     });
 </script>
