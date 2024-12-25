@@ -1,5 +1,4 @@
 <div class="admin">
-    {{!-- what the admin will see when first getting to the page --}}
     <div class="admin-landing">
         <h1>Welcome {{username}}</h1>
         <p>Continue below for admin statistics</p>
@@ -7,7 +6,6 @@
         <p class="navigate"><a href="/listorder">All Orders</a></p>
     </div>
 
-    {{!-- sales report --}}
     <div class="container">
         <h2>Sales Graph</h2>
         <table>
@@ -21,13 +19,11 @@
             </tbody>
         </table>
 
-        <!-- Sales Report Chart -->
         <div>
             <canvas id="salesReportChart" width="800" height="400"></canvas>
         </div>
     </div>
 
-    {{!-- all customers --}}
     <div class="container">
         <h2>Customer Information</h2>
         <table>
@@ -67,25 +63,17 @@
     </div>
 </div>
 
-{{!-- Include Chart.js --}}
-{{!-- Include Chart.js --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Ensure orders data is passed as a JSON object
-    const orders = JSON.parse('{{{orders}}}'); // Triple braces to avoid escaping HTML
-
-    // Check if the orders array is properly populated
-    console.log('Orders:', orders);
-
-    // Render the chart
+    const orders = JSON.parse('{{{orders}}}');
     const ctx = document.getElementById('salesReportChart').getContext('2d');
     const chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: orders.map(order => order.orderDate), // Extract order dates for the x-axis
+            labels: orders.map(order => order.orderDate),
             datasets: [{
-                label: 'Revenue', // You can optionally show a label for the dataset
-                data: orders.map(order => order.sumTotal), // Extract total sales for the y-axis
+                label: 'Revenue',
+                data: orders.map(order => order.sumTotal),
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderWidth: 2,
@@ -97,16 +85,16 @@
             responsive: true,
             plugins: {
                 legend: {
-                    display: false, 
-                    position: 'top'
+                    display: false
                 },
                 tooltip: {
-                    backgroundColor: 'rgba(0, 0, 0, 0.7)', 
-                    bodyColor: '#fff', 
+                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                    bodyColor: '#fff',
                     callbacks: {
                         label: function(tooltipItem) {
-                            const value = tooltipItem.raw;
-                            return '$' + value.toLocaleString(); 
+                            const revenue = tooltipItem.raw;
+                            const productsSold = orders[tooltipItem.dataIndex].productsSold;
+                            return `$${revenue.toLocaleString()} | Products Sold: ${productsSold}`;
                         }
                     },
                     displayColors: false
@@ -115,18 +103,15 @@
             scales: {
                 x: {
                     title: {
-                        display: true,
-                        {{!-- text: 'Order Date' --}}
+                        display: true
                     }
                 },
                 y: {
                     title: {
-                        display: true,
-                        {{!-- text: 'Revenue' --}}
+                        display: true
                     },
                     beginAtZero: true,
                     ticks: {
-                        // Format the y-axis values with a $ sign and commas
                         callback: function(value) {
                             return '$' + value.toLocaleString();
                         }

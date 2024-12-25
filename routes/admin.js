@@ -19,13 +19,14 @@ router.get('/', async function(req, res, next) {
         auth.checkAdmin(req, res);
 
         // getting orders per day
-        const sqlQuery = "SELECT CAST(order_date AS DATE) AS order_date, SUM(total_amount) AS sum_total FROM order_summaries GROUP BY CAST(order_date AS DATE)";
+        const sqlQuery = "SELECT CAST(order_date AS DATE) AS order_date, SUM(total_amount) AS sum_total, COUNT(product_id) AS products_sold FROM order_summaries JOIN order_products ON order_summaries.order_id = order_products.order_id GROUP BY CAST(order_date AS DATE) ORDER BY order_date ASC";
         const results = await client.query(sqlQuery);
 
         // Iterate through every order in the recordset
         const orders = results.rows.map(order => ({
             orderDate: moment(order.order_date).format('YYYY-MM-DD'),
-            sumTotal: order.sum_total
+            sumTotal: order.sum_total,
+            productsSold: order.products_sold
         }));
 
         // getting customer info
