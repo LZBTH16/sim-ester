@@ -8,6 +8,7 @@
   "license": "ISC",
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",
+    "chart.js": "^4.4.7",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "express-handlebars": "^5.1.0",

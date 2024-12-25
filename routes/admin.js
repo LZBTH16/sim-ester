@@ -48,7 +48,7 @@ router.get('/', async function(req, res, next) {
 
         // sending the data to the admin.handlebars
         res.render('admin', {
-            orders,
+            orders: JSON.stringify(orders),
             customerInfo,
             username: req.session.authenticatedUser,
             title: "Admin"

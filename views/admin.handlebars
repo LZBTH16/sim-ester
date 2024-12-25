@@ -9,14 +9,8 @@
 
     {{!-- sales report --}}
     <div class="container">
-        <h2>Administrator Sales Report by Day</h2>
+        <h2>Sales Graph</h2>
         <table>
-            <thead>
-                <tr>
-                <th>Order Date</th>
-                <th>Total Order Amount</th>
-                </tr>
-            </thead>
             <tbody>
                 {{#each orders}}
                 <tr>
@@ -26,6 +20,11 @@
                 {{/each}}
             </tbody>
         </table>
+
+        <!-- Sales Report Chart -->
+        <div>
+            <canvas id="salesReportChart" width="800" height="400"></canvas>
+        </div>
     </div>
 
     {{!-- all customers --}}
@@ -67,3 +66,73 @@
         </table>
     </div>
 </div>
+
+{{!-- Include Chart.js --}}
+{{!-- Include Chart.js --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Ensure orders data is passed as a JSON object
+    const orders = JSON.parse('{{{orders}}}'); // Triple braces to avoid escaping HTML
+
+    // Check if the orders array is properly populated
+    console.log('Orders:', orders);
+
+    // Render the chart
+    const ctx = document.getElementById('salesReportChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: orders.map(order => order.orderDate), // Extract order dates for the x-axis
+            datasets: [{
+                label: 'Revenue', // You can optionally show a label for the dataset
+                data: orders.map(order => order.sumTotal), // Extract total sales for the y-axis
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false, 
+                    position: 'top'
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.7)', 
+                    bodyColor: '#fff', 
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            const value = tooltipItem.raw;
+                            return '$' + value.toLocaleString(); 
+                        }
+                    },
+                    displayColors: false
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Order Date'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Revenue ($)'
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        // Format the y-axis values with a $ sign and commas
+                        callback: function(value) {
+                            return '$' + value.toLocaleString();
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
