@@ -134,7 +134,7 @@
                 x: { title: { display: true } },
                 y: {
                     title: { display: true },
-                    beginAtZero: true,
+                    beginAtZero: false, // Auto-scale the y-axis without forcing it to start from zero
                     ticks: {
                         callback: function(value) {
                             return '$' + value.toLocaleString();
@@ -149,10 +149,15 @@
     const updateChart = (filteredOrders) => {
         chart.data.labels = filteredOrders.map(order => order.orderDate);
         chart.data.datasets[0].data = filteredOrders.map(order => order.sumTotal);
+
+        // Let Chart.js auto-scale the min/max values
+        chart.options.scales.y.min = undefined;  // Remove any manual minimum value
+        chart.options.scales.y.max = undefined;  // Remove any manual maximum value
+
         chart.update();
     };
 
-    // Button event listeners
+    // Button event listeners for dynamically updating chart
     document.getElementById('filter-3-months').addEventListener('click', () => {
         const filteredOrders = filterOrdersByTimeRange('3-months');
         updateChart(filteredOrders);
