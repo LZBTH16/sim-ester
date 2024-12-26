@@ -151,19 +151,19 @@ INSERT INTO products(product_name, category_id, product_desc, product_price) VAL
 INSERT INTO products(product_name, category_id, product_desc, product_price) VALUES ('Dumpster Fire Simulator', 1, 'Instead of spending $336-million on this, UBC should''ve spent it on Ramon''s bonus', 3300000);
 
 INSERT INTO warehouses(warehouse_name) VALUES ('Main warehouses');
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (1, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (2, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (3, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (4, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (5, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (6, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (7, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (8, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (9, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (10, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (11, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (12, 1, 100, 60);
-INSERT INTO product_inventories(product_id, warehouse_id, quantity, price) VALUES (13, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (1, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (2, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (3, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (4, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (5, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (6, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (7, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (8, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (9, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (10, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (11, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (12, 1, 100, 60);
+INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (13, 1, 100, 60);
 
 INSERT INTO customers (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test');
 INSERT INTO customers (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby');
