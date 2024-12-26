@@ -37,6 +37,8 @@ router.post('/request-reset', async (req, res) => {
             return res.status(400).send("No account with that email exists.");
         }
 
+        const username = result.rows[0].username;
+
         // Generate token and expiration time
         const token = crypto.randomBytes(20).toString('hex');
         const expireTime = Date.now() + 3600000; // Token expires in 1 hour
@@ -58,7 +60,7 @@ router.post('/request-reset', async (req, res) => {
             text: `
                 Hello,
         
-                You requested a password reset for your Sim-ester account. Click the link below to reset your password:
+                You requested a password reset for your Sim-ester account: ${username}. Click the link below to reset your password:
         
                 ${resetUrl}
         
