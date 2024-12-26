@@ -19,8 +19,8 @@ router.get('/', async function(req, res, next) {
         auth.checkAdmin(req, res);
 
         // getting orders per day
-        const sqlQuery = "SELECT CAST(order_date AS DATE) AS order_date, SUM(total_amount) AS sum_total, COUNT(product_id) AS products_sold FROM order_summaries JOIN order_products ON order_summaries.order_id = order_products.order_id GROUP BY CAST(order_date AS DATE) ORDER BY order_date ASC";
-        const results = await client.query(sqlQuery);
+        let sqlQuery = "SELECT CAST(order_date AS DATE) AS order_date, SUM(total_amount) AS sum_total, COUNT(product_id) AS products_sold FROM order_summaries JOIN order_products ON order_summaries.order_id = order_products.order_id GROUP BY CAST(order_date AS DATE) ORDER BY order_date ASC";
+        let results = await client.query(sqlQuery);
 
         // Iterate through every order in the recordset
         const orders = results.rows.map(order => ({
@@ -30,10 +30,10 @@ router.get('/', async function(req, res, next) {
         }));
 
         // getting customer info
-        const sqlQuery2 = "SELECT * FROM customers";
-        const results2 = await client.query(sqlQuery2);
+        sqlQuery = "SELECT * FROM customers";
+        results = await client.query(sqlQuery);
 
-        const customerInfo = results2.rows.map(customer => ({
+        const customerInfo = results.rows.map(customer => ({
             username: customer.username,
             customerId: customer.customer_id,
             firstName: customer.first_name,
@@ -47,10 +47,20 @@ router.get('/', async function(req, res, next) {
             country: customer.country
         }));
 
+        sqlQuery = "SELECT CAST(order_date AS DATE) AS order_date, products.product_name, SUM(quantity) AS total_quantity FROM order_summaries JOIN order_products ON order_summaries.order_id = order_products.order_id JOIN products ON order_products.product_id = products.product_id GROUP BY CAST(order_date AS DATE), products.product_name ORDER BY order_date ASC";
+        results = await client.query(sqlQuery);
+
+        const productData = results.rows.map(row => ({
+            orderDate: moment(row.order_date).format('YYYY-MM-DD'),
+            productName: row.product_name,
+            totalQuantity: row.total_quantity
+        }));
+
         // sending the data to the admin.handlebars
         res.render('admin', {
             orders: JSON.stringify(orders),
             customerInfo,
+            productData: JSON.stringify(productData),
             username: req.session.authenticatedUser,
             title: "Admin"
         });
