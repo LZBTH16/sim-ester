@@ -1,0 +1,16 @@
+<div class="reset-page">
+    <div class="reset-form-container">
+        <h2>Enter your email address to request a password reset:</h2>
+
+        <form class="reset-form" method="POST" action="/forgotPassword/request-reset">
+            <label>
+                <input type="email" id="email" name="email" placeholder=" " size="50" maxlength="50" required>
+                <span>Email Address</span>
+            </label>
+
+            <div class="reset-buttons">
+                <span><input class="reset-button" type="submit" value="Send Reset Link"></span>
+            </div>
+        </form>
+    </div>
+</div>

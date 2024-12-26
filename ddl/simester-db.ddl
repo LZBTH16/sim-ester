@@ -23,7 +23,9 @@ CREATE TABLE customers (
     country VARCHAR(40),
     username VARCHAR(20),
     password VARCHAR(30),
-    admin BOOLEAN DEFAULT FALSE
+    admin BOOLEAN DEFAULT FALSE,
+    reset_password_token TEXT,
+    reset_password_expires BIGINT
 );
 
 CREATE TABLE payment_methods (

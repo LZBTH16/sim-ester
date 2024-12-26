@@ -8,13 +8,16 @@
   "license": "ISC",
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",
+    "@sendgrid/mail": "^8.1.4",
     "chart.js": "^4.4.7",
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.1",
     "moment": "^2.28.0",
     "mssql": "^6.4.1",
+    "nodemailer": "^6.9.16",
     "nodemon": "^2.0.22",
     "pg": "^8.13.1",
     "tedious": "^9.2.1"
