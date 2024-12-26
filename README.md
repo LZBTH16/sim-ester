@@ -12,6 +12,7 @@ Sim-ester is hosted on https://sim-ester.onrender.com/.
 - [Render](https://render.com/)
 - [Docker](https://www.docker.com/)
 - [PostgreSQL](https://www.postgresql.org/)
+- [SendGrid](https://sendgrid.com/en-us)
 
 ## Screenshots
 ![](public/images/screenshot01.png)
