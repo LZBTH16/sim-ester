@@ -1,9 +1,5 @@
 DROP TABLE reviews;
-DROP TABLE shipments;
-DROP TABLE product_inventory;
-DROP TABLE warehouses;
 DROP TABLE order_products;
-DROP TABLE in_cart;
 DROP TABLE products;
 DROP TABLE categories;
 DROP TABLE order_summaries;
@@ -42,11 +38,6 @@ CREATE TABLE order_summaries (
     order_id SERIAL PRIMARY KEY,
     order_date TIMESTAMP,
     total_amount DECIMAL(10, 2),
-    ship_to_address VARCHAR(50),
-    ship_to_city VARCHAR(40),
-    ship_to_state VARCHAR(20),
-    ship_to_postal_code VARCHAR(20),
-    ship_to_country VARCHAR(40),
     customer_id INT,
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
         ON UPDATE CASCADE ON DELETE CASCADE
@@ -77,44 +68,6 @@ CREATE TABLE order_products (
     FOREIGN KEY (order_id) REFERENCES order_summaries(order_id)
         ON UPDATE CASCADE ON DELETE NO ACTION,
     FOREIGN KEY (product_id) REFERENCES products(product_id)
-        ON UPDATE CASCADE ON DELETE NO ACTION
-);
-
-CREATE TABLE in_cart (
-    order_id INT,
-    product_id INT,
-    quantity INT,
-    price DECIMAL(10, 2),
-    PRIMARY KEY (order_id, product_id),
-    FOREIGN KEY (order_id) REFERENCES order_summaries(order_id)
-        ON UPDATE CASCADE ON DELETE NO ACTION,
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
-        ON UPDATE CASCADE ON DELETE NO ACTION
-);
-
-CREATE TABLE warehouses (
-    warehouse_id SERIAL PRIMARY KEY,
-    warehouse_name VARCHAR(30)
-);
-
-CREATE TABLE shipments (
-    shipment_id SERIAL PRIMARY KEY,
-    shipment_date TIMESTAMP,
-    shipment_desc VARCHAR(100),
-    warehouse_id INT,
-    FOREIGN KEY (warehouse_id) REFERENCES warehouses(warehouse_id)
-        ON UPDATE CASCADE ON DELETE NO ACTION
-);
-
-CREATE TABLE product_inventory (
-    product_id INT,
-    warehouse_id INT,
-    quantity INT,
-    price DECIMAL(10, 2),
-    PRIMARY KEY (product_id, warehouse_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
-        ON UPDATE CASCADE ON DELETE NO ACTION,
-    FOREIGN KEY (warehouse_id) REFERENCES warehouses(warehouse_id)
         ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
@@ -149,21 +102,6 @@ INSERT INTO products(product_name, category_id, product_desc, product_price) VAL
 INSERT INTO products(product_name, category_id, product_desc, product_price) VALUES ('Discrete Dynamics', 1, 'Step into the world of sets, logic, and Boolean algebra, where every permutation and combination brings you closer to solving the ultimate puzzle. It’s like a game of "connect the dots," except the dots are graphs, and the connections are... well, discrete. (Based on COSC221)', 60);
 INSERT INTO products(product_name, category_id, product_desc, product_price) VALUES ('Linear Lollapalooza', 2, 'Hold on to your vectors as you dive into the world of linear equations and matrices—where determinants rule the land, eigenvalues reign supreme, and diagonalization is the ultimate party trick. It''s the math equivalent of a music festival, but with way more vectors and way fewer mosh pits! (Based on MATH221)', 60);
 INSERT INTO products(product_name, category_id, product_desc, product_price) VALUES ('Dumpster Fire Simulator', 1, 'Instead of spending $336-million on this, UBC should''ve spent it on Ramon''s bonus', 3300000);
-
-INSERT INTO warehouses(warehouse_name) VALUES ('Main warehouses');
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (1, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (2, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (3, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (4, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (5, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (6, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (7, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (8, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (9, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (10, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (11, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (12, 1, 100, 60);
-INSERT INTO product_inventory(product_id, warehouse_id, quantity, price) VALUES (13, 1, 100, 60);
 
 INSERT INTO customers (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test');
 INSERT INTO customers (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby');

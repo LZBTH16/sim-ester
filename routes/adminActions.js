@@ -80,9 +80,6 @@ router.post('/deleteProduct', async function (req, res, next) {
         const deleteOrderProduct = "DELETE FROM order_products WHERE product_id = $1";
         await client.query(deleteOrderProduct, [productId]);
 
-        const deleteProductInventory = "DELETE FROM product_inventory WHERE product_id = $1";
-        await client.query(deleteProductInventory, [productId]);
-
         const deleteQuery = "DELETE FROM products WHERE product_id = $1";
         await client.query(deleteQuery, [productId]);
 
