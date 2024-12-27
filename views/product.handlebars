@@ -8,7 +8,6 @@
     {{/if}}
 
     <p>{{productDesc}}</p>
-    {{!-- <h3>Id: {{productId}}</h3> --}}
     <h3>Price: ${{productPrice}}</h3>
     {{#if averageRating}}
         <h3>Average Rating: {{averageRating}}/5.0</h3>
@@ -23,6 +22,26 @@
         {{successMessage}}
     </div>
 {{/if}}
+
+<!-- Recommended Products Section -->
+<div class="recommended-products">
+    <h2>You Might Also Like</h2>
+    {{#if recommendedProducts}}
+        <div class="recommended-product-list">
+            {{#each recommendedProducts}}
+                <div class="product-display">
+                    <a href="/product?id={{this.productId}}">
+                        <img src="{{this.productImageURL}}" alt="{{this.productName}}" />
+                        <p><strong>{{this.productName}}</strong></p>
+                        <p>Price: ${{this.productPrice}}</p>
+                    </a>
+                </div>
+            {{/each}}
+        </div>
+    {{else}}
+        <p>No recommendations available at this time.</p>
+    {{/if}}
+</div>
 
 <!-- Review Section -->
 {{#if canReview}}
@@ -55,16 +74,13 @@
 <div class="review-section">
     <h2>Reviews {{#if totalReviews}}({{totalReviews}}){{/if}}</h2>
     {{#if reviews}}
-        {{!-- <ul> --}}
-            {{#each reviews}}
-                <div class="review">
-                    <p class="center-text"><strong>Rating:</strong> {{this.reviewRating}}/5</p>
-                    {{!-- <p class="center-text"><strong>Comment:</strong></p> --}}
-                    <p class="left-text">{{this.reviewComment}}</p>
-                    <p class="center-text"><strong>Posted:</strong> {{this.reviewDate}}</p>
-                </div>
-            {{/each}}
-        {{!-- </ul> --}}
+        {{#each reviews}}
+            <div class="review">
+                <p class="center-text"><strong>Rating:</strong> {{this.reviewRating}}/5</p>
+                <p class="left-text">{{this.reviewComment}}</p>
+                <p class="center-text"><strong>Posted:</strong> {{this.reviewDate}}</p>
+            </div>
+        {{/each}}
     {{else}}
         <p>No reviews for this product yet.</p>
     {{/if}}

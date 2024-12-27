@@ -16,10 +16,11 @@ router.get('/', async function(req, res) {
         const success = req.query.success === 'true';
         const productId = req.query.id;
 
-        let sqlQuery = "SELECT product_name, product_price, product_image_url, product_desc FROM products WHERE product_id = $1";
+        let sqlQuery = "SELECT product_name, product_price, product_image_url, product_desc, category_id FROM products WHERE product_id = $1";
         let result = await client.query(sqlQuery, [productId]);
 
-        const product = result.rows[0]; 
+        const product = result.rows[0];
+        const categoryId = product.category_id; 
 
         sqlQuery = "SELECT review_rating, review_comment, review_date FROM reviews WHERE product_id = $1 ORDER BY review_id DESC";
         result = await client.query(sqlQuery, [productId]);
@@ -66,6 +67,16 @@ router.get('/', async function(req, res) {
             }
         }
 
+        sqlQuery = "SELECT product_id, product_name, product_price, product_image_url FROM products WHERE category_id = $1 AND product_id != $2 ORDER BY RANDOM() LIMIT 3";
+        result = await client.query(sqlQuery, [categoryId, productId]);
+
+        const recommendedProducts = result.rows.map(product => ({
+            productId: product.product_id,
+            productName: product.product_name,
+            productPrice: product.product_price,
+            productImageURL: product.product_image_url
+        }));
+
         res.render('product', {
             productId: productId,
             productName: product.product_name,
@@ -79,6 +90,7 @@ router.get('/', async function(req, res) {
             reviews: reviews,
             canReview: canReview,
             successMessage: success ? "Your review has been successfully submitted!" : null,
+            recommendedProducts: recommendedProducts
         });
 
     } catch (err) {
