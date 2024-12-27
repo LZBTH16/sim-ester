@@ -475,7 +475,6 @@ html, body {
     justify-content: space-between;
     align-items: center;
     padding: 0;
-    margin-bottom: 250px;
 }
 .all-actions {
     margin: 20px auto;
@@ -513,6 +512,12 @@ html, body {
     border-radius: 10px;
     margin: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .profile-actions .navigate {
     margin-top: 20px;
