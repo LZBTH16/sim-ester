@@ -294,7 +294,7 @@ footer h3{
     justify-content: center;
     margin-bottom: 50px;
 }
-.listprod h1 {
+.listprod h2 {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 /* the search feature */
@@ -1029,5 +1029,74 @@ input:not(:placeholder-shown) + span {
     min-height: 60vh;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+/* FORGOT PASSWORD (requestReset, resetPassword) */
+.reset-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    min-height: 60vh;
+}
+.reset-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: #F9F9F9;
+    width: 400px;
+    border-radius: 10px;
+    margin: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    gap: 10px;
+}
+.reset-page h2 {
+    text-align: center;
+}
+.reset-page label {
+    display: block;
+    position: relative;
+    text-align: left;
+    font-size: 14px;
+    color: #6c757d;
+    flex: 1 1 45%;
+}
+.reset-page input[type="email"] {
+    padding: 12px 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease-in-out;
+}
+.reset-page input:focus {
+    outline: none;
+    border-color: #002145;
+    background-color: #f9f9f9;
+}
+.reset-page label span {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    font-size: 14px;
+    color: #002145;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.reset-page input:focus + span,
+input:not(:placeholder-shown) + span {
+    top: -10px;
+    font-size: 12px;
+    color: #002145;
+    background: #f9f9f9;
+    padding: 0 5px;
+}
+.reset-buttons {
+    margin: 20px;
+    display: flex;
     justify-content: center;
 }
