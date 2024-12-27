@@ -11,7 +11,6 @@
                         <th>Price</th>
                         <th>Subtotal</th>
                         <th>Actions</th>
-                        <th></th>
                     </tr>
 
                     {{#each productList}}
@@ -21,12 +20,10 @@
                                 <td>{{this.name}}</td>
                                 <td align="center">
                                     <input class="qty" type="number" id="{{this.id}}" value="{{this.quantity}}" min="1">
+                                    <button class="updateitem" onclick="updateQuantity({{this.id}})">Update</button>
                                 </td>
                                 <td align="right">${{formatPrice this.price}}</td>
                                 <td align="right">${{multiplyAndFormat this.quantity this.price}}</td>
-                                <td>
-                                    <button class="updateitem" onclick="updateQuantity({{this.id}})">Update Quantity</button>
-                                </td>
                                 <td class="removeitem">
                                     <a href="/deleteitem?id={{this.id}}">Remove from cart</a>
                                 </td>
