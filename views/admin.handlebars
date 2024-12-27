@@ -2,7 +2,6 @@
     <div class="admin-landing">
         <h1>Welcome {{username}}</h1>
         <p>Continue below for admin statistics</p>
-        <p class="navigate"><a href="/adminActions">Click here to add/update/delete a product</a></p>
         <p class="navigate"><a href="/listorder">All Orders</a></p>
     </div>
 
@@ -66,6 +65,104 @@
                 {{/each}}
             </tbody>
         </table>
+    </div>
+
+    <div class="admin-actions">
+        {{!-- to show that the product has been updated/deleted/added --}}
+        {{#if successMessage}}
+            <div class="decorative-button">
+                {{successMessage}}
+            </div>
+        {{/if}}
+
+        {{!-- to update products --}}
+        <div class="all-actions">
+            <div class="container">
+                <h2>Update Product</h2>
+                
+                <form class="admin-form" action="/admin/updateProduct" method="POST">
+                    <label>
+                        <input type="number" name="productId" placeholder="" required>
+                        <span>Product ID</span>
+                    </label>
+
+                    <label>
+                        <input type="text" name="productName" placeholder="">
+                        <span>Product Name</span>
+                    </label>
+                    
+                    <label>
+                        <input type="text" name="productPrice" placeholder="">
+                        <span>Price</span>
+                    </label>
+
+                    <label>
+                        <textarea type="text" name="productDesc" placeholder="Description"></textarea>
+                    </label>
+
+                    <label>
+                        <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
+                    </label>
+
+                    <input class="custom-button" type="submit" value="Update Product">
+                </form>
+            </div>
+
+            {{!-- to delete products --}}
+            <div class="container">
+                <h2>Delete Product</h2>
+
+                <form class="admin-form" action="/admin/deleteProduct" method="POST">
+                    <label>
+                        <input type="number" name="productId" placeholder="" required>
+                        <span>Product ID</span>
+                    </label>
+
+                    <label>
+                        <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
+                    </label>
+
+                    <div class="action">
+                        <input class="custom-button" type="submit" value="Delete Product">
+                    </div>
+                </form>
+            </div>
+
+            {{!-- to add a new product --}}
+            <div class="container">
+                <h2>Add Product</h2>
+
+                <form class="admin-form" action="/admin/addProduct" method="POST">
+                    <label>
+                        <input type="text" name="productName" placeholder="">
+                        <span>Product Name</span>
+                    </label>
+
+                    <label>
+                        <input type="text" name="productPrice" placeholder="">
+                        <span>Price</span>
+                    </label>
+
+                    <label>
+                        <input type="number" name="categoryId" placeholder="">
+                        <span>Category ID</span>
+                    </label>
+
+                    <label>
+                        <textarea type="text" name="productDesc" placeholder="Description"></textarea>
+                    </label>
+
+                    <label>
+                        <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
+                    </label>
+
+                    <div class="action">
+                        <input class="custom-button" type="submit" value="Add Product">
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -171,5 +268,22 @@
     document.getElementById('filter-all-time').addEventListener('click', () => {
         const filteredOrders = filterOrdersByTimeRange('all-time');
         updateChart(filteredOrders);
+    });
+</script>
+
+{{!-- to remember scroll position after refresh --}}
+<script>
+    // Save the scroll position in localStorage before the page reloads
+    window.addEventListener('beforeunload', () => {
+        localStorage.setItem('scrollPosition', window.scrollY);
+    });
+
+    // Restore the scroll position after the page loads
+    window.addEventListener('load', () => {
+        const scrollPosition = localStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition, 10));
+            localStorage.removeItem('scrollPosition'); // Clean up
+        }
     });
 </script>

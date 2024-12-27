@@ -18,6 +18,10 @@ router.get('/', async function(req, res, next) {
         auth.checkAuthentication(req, res);
         auth.checkAdmin(req, res);
 
+        // what to show after updating/deleting/adding product
+        const successMessage = req.session.successMessage;
+        req.session.successMessage = null;
+
         // getting orders per day
         let sqlQuery = "SELECT CAST(order_date AS DATE) AS order_date, SUM(total_amount) AS sum_total, COUNT(product_id) AS products_sold FROM order_summaries JOIN order_products ON order_summaries.order_id = order_products.order_id GROUP BY CAST(order_date AS DATE) ORDER BY order_date ASC";
         let results = await client.query(sqlQuery);
@@ -62,12 +66,106 @@ router.get('/', async function(req, res, next) {
             customerInfo,
             productData: JSON.stringify(productData),
             username: req.session.authenticatedUser,
+            successMessage: successMessage,
             title: "Admin"
         });
 
     } catch (err) {
         console.dir(err);
         res.write(err + "");
+    }
+});
+
+router.post('/updateProduct', async function (req, res, next) {
+    auth.checkAuthentication(req, res);
+
+    const updateData = req.body;
+    const {productId, productName, productPrice, productDesc, adminPassword} = updateData;
+
+    if(adminPassword !== process.env.ADMIN_PASSWORD){
+        return res.redirect('/notAuthorized');
+    }
+
+    try {
+        const currentDataQuery = "SELECT * FROM products WHERE product_id = $1";
+        const currentDataResult = await client.query(currentDataQuery, [productId]);
+        const currentProduct = currentDataResult.rows[0];
+
+        const updateQuery = `
+            UPDATE products
+            SET
+                product_name = $1,
+                product_price = $2,
+                product_desc = $3
+            WHERE product_id = $4`;
+
+        await client.query(updateQuery, [
+            productName || currentProduct.product_name,
+            productPrice || currentProduct.product_price,
+            productDesc || currentProduct.product_desc,
+            productId
+        ]);
+
+        req.session.successMessage = 'Product updated successfully!';
+        res.redirect('/admin');
+    } catch (err) {
+        console.error(err);
+        res.write(err + "");
+        res.end();
+    }
+});
+
+router.post('/deleteProduct', async function (req, res, next) {
+    auth.checkAuthentication(req, res);
+
+    const deleteData = req.body;
+    const {productId, adminPassword} = deleteData;
+
+    if(adminPassword !== process.env.ADMIN_PASSWORD){
+        return res.redirect('/notAuthorized');
+    }
+
+    try {
+        const deleteOrderProduct = "DELETE FROM order_products WHERE product_id = $1";
+        await client.query(deleteOrderProduct, [productId]);
+
+        const deleteQuery = "DELETE FROM products WHERE product_id = $1";
+        await client.query(deleteQuery, [productId]);
+
+        req.session.successMessage = 'Product deleted successfully!';
+        res.redirect('/admin');
+    } catch (err) {
+        console.error(err);
+        res.write(err + "");
+        res.end();
+    }
+});
+
+router.post('/addProduct', async function (req, res, next) {
+    auth.checkAuthentication(req, res);
+
+    const newData = req.body;
+    const {productName, productPrice, productDesc, categoryId, adminPassword} = newData;
+
+    if(adminPassword !== process.env.ADMIN_PASSWORD){
+        return res.redirect('/notAuthorized');
+    }
+
+    try {
+        const addQuery = "INSERT INTO products (product_name, category_id, product_desc, product_price) VALUES ($1, $2, $3, $4)";
+        await client.query(addQuery, [
+            productName,
+            categoryId,
+            productDesc,
+            productPrice
+        ]);
+
+        req.session.successMessage = 'Product added successfully!';
+        res.redirect('/admin');
+    } catch (err) {
+        console.error(err);
+        res.write(err + "");
+        res.end();
     }
 });
 

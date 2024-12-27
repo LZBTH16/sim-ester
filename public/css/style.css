@@ -91,7 +91,7 @@ html, body {
     gap: 20px;
 }
 .showcase-product {
-    width: 500px;
+    width: 400px;
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -104,7 +104,7 @@ html, body {
 }
 .showcase-product img {
     /* width: 400px; ensuring all images are same size */
-    height: 290px;
+    height: 240px;
 }
 .showcase-product .product-action {
     margin: 20px; /* specific margin for this page */
