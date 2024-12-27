@@ -1,6 +1,5 @@
  /* min-height: 100vh; Ensure the body takes the full viewport height */
 
-
 /* general styles, used for all tags, everywhere */
 html, body {
     /* resetting margin and padding of body, html tags */
@@ -11,31 +10,6 @@ html, body {
     background: #CCCCCC;
     font-family: Arial, sans-serif;
     color:#002145;
-}
-/* default container styling */
-.container {
-    width: auto;
-    margin: 20px auto;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #F9F9F9;
-    padding: 20px;
-}
-.container table {
-    margin: 10px auto;
-    border-collapse: collapse;
-}
-.container table th {
-    font-weight: bold;
-    padding: 10px;
-    border: 1px solid #dddddd;
-    text-align: left;
-}
-.container table td {
-    padding: 10px;
-    border: 1px solid #dddddd;
-    text-align: left;
 }
 
 /* THE ACTUAL PAGES */
@@ -166,7 +140,7 @@ html, body {
     flex-direction: row;
     gap: 10px;
 }
-.text-input {
+.listprod .text-input {
     background: #FFFFFF;
     border: none;
     border-radius: 10px;
@@ -467,44 +441,6 @@ html, body {
     justify-content: center;
     align-items: center;
 }
-.order-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-.order-details {
-    width: 400px;
-    margin: 20px auto;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #F9F9F9;
-    padding: 20px;
-}
-.order-details table {
-    width: auto;
-    margin: 10px auto;
-    border-collapse: collapse;
-}
-.order-details table th {
-    font-weight: bold;
-    padding: 10px;
-    border: 1px solid #dddddd;
-    text-align: left;
-}
-.order-details table td {
-    padding: 10px;
-    border: 1px solid #dddddd;
-    text-align: left;
-}
-.order-details table td:last-child {
-    font-weight: bold;
-    color: #002145;
-}.order-details h1, h2, h3 {
-    margin: 10px 0;
-    color: #002145;
-}
 
 /* ADMIN */
 /* welcome msg & info */
@@ -528,15 +464,7 @@ html, body {
     text-align: center;
     color: white;
     background-color: #002145;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-}
-.admin-landing .navigate {
-    padding: 0px;
-}
-.admin-landing .navigate a:hover {
-    background-color: #002145;
-    border-radius: 0px;
+    border-radius: 10px;
 }
 
 /* ADMIN ACTIONS */
@@ -554,16 +482,6 @@ html, body {
     display: flex;
     align-items: center;
 }
-.all-actions .container {
-    margin: 20px;
-}
-.admin-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin: 0;
-}
 .admin-actions label {
     display: block;
     position: relative;
@@ -571,40 +489,6 @@ html, body {
     font-size: 14px;
     color: #6c757d;
     flex: 1 1 45%;
-}
-
-.admin-actions input[type="text"],
-.admin-actions input[type="number"],
-.admin-actions input[type="password"],
-.admin-actions textarea {
-    padding: 12px 10px;
-    font-size: 14px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-    transition: all 0.3s ease-in-out;
-}
-.admin-actions input:focus {
-    outline: none;
-    border-color: #002145;
-    background-color: #f9f9f9;
-}
-.admin-actions label span {
-    position: absolute;
-    left: 10px;
-    top: 12px;
-    font-size: 14px;
-    color: #002145;
-    transition: all 0.3s ease-in-out;
-    pointer-events: none;
-}
-.admin-actions input:focus + span,
-input:not(:placeholder-shown) + span {
-    top: -10px;
-    font-size: 12px;
-    color: #002145;
-    background: #f9f9f9;
-    padding: 0 5px;
 }
 .action-actions {
     margin-top: 20px;
@@ -675,38 +559,6 @@ input:not(:placeholder-shown) + span {
     color: #6c757d;
     flex: 1 1 45%;
 }
-.checkout input[type="text"],
-.checkout input[type="password"] {
-    padding: 12px 10px;
-    font-size: 14px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-    transition: all 0.3s ease-in-out;
-}
-.checkout input:focus {
-    outline: none;
-    border-color: #002145;
-    background-color: #f9f9f9;
-}
-.checkout label span {
-    position: absolute;
-    left: 10px;
-    top: 12px;
-    font-size: 14px;
-    color: #002145;
-    transition: all 0.3s ease-in-out;
-    pointer-events: none;
-}
-
-.checkout input:focus + span,
-input:not(:placeholder-shown) + span {
-    top: -10px;
-    font-size: 12px;
-    color: #002145;
-    background: #f9f9f9;
-    padding: 0 5px;
-}
 .checkout-buttons {
     margin-top: 30px;
 }
@@ -755,39 +607,6 @@ input:not(:placeholder-shown) + span {
     color: #6c757d;
     flex: 1 1 45%;
 }
-
-.login input[type="text"],
-.login input[type="password"] {
-    padding: 12px 10px;
-    font-size: 14px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-    transition: all 0.3s ease-in-out;
-}
-.login input:focus {
-    outline: none;
-    border-color: #002145;
-    background-color: #f9f9f9;
-}
-.login label span {
-    position: absolute;
-    left: 10px;
-    top: 12px;
-    font-size: 14px;
-    color: #002145;
-    transition: all 0.3s ease-in-out;
-    pointer-events: none;
-}
-
-.login input:focus + span,
-input:not(:placeholder-shown) + span {
-    top: -10px;
-    font-size: 12px;
-    color: #002145;
-    background: #f9f9f9;
-    padding: 0 5px;
-}
 .info {
     margin: 20px;
 }
@@ -812,19 +631,6 @@ input:not(:placeholder-shown) + span {
     justify-content: center;
     align-items: center;
     margin: 0;
-}
-.register-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background: #F9F9F9;
-    width: 400px;
-    border-radius: 10px;
-    margin: 50px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    gap: 10px;
 }
 .register h1 {
     padding: 0;
@@ -860,40 +666,6 @@ input:not(:placeholder-shown) + span {
     background-color: #f8f9fa;
     transition: all 0.3s ease-in-out;
     appearance: none;
-}
-.register input[type="text"],
-.register input[type="email"],
-.register input[type="tel"],
-.register input[type="password"] {
-    padding: 12px 10px;
-    font-size: 14px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-    transition: all 0.3s ease-in-out;
-}
-.register input:focus {
-    outline: none;
-    border-color: #002145;
-    background-color: #f9f9f9;
-}
-.register label span {
-    position: absolute;
-    left: 10px;
-    top: 12px;
-    font-size: 14px;
-    color: #002145;
-    transition: all 0.3s ease-in-out;
-    pointer-events: none;
-}
-
-.register input:focus + span,
-input:not(:placeholder-shown) + span {
-    top: -10px;
-    font-size: 12px;
-    color: #002145;
-    background: #f9f9f9;
-    padding: 0 5px;
 }
 /* ACCOUNT CREATED */
 /* using CUSTOMER CSS */
@@ -943,37 +715,6 @@ input:not(:placeholder-shown) + span {
     font-size: 14px;
     color: #6c757d;
     flex: 1 1 45%;
-}
-.reset-page input[type="email"] {
-    padding: 12px 10px;
-    font-size: 14px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-    transition: all 0.3s ease-in-out;
-}
-.reset-page input:focus {
-    outline: none;
-    border-color: #002145;
-    background-color: #f9f9f9;
-}
-.reset-page label span {
-    position: absolute;
-    left: 10px;
-    top: 12px;
-    font-size: 14px;
-    color: #002145;
-    transition: all 0.3s ease-in-out;
-    pointer-events: none;
-}
-
-.reset-page input:focus + span,
-input:not(:placeholder-shown) + span {
-    top: -10px;
-    font-size: 12px;
-    color: #002145;
-    background: #f9f9f9;
-    padding: 0 5px;
 }
 .reset-buttons {
     margin: 20px;

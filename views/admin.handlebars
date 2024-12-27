@@ -1,7 +1,6 @@
 <div class="admin">
     <div class="admin-landing">
         <h1>Welcome {{username}}</h1>
-        <p>Continue below for admin statistics</p>
         <p class="navigate"><a href="/listorder">All Orders</a></p>
     </div>
 
@@ -77,10 +76,9 @@
 
         {{!-- to update products --}}
         <div class="all-actions">
-            <div class="container">
-                <h2>Update Product</h2>
                 
-                <form class="admin-form" action="/admin/updateProduct" method="POST">
+                <form class="general-form" action="/admin/updateProduct" method="POST">
+                    <h2>Update Product</h2>
                     <label>
                         <input type="number" name="productId" placeholder="" required>
                         <span>Product ID</span>
@@ -106,13 +104,10 @@
 
                     <input class="custom-button" type="submit" value="Update Product">
                 </form>
-            </div>
 
-            {{!-- to delete products --}}
-            <div class="container">
-                <h2>Delete Product</h2>
-
-                <form class="admin-form" action="/admin/deleteProduct" method="POST">
+            {{!-- to delete products --}}              
+                <form class="general-form" action="/admin/deleteProduct" method="POST">
+                    <h2>Delete Product</h2>
                     <label>
                         <input type="number" name="productId" placeholder="" required>
                         <span>Product ID</span>
@@ -126,13 +121,10 @@
                         <input class="custom-button" type="submit" value="Delete Product">
                     </div>
                 </form>
-            </div>
 
             {{!-- to add a new product --}}
-            <div class="container">
-                <h2>Add Product</h2>
-
-                <form class="admin-form" action="/admin/addProduct" method="POST">
+                <form class="general-form" action="/admin/addProduct" method="POST">
+                    <h2>Add Product</h2>
                     <label>
                         <input type="text" name="productName" placeholder="">
                         <span>Product Name</span>
@@ -160,7 +152,6 @@
                         <input class="custom-button" type="submit" value="Add Product">
                     </div>
                 </form>
-            </div>
         </div>
 
     </div>
