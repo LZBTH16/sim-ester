@@ -58,6 +58,7 @@ const customerEdit = require('./routes/customerEdit');
 const review = require('./routes/review');
 const notAuthorized = require('./routes/notAuthorized');
 const forgotPassword = require('./routes/forgotPassword');
+const orderHistory = require('./routes/orderHistory');
 
 app.use('/loaddata', loadData);
 app.use('/listorder', listOrder);
@@ -82,6 +83,7 @@ app.use('/customerEdit', customerEdit);
 app.use('/review', review);
 app.use('/notAuthorized', notAuthorized);
 app.use('/forgotPassword', forgotPassword);
+app.use('/orderHistory', orderHistory);
 
 // setting up CSS & images
 app.use(express.static('public'));

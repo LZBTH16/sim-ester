@@ -15,38 +15,37 @@ client.connect();
 
 router.get('/', async function (req, res, next) {
     auth.checkAuthentication(req, res);
-    auth.checkAdmin(req, res);
 
     try {
-        // Query to get order summaries and customer info
-        const sqlQuery = `
-            SELECT order_id, order_date, customers.customer_id, first_name, last_name, total_amount 
-            FROM order_summaries 
-            JOIN customers ON customers.customer_id = order_summaries.customer_id
-        `;
-        const result = await client.query(sqlQuery);
+        // Get the customer id of the current user
+        let sqlQuery = "SELECT customer_id FROM customers WHERE username = $1";
+        let result = await client.query(sqlQuery, [req.session.authenticatedUser]);
+
+        const customerId = result.rows[0].customer_id;
+
+        // Get the order summary details (not including the products)
+        sqlQuery = "SELECT order_id, order_date, total_amount FROM order_summaries WHERE customer_id = $1";
+        result = await client.query(sqlQuery, [customerId]);
 
         const orders = [];
         for (let order of result.rows) {
             let orderDetails = {
                 orderId: order.order_id,
                 orderDate: moment(order.order_date).format("YYYY-MM-DD HH:mm:ss"),
-                customerId: order.customer_id,
-                customerName: order.first_name + " " + order.last_name,
                 totalAmount: order.total_amount,
                 products: []
             };
 
             // Query to get the products in the order
-            const sqlQuery2 = `SELECT product_id, quantity, price FROM order_products WHERE order_id = $1`;
-            const productResult = await client.query(sqlQuery2, [order.order_id]);
+            sqlQuery = `SELECT product_name, quantity, price FROM order_products WHERE order_id = $1`;
+            const productResult = await client.query(sqlQuery, [order.order_id]);
 
             // Add product details to the order
             for (let product of productResult.rows) {
                 orderDetails.products.push({
-                    productId: product.product_id,
+                    productName: product.product_id,
                     quantity: product.quantity,
-                    price: `$${product.price * product.quantity}`
+                    price: `$${product.price}`
                 });
             }
 
@@ -55,10 +54,10 @@ router.get('/', async function (req, res, next) {
         }
 
         // Render the orders list page
-        res.render('listorder', { 
+        res.render('orderHistory', { 
             orders,
             username: req.session.authenticatedUser,
-            title: "All Orders"
+            title: "Your order history"
         });
     } catch (err) {
         console.error('Error fetching orders:', err);
