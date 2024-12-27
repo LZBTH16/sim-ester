@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Client } = require('pg');  // Postgres client
+const { Client } = require('pg');
+const bcrypt = require('bcrypt');
 
 // Create a new Postgres client instance and connect
 const client = new Client({
@@ -50,25 +51,30 @@ router.post('/', function(req, res) {
             return res.render('registrationError', { usernameInUse: true });
         }
 
+        // Hash password with bcrypt
+        const saltRounds = 5;
+
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
         // If successful, insert into database
         sqlQuery = `
             INSERT INTO customers (first_name, last_name, email, phone_num, address, city, state, postal_code, country, username, password)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
         `;
         await client.query(sqlQuery, [
-            firstName, lastName, email, phone, address, city, state, postalCode, country, username, password
+            firstName, lastName, email, phone, address, city, state, postalCode, country, username, hashedPassword
         ]);
 
         // Render the account created page with the entered information
         res.render('accountCreated', {
-            first_name: firstName,
-            last_name: lastName,
+            firstN: firstName,
+            lastName: lastName,
             email: email,
             phone: phone,
             address: address,
             city: city,
             state: state,
-            postal_code: postalCode,
+            postalCode: postalCode,
             country: country,
             newUsername: username
         });

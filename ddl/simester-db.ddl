@@ -18,7 +18,7 @@ CREATE TABLE customers (
     postal_code VARCHAR(20),
     country VARCHAR(40),
     username VARCHAR(20),
-    password VARCHAR(30),
+    password VARCHAR(100),
     admin BOOLEAN DEFAULT FALSE,
     reset_password_token TEXT,
     reset_password_expires BIGINT

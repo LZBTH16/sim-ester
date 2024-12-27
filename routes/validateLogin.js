@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Client } = require('pg');
+const bcrypt = require('bcrypt');
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -35,10 +36,15 @@ async function validateLogin(req) {
     const password = req.body.password;
     const authenticatedUser = await (async function() {
         try {
-            const sqlQuery = "SELECT customer_id, admin FROM customers WHERE username = $1 AND password = $2";
-            const result = await client.query(sqlQuery, [username, password]);
-            
-            if (result.rows.length > 0) {
+            // const sqlQuery = "SELECT customer_id, admin FROM customers WHERE username = $1 AND password = $2";
+            // const result = await client.query(sqlQuery, [username, password]);
+
+            const sqlQuery = "SELECT admin, password FROM customers WHERE username = $1";
+            const result = await client.query(sqlQuery, [username]);
+
+            const passwordMatch = await bcrypt.compare(password, result.rows[0].password);
+
+            if (result.rows.length > 0 && passwordMatch) {
                 req.session.admin = result.rows[0].admin;
                 return username;
             }
