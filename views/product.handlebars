@@ -25,16 +25,14 @@
 
 <!-- Recommended Products Section -->
 <div class="recommended-products">
-    <h2>You Might Also Like</h2>
+    <h2 class="featured">You Might Also Like</h2>
     {{#if recommendedProducts}}
-        <div class="recommended-product-list">
+        <div class="products-container">
             {{#each recommendedProducts}}
-                <div class="product-display">
-                    <a href="/product?id={{this.productId}}">
-                        <img src="{{this.productImageURL}}" alt="{{this.productName}}" />
-                        <p><strong>{{this.productName}}</strong></p>
-                        <p>Price: ${{this.productPrice}}</p>
-                    </a>
+                <div class="product-display" onclick="window.location.href='product?id={{productId}}'" style="cursor: pointer;">
+                    <img src="{{this.productImageURL}}" alt="{{this.productName}}" />
+                    <h4>{{this.productName}}</h4>
+                    <p>Price: ${{this.productPrice}}</p>
                 </div>
             {{/each}}
         </div>
