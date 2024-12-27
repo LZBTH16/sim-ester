@@ -1,0 +1,58 @@
+/* Forms, buttons, & other shared components */
+
+.custom-button {
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+    font-size: 18px;
+    background-color: #002145;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.custom-button:hover{
+    background-color: #004176;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.login .custom-button {
+    padding: 7px 70px;
+    border-radius: 5px;
+}
+.register .custom-button {
+    padding: 7px 120px;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+.review-section .custom-button {
+    margin-bottom: 20px;
+}
+
+.decorative-button {
+    display:inline-block;
+    border: none;
+    padding: 7px 12px;
+    margin-top: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: default;
+    outline: none;
+    font-size: 18px;
+    background-color: #002145;
+    color: #FFFFFF;
+}
+
+.category-select {
+    background: #002145;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    color: white;
+    outline: none;
+}
+.review-section .category-select {
+    font-size: 16px;
+}
