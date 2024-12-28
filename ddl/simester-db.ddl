@@ -55,6 +55,7 @@ CREATE TABLE products (
     product_image BYTEA,
     product_desc VARCHAR(1000),
     category_id INT,
+    sales_count INT DEFAULT 0,
     FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 
