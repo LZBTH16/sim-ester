@@ -1,16 +1,13 @@
 <div class="reset-page">
-    <div class="reset-form-container">
-        <h2>Enter your email address to request a password reset:</h2>
-
-        <form class="reset-form" method="POST" action="/forgotPassword/request-reset">
+        <form class="general-form" method="POST" action="/forgotPassword/request-reset">
+            <h2>Enter your email address to request a password reset:</h2>
             <label>
                 <input type="email" id="email" name="email" placeholder=" " size="40" maxlength="40" required>
                 <span>Email address</span>
             </label>
 
-            <div class="reset-buttons">
-                <span><input class="custom-button" type="submit" value="Send Reset Link"></span>
+            <div class="form-button">
+                <input class="custom-button" type="submit" value="Send Reset Link">
             </div>
         </form>
-    </div>
 </div>

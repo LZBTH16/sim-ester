@@ -50,7 +50,13 @@
     border-radius: 5px;
 }
 .register .custom-button {
-    padding: 7px 120px;
+    padding: 7px 100px;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+.reset-page .custom-button {
+    padding: 7px 95px;
     border-radius: 5px;
     margin-top: 20px;
     font-size: 20px;
@@ -70,6 +76,22 @@
     font-size: 18px;
     background-color: #002145;
     color: #FFFFFF;
+}
+
+/* navigate buttons */
+.navigate a {
+    display: inline-block;
+    color: white;
+    background: #002145;
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+.navigate a:hover {
+    background-color: #004176;
+    color: white;
+    border-radius: 10px;
 }
 
 .category-select {

@@ -1,32 +1,29 @@
 <div class="checkout-page">
-    <div class="checkout">
+    <form class="general-form" method="get" action="order">
         <h2>Enter your credit card details to complete the transaction:</h2>
+        <label>
+            <input type="text" id="cardholderName" name="cardholderName" placeholder=" " size=50 maxlength="50" required>
+            <span>Card holder full name</span>
+        </label>
 
-        <form class="checkout-form" method="get" action="order">
-            <label>
-                <input type="text" id="cardholderName" name="cardholderName" placeholder=" " size=50 maxlength="50" required>
-                <span>Card holder full name</span>
-            </label>
+        <label>
+            <input type="text" id="cardNumber" name="cardNumber" placeholder=" " size=50 maxlength="50" required>
+            <span>Card number (0000 0000 0000 0000)</span>
+        </label>
 
-            <label>
-                <input type="text" id="cardNumber" name="cardNumber" placeholder=" " size=50 maxlength="50" required>
-                <span>Card number (0000 0000 0000 0000)</span>
-            </label>
-
-            <div class="register-group">
-            <label>
-                <input type="text" id="expiry" name="expiry" placeholder=" " size=20 maxlength="20" required>
-                <span>Expiry Date (01/24)</span>
-            </label>
-            <label>
-                <input type="text" id="CVV" name="CVV" placeholder=" " size=20 maxlength="20" required>
-                <span>CVV</span>
-            </label>
-        </div>
-
-            <div class="checkout-buttons">
-                <span><input class="checkout-button" type="submit" value="Checkout"></span>
-            </div>
-        </form>
+        <div class="register-group">
+        <label>
+            <input type="text" id="expiry" name="expiry" placeholder=" " size=20 maxlength="20" required>
+            <span>Expiry Date (01/24)</span>
+        </label>
+        <label>
+            <input type="text" id="CVV" name="CVV" placeholder=" " size=20 maxlength="20" required>
+            <span>CVV</span>
+        </label>
     </div>
+
+        <div class="checkout-buttons">
+            <span><input class="checkout-button" type="submit" value="Checkout"></span>
+        </div>
+    </form>
 </div>

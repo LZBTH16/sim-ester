@@ -14,12 +14,12 @@ html, body {
 
 /* THE ACTUAL PAGES */
 /* INDEX/MAIN */
-.main-page a{
+.index a{
     color: #002145;
     text-decoration: none;
     padding: 10px 15px;
 }
-.main-page a:hover{
+.index a:hover{
     color: #004176;
 }
 /* potentially make the image background change (like a carousel of images) */
@@ -101,7 +101,7 @@ html, body {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     margin-bottom: 10px;
 }
-.box {
+.about-box {
     color:#002145;
     width: 800px;
     text-align: center;
@@ -149,7 +149,7 @@ html, body {
     font-size: 18px;
     outline: none;
 }
-.text-input:focus {
+.listprod .text-input:focus {
     box-shadow: 0 0 10px rgba(0, 33, 69, 0.8);
 }
 /* the product cards */
@@ -371,22 +371,6 @@ html, body {
     background-color: #004176;
     border-radius: 10px;
 }
-/* checkout & continue shopping buttons */
-/* also used for "All Products" button on main page */
-.navigate a {
-    display: inline-block;
-    color: white;
-    background: #002145;
-    border-radius: 10px;
-    text-decoration: none;
-    padding: 10px 15px;
-    transition: all 0.3s ease;
-}
-.navigate a:hover {
-    background-color: #004176;
-    color: white;
-    border-radius: 10px;
-}
 
 /* ORDER */
 .order-checkout {
@@ -466,10 +450,8 @@ html, body {
     background-color: #002145;
     border-radius: 10px;
 }
-
 /* ADMIN ACTIONS */
 .admin-actions {
-    /* min-height: 60vh; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -536,27 +518,16 @@ html, body {
 /* CHECKOUT */
 .checkout-page {
     min-height: 60vh;
-}
-.checkout {
     width: 500px;
     margin: 50px auto;
     text-align: center;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #F9F9F9;
     padding: 20px;
 }
-.checkout h2 {
-    margin-bottom: 50px;
+.checkout-page h2 {
+    margin-bottom: 30px;
 }
-.checkout-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin: 0;
-}
-.checkout label {
+.checkout-page label {
     display: block;
     position: relative;
     text-align: left;
@@ -696,19 +667,6 @@ html, body {
     align-items: center;
     margin: 0;
     min-height: 60vh;
-}
-.reset-form-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background: #F9F9F9;
-    width: 400px;
-    border-radius: 10px;
-    margin: 50px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    gap: 10px;
 }
 .reset-page h2 {
     text-align: center;
