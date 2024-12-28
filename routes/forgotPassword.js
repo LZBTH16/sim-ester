@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
 const { Client } = require('pg');
-const sgMail = require('@sendgrid/mail')
+const sgMail = require('@sendgrid/mail');
+const bcrypt = require('bcryptjs');
 
 // Database client setup
 const client = new Client({
@@ -31,23 +32,22 @@ router.post('/request-reset', async (req, res) => {
 
     try {
         // Check if the email exists
-        const result = await client.query("SELECT username FROM customers WHERE email = $1", [email]);
+        const result = await client.query("SELECT customer_id, username FROM customers WHERE email = $1", [email]);
 
         if (result.rows.length === 0) {
             return res.status(400).send("No account with that email exists.");
         }
 
+        const customerId = result.rows[0].customer_id;
         const username = result.rows[0].username;
 
         // Generate token and expiration time
         const token = crypto.randomBytes(20).toString('hex');
-        const expireTime = Date.now() + 3600000; // Token expires in 1 hour
+        const expiryTime = Date.now() + 3600000; // Token expires in 1 hour
 
         // Store the token in the database
-        await client.query(
-            "UPDATE customers SET reset_password_token = $1, reset_password_expires = $2 WHERE email = $3",
-            [token, expireTime, email]
-        );
+        const sqlQuery = "INSERT INTO reset_passwords (customer_id, token, expiry_time) VALUES ($1, $2, $3) ON CONFLICT (customer_id) DO UPDATE SET token = $2, expiry_time = $3";
+        await client.query(sqlQuery, [customerId, token, expiryTime]);
 
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -92,31 +92,35 @@ router.post('/request-reset', async (req, res) => {
 // Route to render password reset page
 router.get('/reset-password/:token', (req, res) => {
     const { token } = req.params;
-    res.render('resetPassword', { token });  // Make sure 'resetPassword' is your Handlebars template for resetting password
+    res.render('resetPassword', { token });
 });
 
 // Route to handle password reset
 router.post('/reset-password/:token', async (req, res) => {
     const { token } = req.params;
     const { newPassword } = req.body;
+    const saltRounds = 5;
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, saltRounds);
 
     try {
         // Verify token and expiration
-        const result = await client.query(
-            "SELECT username FROM customers WHERE reset_password_token = $1 AND reset_password_expires > $2",
-            [token, Date.now()]
-        );
+        let sqlQuery = "SELECT customers.customer_id FROM customers JOIN reset_passwords ON customers.customer_id = reset_passwords.customer_id WHERE token = $1 AND expiry_time > $2"
+        const result = await client.query(sqlQuery, [token, Date.now()]);
 
         if (result.rows.length === 0) {
             return res.status(400).send("Invalid or expired token.");
         }
 
-        // Update password and clear token
-        const username = result.rows[0].username;
-        await client.query(
-            "UPDATE customers SET password = $1, reset_password_token = NULL, reset_password_expires = NULL WHERE username = $2",
-            [newPassword, username]
-        );
+        const customerId = result.rows[0].customer_id;
+
+        // Update password
+        sqlQuery = "UPDATE customers SET password = $1 WHERE customer_id = $2";
+        await client.query(sqlQuery, [hashedNewPassword, customerId]);
+
+        // Clear token
+        sqlQuery = "DELETE FROM reset_passwords WHERE customer_id = $1";
+        await client.query(sqlQuery, [customerId]);
 
         res.status(200).send("Your password has been successfully updated.");
     } catch (err) {

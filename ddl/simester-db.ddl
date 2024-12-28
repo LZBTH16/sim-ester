@@ -5,6 +5,7 @@ DROP TABLE categories;
 DROP TABLE order_summaries;
 DROP TABLE payment_methods;
 DROP TABLE customers;
+DROP TABLE reset_passwords;
 
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
@@ -19,9 +20,7 @@ CREATE TABLE customers (
     country VARCHAR(40),
     username VARCHAR(20),
     password VARCHAR(100),
-    admin BOOLEAN DEFAULT FALSE,
-    reset_password_token TEXT,
-    reset_password_expires BIGINT
+    admin BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE payment_methods (
@@ -82,6 +81,15 @@ CREATE TABLE reviews (
         ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(product_id)
         ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE reset_passwords (
+    customer_id INT,
+    token TEXT,
+    expiry_time BIGINT,
+    PRIMARY KEY (customer_id),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+        ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
 INSERT INTO categories(category_name) VALUES ('COSC');

@@ -79,7 +79,7 @@ app.use('/customer', customer);
 app.use('/logout', logout);
 app.use('/register', register);
 app.use('/validateRegister', validateRegister);
-app.use('/customerEdit', customerEdit);
+app.use('/customer-edit', customerEdit);
 app.use('/review', review);
 app.use('/notAuthorized', notAuthorized);
 app.use('/forgotPassword', forgotPassword);
