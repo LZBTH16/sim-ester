@@ -25,13 +25,10 @@
     border: 1px solid #dddddd;
     text-align: left;
 }
-.all-actions .container {
-    margin: 20px;
-}
 
 .custom-button {
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 5px 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     outline: none;
@@ -45,19 +42,20 @@
     background-color: #004176;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
+.admin-actions .custom-button {
+    padding: 7px 35px;
+    margin-top: 10px;
+}
 .login .custom-button {
     padding: 7px 70px;
-    border-radius: 5px;
 }
 .register .custom-button {
     padding: 7px 100px;
-    border-radius: 5px;
     margin-top: 20px;
     font-size: 20px;
 }
 .reset-page .custom-button {
     padding: 7px 95px;
-    border-radius: 5px;
     margin-top: 20px;
     font-size: 20px;
 }
@@ -83,7 +81,7 @@
     display: inline-block;
     color: white;
     background: #002145;
-    border-radius: 10px;
+    border-radius: 5px;
     text-decoration: none;
     padding: 10px 15px;
     transition: all 0.3s ease;
@@ -91,7 +89,10 @@
 .navigate a:hover {
     background-color: #004176;
     color: white;
-    border-radius: 10px;
+    border-radius: 5px;
+}
+.admin .navigate a {
+    width: 80%;
 }
 
 .category-select {
@@ -116,7 +117,7 @@
     padding: 20px;
     background: #F9F9F9;
     width: 400px;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     gap: 10px;

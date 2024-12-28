@@ -434,34 +434,15 @@ html, body {
     justify-content: center;
     align-items: center;
     padding-bottom: 50px;
-}
-.admin-landing {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    background: #F9F9F9;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-.admin-landing p {
-    text-align: center;
-    color: white;
-    background-color: #002145;
-    border-radius: 10px;
+    gap: 10px;
 }
 /* ADMIN ACTIONS */
 .admin-actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 0;
-}
-.all-actions {
-    margin: 20px auto;
-    display: flex;
-    align-items: center;
 }
 .admin-actions label {
     display: block;
@@ -471,8 +452,11 @@ html, body {
     color: #6c757d;
     flex: 1 1 45%;
 }
-.action-actions {
-    margin-top: 20px;
+.admin-actions .general-form {
+    background: none;
+    box-shadow: none;
+    width: auto;
+    border: 1px solid #002145;
 }
 
 /* CUSTOMER */

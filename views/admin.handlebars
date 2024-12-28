@@ -1,10 +1,14 @@
 <div class="admin">
-    <div class="admin-landing">
-        <h1>Welcome {{username}}</h1>
+    <div class="container">
+        <h1>Welcome, {{username}}</h1>
+        <p class="navigate"><a href="/admin#total-sales">Total Sales</a></p>
+        <p class="navigate"><a href="/admin#products-sold">Products Sold</a></p>
+        <p class="navigate"><a href="/admin#customer-info">Customer Info</a></p>
+        <p class="navigate"><a href="/admin#admin-actions">Admin Actions</a></p>
         <p class="navigate"><a href="/list-order">All Orders</a></p>
     </div>
 
-    <div class="container">
+    <div class="container" id="total-sales">
         <h2>Sales Graph</h2>
         <div>
             <!-- Buttons for filtering time range -->
@@ -28,14 +32,14 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="products-sold">
         <h2>Total Units Sold Per Product</h2>
         <div>
             <canvas id="salesPerProductChart" width="800" height="400"></canvas>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="customer-info">
         <h2>Customer Information</h2>
         <table>
             <thead>
@@ -73,7 +77,8 @@
         </table>
     </div>
 
-    <div class="admin-actions">
+    <div class="container" id="admin-actions">
+        <h2>Admin Actions</h2>
         {{!-- to show that the product has been updated/deleted/added --}}
         {{#if successMessage}}
             <div class="decorative-button">
@@ -82,7 +87,7 @@
         {{/if}}
 
         {{!-- to update products --}}
-        <div class="all-actions">
+        <div class="admin-actions">
             <form class="general-form" action="/admin/updateProduct" method="POST">
                 <h2>Update Product</h2>
                 <label>
@@ -108,7 +113,9 @@
                     <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
                 </label>
 
-                <input class="custom-button" type="submit" value="Update Product">
+                <div class="form-button">
+                    <input class="custom-button" type="submit" value="Update Product">
+                </div>
             </form>
 
             {{!-- to delete products --}}
@@ -123,7 +130,7 @@
                     <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
                 </label>
 
-                <div class="action">
+                <div class="form-button">
                     <input class="custom-button" type="submit" value="Delete Product">
                 </div>
             </form>
@@ -154,13 +161,30 @@
                     <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
                 </label>
 
-                <div class="action">
+                <div class="form-button">
                     <input class="custom-button" type="submit" value="Add Product">
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+{{!-- script to keep scroll position --}}
+<script>
+    // Save the scroll position in localStorage before the page reloads
+    window.addEventListener('beforeunload', () => {
+        localStorage.setItem('scrollPosition', window.scrollY);
+    });
+
+    // Restore the scroll position after the page loads
+    window.addEventListener('load', () => {
+        const scrollPosition = localStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition, 10));
+            localStorage.removeItem('scrollPosition'); // Clean up
+        }
+    });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
