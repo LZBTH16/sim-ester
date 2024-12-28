@@ -26,6 +26,7 @@
     text-align: left;
 }
 
+/* USED TO STYLE ACTUAL BUTTONS */
 .custom-button {
     border: none;
     border-radius: 5px;
@@ -46,11 +47,15 @@
     padding: 7px 35px;
     margin-top: 10px;
 }
-.login .custom-button {
+.checkout-page .custom-button {
+    padding: 15px 160px;
+    margin-top: 20px;
+}
+.login-page .custom-button {
     padding: 7px 70px;
 }
 .register .custom-button {
-    padding: 7px 100px;
+    padding: 7px 130px;
     margin-top: 20px;
     font-size: 20px;
 }
@@ -62,7 +67,11 @@
 .review-section .custom-button {
     margin-bottom: 20px;
 }
+.search-form .custom-button {
+    border-radius: 10px;
+}
 
+/* fake buttons, don't lead to anything */
 .decorative-button {
     display:inline-block;
     border: none;
@@ -76,7 +85,7 @@
     color: #FFFFFF;
 }
 
-/* navigate buttons */
+/* navigate buttons / buttons that are not ACTUAL buttons but act like buttons */
 .navigate a {
     display: inline-block;
     color: white;
@@ -91,8 +100,27 @@
     color: white;
     border-radius: 5px;
 }
-.admin .navigate a {
+.admin .navigate a,
+.product-display .navigate a {
     width: 80%;
+}
+.customer .navigate a,
+.product-card .navigate a {
+    width: 60%;
+}
+.showcase .navigate {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+    font-size: 24px;
+}
+.showcase-container .navigate  a{
+    width: 70%;
+    
+}
+.showcase-container .navigate {
+    margin: 20px;
+    font-size: 18px;
 }
 
 .category-select {

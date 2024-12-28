@@ -26,13 +26,13 @@
                         <!-- If productImageURL is not available, load directly from the database using displayImage -->
                         <img src="/display-image?id={{productId}}" alt="{{productName}}">
                     {{/if}}
-                    <div class="product-action">
+                    <div class="navigate">
                         <a href="product?id={{productId}}" >Details</a>
                     </div>
                 </div>
             {{/each}}
         </div>
-        <h2 class="navigate"><a href="/list-prod">All Products</a></h2>
+        <p class="navigate"><a href="/list-prod">All Products</a></p>
     </div>
 
     {{!-- <div class="divider"></div> --}}

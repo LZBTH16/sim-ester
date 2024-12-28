@@ -67,7 +67,7 @@ html, body {
 .showcase-product {
     width: 400px;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: #F9F9F9;
     padding: 10px;
@@ -79,14 +79,6 @@ html, body {
 .showcase-product img {
     /* width: 400px; ensuring all images are same size */
     height: 240px;
-}
-.showcase-product .product-action {
-    margin: 20px; /* specific margin for this page */
-}
-.showcase .navigate {
-    display: flex;
-    justify-content: center;
-    margin: 50px;
 }
 /* About Us */
 .about {
@@ -105,7 +97,7 @@ html, body {
     color:#002145;
     width: 800px;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: #F9F9F9;
     padding: 10px;
@@ -134,6 +126,7 @@ html, body {
     align-items: center;
     gap: 10px;
     margin-bottom: 50px;
+    margin-top: 20px;
 }
 .search-form {
     display: flex;
@@ -164,8 +157,8 @@ html, body {
     color:#002145;
     background-color: #F9F9F9;
     padding: 20px;
-    width: 400px;
-    border-radius: 10px;
+    width: 380px;
+    border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.3s ease;
@@ -173,10 +166,10 @@ html, body {
 .product-card:hover {
     transform: scale(1.05); /* slightly enlarge when hovered */
 }
-.product-name a {
+.product-name h2 {
     font-size: 25px;
     color: #002145;
-    text-decoration: none;
+    text-shadow: none;
 }
 .product-price {
     margin: 10px 0px;
@@ -184,27 +177,13 @@ html, body {
     font-weight: bold;
     margin-bottom: 20px;
 }
-.product-action a {
-    color: white;
-    font-size: 18px;
-    text-decoration: none;
-    padding: 10px 15px;
-    background-color: #002145;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
-.product-action a:hover {
-    color: white;
-    background-color: #004176;
-    border-radius: 5px;
-}
 
 /* PRODUCT */
 .product-display {
     width: 500px;
     margin: 50px auto; /* centres horizontally, adds vertical spacing */
     text-align: center;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: #F9F9F9;
     padding: 10px;
@@ -261,7 +240,7 @@ html, body {
     width: 500px;
     margin: 50px auto;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: #002145;
     color: white;
@@ -271,7 +250,7 @@ html, body {
     width: 500px;
     margin: 50px auto;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: #F9F9F9;
     padding: 10px;
@@ -303,7 +282,7 @@ html, body {
 }
 .show-cart {
     background: #F9F9F9;
-    border-radius: 10px;
+    border-radius: 5px;
     width: auto;
     display: flex;
     flex-direction: column;
@@ -336,7 +315,7 @@ html, body {
 /* quantity input */
 .qty {
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     width: 40px;
     padding: 5px 5px;
     text-align: center;
@@ -349,12 +328,12 @@ html, body {
     text-decoration: none;
     padding: 10px 15px;
     background-color: #bb0000;
-    border-radius: 10px;
+    border-radius: 5px;
     transition: all 0.3s ease;
 }
 .removeitem a:hover {
     background-color: #990000;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 /* update button */
 .updateitem {
@@ -362,14 +341,14 @@ html, body {
     font-size: 14px;
     padding: 10px 15px;
     background-color: #002145;
-    border-radius: 10px;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 .updateitem:hover {
     background-color: #004176;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 /* ORDER */
@@ -383,7 +362,7 @@ html, body {
     width: auto;
     margin: 50px auto;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: #F9F9F9;
     padding: 20px;
@@ -426,8 +405,16 @@ html, body {
     align-items: center;
 }
 
+/* ORDER HISTORY */
+.order-history {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 /* ADMIN */
-/* welcome msg & info */
 .admin {
     display: flex;
     flex-direction: column;
@@ -436,7 +423,6 @@ html, body {
     padding-bottom: 50px;
     gap: 10px;
 }
-/* ADMIN ACTIONS */
 .admin-actions {
     display: flex;
     flex-direction: row;
@@ -475,7 +461,7 @@ html, body {
     padding-bottom: 50px;
     background: #F9F9F9;
     width: 650px;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -484,10 +470,6 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.profile-actions .navigate {
-    margin-top: 20px;
-    font-size: 16px;
 }
 .profile-field {
     font-weight: bold;
@@ -505,7 +487,7 @@ html, body {
     width: 500px;
     margin: 50px auto;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 20px;
 }
 .checkout-page h2 {
@@ -519,47 +501,16 @@ html, body {
     color: #6c757d;
     flex: 1 1 45%;
 }
-.checkout-buttons {
-    margin-top: 30px;
-}
-.checkout-button {
-    border: none;
-    border-radius: 10px;
-    padding: 15px 160px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    outline: none;
-    font-size: 18px;
-    background-color: #002145;
-    color: #FFFFFF;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.checkout-button:hover {
-    background-color: #004176;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
 
 /* LOGIN */
 .login-page {
     min-height: 60vh;
-}
-.login {
-    width: 300px;
-    margin: 50px auto;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #F9F9F9;
-    padding: 20px;
-}
-.login-form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 15px;
-    margin: 0;
 }
-.login label {
+.login-page label {
     display: block;
     position: relative;
     text-align: left;
@@ -568,6 +519,7 @@ html, body {
     flex: 1 1 45%;
 }
 .info {
+    text-align: center;
     margin: 20px;
 }
 .info a {
@@ -577,11 +529,14 @@ html, body {
     color:#004176;
 }
 /* styling the login message */
-.login p {
+.message {
+    width: 50%;
+    text-align: center;
     padding: 5px 10px;
+    margin-top: 0;
     background:#990000;
     color: white;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 

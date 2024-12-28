@@ -1,35 +1,30 @@
-<div class="login-page">
-    <div class="login">
-
-        <h3>Login to SIM-ESTER</h3>
+<div class="login-page"> 
+    <form class="general-form" method="post" action="/validate-login{{#if redirectCart}}?redirectCart=true{{/if}}">
+        <h2>Login to SIM-ESTER</h2>
 
         {{#if loginMessage}}
-            <p>{{loginMessage}}</p>
+            <p class="message">{{loginMessage}}</p>
         {{/if}}
-
-        <br>
         
-        <form class="login-form" method="post" action="/validate-login{{#if redirectCart}}?redirectCart=true{{/if}}">
-            <label for="username">
-                <input type="text" name="username" placeholder=" " size=20 maxlength="20">
-                <span>Username</span>
-            </label>
-            <label for="password">
-                <input type="password" name="password" placeholder=" " size=20 maxlength="20">
-                <span>Password</span>
-            </label>
+        <label for="username">
+            <input type="text" name="username" placeholder=" " size=20 maxlength="20">
+            <span>Username</span>
+        </label>
+        <label for="password">
+            <input type="password" name="password" placeholder=" " size=20 maxlength="20">
+            <span>Password</span>
+        </label>
 
-            <div class="form-button">
-                <input class="custom-button" type="submit" value="Log In">
-            </div>
-            <div class="info">
-                <a href="/forgot-password/request-reset">Forgot password</a>
-                <br>
-                <br>
-                Don't have an account? <a href="/register">Sign up</a>
-            </div>
-            {{!-- <div class="info">Don't have an account? <a href="/register">Sign up</a></div> --}}
-            
-        </form>
-    </div>
+        <div class="form-button">
+            <input class="custom-button" type="submit" value="Log In">
+        </div>
+        <div class="info">
+            <a href="/forgot-password/request-reset">Forgot password</a>
+            <br>
+            <br>
+            Don't have an account? <a href="/register">Sign up</a>
+        </div>
+        {{!-- <div class="info">Don't have an account? <a href="/register">Sign up</a></div> --}}
+        
+    </form>
 </div>
