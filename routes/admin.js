@@ -23,7 +23,7 @@ router.get('/', async function(req, res, next) {
         req.session.successMessage = null;
 
         // getting orders per day
-        let sqlQuery = "SELECT CAST(order_date AS DATE) AS order_date, SUM(total_amount) AS sum_total, COUNT(product_id) AS products_sold FROM order_summaries JOIN order_products ON order_summaries.order_id = order_products.order_id GROUP BY CAST(order_date AS DATE) ORDER BY order_date ASC";
+        let sqlQuery = "SELECT CAST(order_date AS DATE) AS order_date, SUM(total_amount) AS sum_total, SUM(quantity) AS products_sold FROM order_summaries JOIN order_products ON order_summaries.order_id = order_products.order_id GROUP BY CAST(order_date AS DATE) ORDER BY order_date ASC";
         let results = await client.query(sqlQuery);
 
         // Iterate through every order in the recordset
@@ -51,7 +51,7 @@ router.get('/', async function(req, res, next) {
             country: customer.country
         }));
 
-        sqlQuery = "SELECT product_name, sales_count FROM products";
+        sqlQuery = "SELECT product_name, SUM(quantity) AS sales_count FROM products JOIN order_products ON products.product_id = order_products.product_id GROUP BY product_name ORDER BY product_name ASC";
         results = await client.query(sqlQuery);
 
         const productData = results.rows.map(product => ({
