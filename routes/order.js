@@ -76,9 +76,6 @@ router.get('/', async function (req, res, next) {
                 product.quantity, 
                 product.price
             ]);
-
-            sqlQuery = "UPDATE products SET sales_count = sales_count + $1 WHERE product_id = $2";
-            await client.query(sqlQuery, [product.quantity, product.id]);
         }
 
         // Clear shopping cart (sessional variable)
