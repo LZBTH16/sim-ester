@@ -29,6 +29,13 @@
     </div>
 
     <div class="container">
+        <h2>Total Units Sold Per Product</h2>
+        <div>
+            <canvas id="salesPerProductChart" width="800" height="400"></canvas>
+        </div>
+    </div>
+
+    <div class="container">
         <h2>Customer Information</h2>
         <table>
             <thead>
@@ -76,91 +83,91 @@
 
         {{!-- to update products --}}
         <div class="all-actions">
+            <form class="general-form" action="/admin/updateProduct" method="POST">
+                <h2>Update Product</h2>
+                <label>
+                    <input type="number" name="productId" placeholder="" required>
+                    <span>Product ID</span>
+                </label>
+
+                <label>
+                    <input type="text" name="productName" placeholder="">
+                    <span>Product Name</span>
+                </label>
                 
-                <form class="general-form" action="/admin/updateProduct" method="POST">
-                    <h2>Update Product</h2>
-                    <label>
-                        <input type="number" name="productId" placeholder="" required>
-                        <span>Product ID</span>
-                    </label>
+                <label>
+                    <input type="text" name="productPrice" placeholder="">
+                    <span>Price</span>
+                </label>
 
-                    <label>
-                        <input type="text" name="productName" placeholder="">
-                        <span>Product Name</span>
-                    </label>
-                    
-                    <label>
-                        <input type="text" name="productPrice" placeholder="">
-                        <span>Price</span>
-                    </label>
+                <label>
+                    <textarea type="text" name="productDesc" placeholder="Description"></textarea>
+                </label>
 
-                    <label>
-                        <textarea type="text" name="productDesc" placeholder="Description"></textarea>
-                    </label>
+                <label>
+                    <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
+                </label>
 
-                    <label>
-                        <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
-                    </label>
+                <input class="custom-button" type="submit" value="Update Product">
+            </form>
 
-                    <input class="custom-button" type="submit" value="Update Product">
-                </form>
+            {{!-- to delete products --}}
+            <form class="general-form" action="/admin/deleteProduct" method="POST">
+                <h2>Delete Product</h2>
+                <label>
+                    <input type="number" name="productId" placeholder="" required>
+                    <span>Product ID</span>
+                </label>
 
-            {{!-- to delete products --}}              
-                <form class="general-form" action="/admin/deleteProduct" method="POST">
-                    <h2>Delete Product</h2>
-                    <label>
-                        <input type="number" name="productId" placeholder="" required>
-                        <span>Product ID</span>
-                    </label>
+                <label>
+                    <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
+                </label>
 
-                    <label>
-                        <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
-                    </label>
-
-                    <div class="action">
-                        <input class="custom-button" type="submit" value="Delete Product">
-                    </div>
-                </form>
+                <div class="action">
+                    <input class="custom-button" type="submit" value="Delete Product">
+                </div>
+            </form>
 
             {{!-- to add a new product --}}
-                <form class="general-form" action="/admin/addProduct" method="POST">
-                    <h2>Add Product</h2>
-                    <label>
-                        <input type="text" name="productName" placeholder="">
-                        <span>Product Name</span>
-                    </label>
+            <form class="general-form" action="/admin/addProduct" method="POST">
+                <h2>Add Product</h2>
+                <label>
+                    <input type="text" name="productName" placeholder="">
+                    <span>Product Name</span>
+                </label>
 
-                    <label>
-                        <input type="text" name="productPrice" placeholder="">
-                        <span>Price</span>
-                    </label>
+                <label>
+                    <input type="text" name="productPrice" placeholder="">
+                    <span>Price</span>
+                </label>
 
-                    <label>
-                        <input type="number" name="categoryId" placeholder="">
-                        <span>Category ID</span>
-                    </label>
+                <label>
+                    <input type="number" name="categoryId" placeholder="">
+                    <span>Category ID</span>
+                </label>
 
-                    <label>
-                        <textarea type="text" name="productDesc" placeholder="Description"></textarea>
-                    </label>
+                <label>
+                    <textarea type="text" name="productDesc" placeholder="Description"></textarea>
+                </label>
 
-                    <label>
-                        <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
-                    </label>
+                <label>
+                    <input type="password" name="adminPassword" placeholder="ADMIN PASSWORD" required>
+                </label>
 
-                    <div class="action">
-                        <input class="custom-button" type="submit" value="Add Product">
-                    </div>
-                </form>
+                <div class="action">
+                    <input class="custom-button" type="submit" value="Add Product">
+                </div>
+            </form>
         </div>
-
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const orders = JSON.parse('{{{orders}}}');
+    const productData = JSON.parse('{{{productData}}}');
     const ctx = document.getElementById('salesReportChart').getContext('2d');
+    const productCtx = document.getElementById('salesPerProductChart').getContext('2d');
 
     // Function to filter orders based on time range
     const filterOrdersByTimeRange = (timeRange) => {
@@ -184,7 +191,7 @@
         });
     };
 
-    // Initial chart data and instance
+    // Initial chart data and instance for sales over time
     const chartData = {
         labels: orders.map(order => order.orderDate),
         datasets: [{
@@ -222,7 +229,7 @@
                 x: { title: { display: true } },
                 y: {
                     title: { display: true },
-                    beginAtZero: false, // Auto-scale the y-axis without forcing it to start from zero
+                    beginAtZero: false,
                     ticks: {
                         callback: function(value) {
                             return '$' + value.toLocaleString();
@@ -233,19 +240,14 @@
         }
     });
 
-    // Function to update the chart
+    // Update sales chart based on filtered orders
     const updateChart = (filteredOrders) => {
         chart.data.labels = filteredOrders.map(order => order.orderDate);
         chart.data.datasets[0].data = filteredOrders.map(order => order.sumTotal);
-
-        // Let Chart.js auto-scale the min/max values
-        chart.options.scales.y.min = undefined;  // Remove any manual minimum value
-        chart.options.scales.y.max = undefined;  // Remove any manual maximum value
-
         chart.update();
     };
 
-    // Button event listeners for dynamically updating chart
+    // Add event listeners to filter buttons
     document.getElementById('filter-3-months').addEventListener('click', () => {
         const filteredOrders = filterOrdersByTimeRange('3-months');
         updateChart(filteredOrders);
@@ -260,21 +262,45 @@
         const filteredOrders = filterOrdersByTimeRange('all-time');
         updateChart(filteredOrders);
     });
-</script>
 
-{{!-- to remember scroll position after refresh --}}
-<script>
-    // Save the scroll position in localStorage before the page reloads
-    window.addEventListener('beforeunload', () => {
-        localStorage.setItem('scrollPosition', window.scrollY);
-    });
+    // Sales Per Product Chart
+    const productLabels = productData.map(product => product.productName);
+    const productSales = productData.map(product => product.salesCount);
 
-    // Restore the scroll position after the page loads
-    window.addEventListener('load', () => {
-        const scrollPosition = localStorage.getItem('scrollPosition');
-        if (scrollPosition) {
-            window.scrollTo(0, parseInt(scrollPosition, 10));
-            localStorage.removeItem('scrollPosition'); // Clean up
+    new Chart(productCtx, {
+        type: 'bar',
+        data: {
+            labels: productLabels,
+            datasets: [{
+                label: 'Units Sold',
+                data: productSales,
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return `${tooltipItem.raw.toLocaleString()} Units`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: { title: { display: true } },
+                y: {
+                    title: { display: true },
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
         }
     });
 </script>

@@ -51,13 +51,12 @@ router.get('/', async function(req, res, next) {
             country: customer.country
         }));
 
-        sqlQuery = "SELECT CAST(order_date AS DATE) AS order_date, products.product_name, SUM(quantity) AS total_quantity FROM order_summaries JOIN order_products ON order_summaries.order_id = order_products.order_id JOIN products ON order_products.product_id = products.product_id GROUP BY CAST(order_date AS DATE), products.product_name ORDER BY order_date ASC";
+        sqlQuery = "SELECT product_name, sales_count FROM products";
         results = await client.query(sqlQuery);
 
-        const productData = results.rows.map(row => ({
-            orderDate: moment(row.order_date).format('YYYY-MM-DD'),
-            productName: row.product_name,
-            totalQuantity: row.total_quantity
+        const productData = results.rows.map(product => ({
+            productName: product.product_name,
+            salesCount: product.sales_count
         }));
 
         // sending the data to the admin.handlebars
