@@ -1,8 +1,8 @@
 <div class="your-cart">
-    <div class="showcart">
+    <div class="show-cart">
         {{#if productList.length}}
             <h1>Your Shopping Cart</h1>
-            <div class="showcart-table">
+            <div class="show-cart-table">
                 <table>
                     <tr>
                         <th>Product Id</th>
@@ -25,7 +25,7 @@
                                 <td align="right">${{formatPrice this.price}}</td>
                                 <td align="right">${{multiplyAndFormat this.quantity this.price}}</td>
                                 <td class="removeitem">
-                                    <a href="/deleteitem?id={{this.id}}">Remove from cart</a>
+                                    <a href="/delete-item?id={{this.id}}">Remove from cart</a>
                                 </td>
                             </tr>
                         {{/if}}
@@ -44,7 +44,7 @@
             <h2>Your shopping cart is empty!</h2>
         {{/if}}
 
-        <h3 class="navigate"><a href="/listprod">Continue Shopping</a></h3>
+        <h3 class="navigate"><a href="/list-prod">Continue Shopping</a></h3>
     </div>
 </div>
 

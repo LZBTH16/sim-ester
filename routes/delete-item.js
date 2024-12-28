@@ -15,14 +15,14 @@ router.get('/', function(req, res, next) {
     if(req.query.id){
         id = req.query.id;
     }else{
-        return res.redirect("/showcart");
+        return res.redirect("/show-cart");
     }
 
     // Delete the product
     delete productList[id];
 
     req.session.productList = productList;
-    res.redirect("/showcart");
+    res.redirect("/show-cart");
 });
 
 module.exports = router;

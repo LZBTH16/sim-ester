@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
         name = req.query.name;
         price = req.query.price;
     } else {
-        return res.redirect("/listprod"); // added "return" so that the code below does not execute
+        return res.redirect("/list-prod"); // added "return" so that the code below does not execute
     }
 
     // Update quantity if add same item to order again
@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
     }
 
     req.session.productList = productList;
-    res.redirect("/showcart");
+    res.redirect("/show-cart");
 });
 
 module.exports = router;

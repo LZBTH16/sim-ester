@@ -20,14 +20,14 @@ router.get('/', function(req, res, next) {
         id = parseInt(id);
         quantity = parseInt(quantity);
     }else{
-        return res.redirect("/showcart");
+        return res.redirect("/show-cart");
     }
 
     // Update quantity
     productList[id].quantity = quantity;
 
     req.session.productList = productList;
-    res.redirect("/showcart");
+    res.redirect("/show-cart");
 });
 
 module.exports = router;

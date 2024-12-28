@@ -83,7 +83,7 @@ router.get('/order-history', async function (req, res, next) {
         }
 
         // Render the orders list page
-        res.render('orderHistory', { 
+        res.render('order-history', { 
             orders,
             username: req.session.authenticatedUser,
             title: "Your order history"

@@ -55,7 +55,7 @@ router.get('/', async function(req, res) {
             searchTitle = `Products in '${category}' category`;
         }
 
-        res.render('listprod', { 
+        res.render('list-prod', { 
             searchTitle, 
             products, 
             username: req.session.authenticatedUser, 

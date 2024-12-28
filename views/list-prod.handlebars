@@ -1,9 +1,9 @@
-<div class="listprod">
-    <div class="listprod-search">
+<div class="list-prod">
+    <div class="list-prod-search">
         <h2>Search for Products</h2>
 
         <!-- product search bar & buttons -->
-        <form method="get" action="/listprod" class="search-form" id="searchForm">
+        <form method="get" action="/list-prod" class="search-form" id="searchForm">
             {{!-- category filter --}}
         <select class="category-select" name="category" id="categorySelect">
             {{!-- <option value="" {{#unless category}}selected{{/unless}}>Category</option> --}}
@@ -45,7 +45,7 @@
                 ${{price}}
             </div>
             <div class="product-action">
-                <a href="addcart?id={{id}}&name={{name}}&price={{price}}">Add to cart</a>
+                <a href="add-cart?id={{id}}&name={{name}}&price={{price}}">Add to cart</a>
             </div>
         </div>
         {{/each}}

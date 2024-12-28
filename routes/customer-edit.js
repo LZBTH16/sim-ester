@@ -8,7 +8,7 @@ router.get('/', async function(req, res, next) {
     auth.checkAuthentication(req, res); // display error msg if attempting to access page and not logged in
     const username = req.session.authenticatedUser;
 
-    res.render('customerEdit', {
+    res.render('customer-edit', {
         username: username,
         title: "Edit Your Profile"
     });  

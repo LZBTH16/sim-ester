@@ -23,14 +23,14 @@ router.post('/', function(req, res) {
         const phoneRegex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
 
         if (!phoneRegex.test(phone)) {
-            return res.render('registrationError', { invalidPhoneNumber: true });
+            return res.render('registration-error', { invalidPhoneNumber: true });
         }
 
         // Check if email is valid
         const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
         if (!emailRegex.test(email)) {
-            return res.render('registrationError', { invalidEmail: true });
+            return res.render('registration-error', { invalidEmail: true });
         }
 
         // Check if the user already exists by email
@@ -39,7 +39,7 @@ router.post('/', function(req, res) {
 
         // If the email already exists, do not create the account
         if (result.rows.length > 0) {
-            return res.render('registrationError', { emailInUse: true });
+            return res.render('registration-error', { emailInUse: true });
         }
 
         // Check if the username already exists
@@ -48,7 +48,7 @@ router.post('/', function(req, res) {
 
         // If the username already exists, do not create the account
         if (result.rows.length > 0) {
-            return res.render('registrationError', { usernameInUse: true });
+            return res.render('registration-error', { usernameInUse: true });
         }
 
         // Hash password with bcrypt
@@ -66,7 +66,7 @@ router.post('/', function(req, res) {
         ]);
 
         // Render the account created page with the entered information
-        res.render('accountCreated', {
+        res.render('account-created', {
             firstN: firstName,
             lastName: lastName,
             email: email,
@@ -80,7 +80,7 @@ router.post('/', function(req, res) {
         });
     })().catch(err => {
         console.error(err);
-        res.render('registrationError', { errorMessage: 'An error occurred while creating the account.' });
+        res.render('registration-error', { errorMessage: 'An error occurred while creating the account.' });
     });
 });
 

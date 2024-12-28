@@ -1,12 +1,14 @@
-<div class="listorder">
+<div class="list-order">
 
     <div class="container">
-        <h2>Order History</h2>
+        <h2>Order Information</h2>
         <table>
             <thead>
                 <tr>
                     <th>Order ID</th>
                     <th>Order Date</th>
+                    <th>Customer ID</th>
+                    <th>Customer Name</th>
                     <th>Total Amount</th>
                     <th>Order Details</th>
                 </tr>
@@ -16,12 +18,14 @@
                     <tr>
                         <td>{{this.orderId}}</td>
                         <td>{{this.orderDate}}</td>
+                        <td>{{this.customerId}}</td>
+                        <td>{{this.customerName}}</td>
                         <td>${{this.totalAmount}}</td>
                         <td>
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Product Name</th>
+                                        <th>Product ID</th>
                                         <th>Quantity</th>
                                         <th>Price</th>
                                     </tr>
@@ -29,7 +33,7 @@
                                 <tbody>
                                     {{#each this.products}}
                                     <tr>
-                                        <td>{{this.productName}}</td>
+                                        <td>{{this.productId}}</td>
                                         <td>{{this.quantity}}</td>
                                         <td>{{this.price}}</td>
                                     </tr>
@@ -41,9 +45,5 @@
                 {{/each}}
             </tbody>
         </table>
-
-        <div class="profile-actions">
-            <h2 class="navigate"><a href="/customer">Back to account details</a></h2>
-        </div>
     </div>    
 </div>

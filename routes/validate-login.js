@@ -20,7 +20,7 @@ router.post('/', function(req, res) {
 
         if (authenticatedUser) {
             req.session.authenticatedUser = authenticatedUser;
-            res.redirect(redirectCart ? "/showcart" : "/index");
+            res.redirect(redirectCart ? "/show-cart" : "/index");
         } else {
             res.redirect("/login");
         }

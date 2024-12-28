@@ -17,7 +17,7 @@ client.connect();
 
 // Route to render the password reset request form
 router.get('/request-reset', (req, res) => {
-    res.render('requestReset');  // Make sure 'requestReset' is your Handlebars template for the form
+    res.render('request-reset');
 });
 
 // Route to handle password reset request
@@ -92,7 +92,7 @@ router.post('/request-reset', async (req, res) => {
 // Route to render password reset page
 router.get('/reset-password/:token', (req, res) => {
     const { token } = req.params;
-    res.render('resetPassword', { token });
+    res.render('reset-password', { token });
 });
 
 // Route to handle password reset

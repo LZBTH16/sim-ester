@@ -55,7 +55,7 @@ router.get('/', async function (req, res, next) {
         }
 
         // Render the orders list page
-        res.render('listorder', { 
+        res.render('list-order', { 
             orders,
             username: req.session.authenticatedUser,
             title: "All Orders"
