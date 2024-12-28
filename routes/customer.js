@@ -42,7 +42,7 @@ router.get('/', function(req, res, next) {
     })();
 });
 
-router.get('/orderHistory', async function (req, res, next) {
+router.get('/order-history', async function (req, res, next) {
     auth.checkAuthentication(req, res);
 
     try {

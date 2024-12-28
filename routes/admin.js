@@ -83,7 +83,7 @@ router.post('/updateProduct', async function (req, res, next) {
     const {productId, productName, productPrice, productDesc, adminPassword} = updateData;
 
     if(adminPassword !== process.env.ADMIN_PASSWORD){
-        return res.redirect('/notAuthorized');
+        return res.redirect('/not-authorized');
     }
 
     try {
@@ -122,7 +122,7 @@ router.post('/deleteProduct', async function (req, res, next) {
     const {productId, adminPassword} = deleteData;
 
     if(adminPassword !== process.env.ADMIN_PASSWORD){
-        return res.redirect('/notAuthorized');
+        return res.redirect('/not-authorized');
     }
 
     try {
@@ -148,7 +148,7 @@ router.post('/addProduct', async function (req, res, next) {
     const {productName, productPrice, productDesc, categoryId, adminPassword} = newData;
 
     if(adminPassword !== process.env.ADMIN_PASSWORD){
-        return res.redirect('/notAuthorized');
+        return res.redirect('/not-authorized');
     }
 
     try {

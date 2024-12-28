@@ -9,7 +9,7 @@
 
         <br>
         
-        <form class="login-form" method="post" action="/validateLogin{{#if redirectCart}}?redirectCart=true{{/if}}">
+        <form class="login-form" method="post" action="/validate-login{{#if redirectCart}}?redirectCart=true{{/if}}">
             <label for="username">
                 <input type="text" name="username" placeholder=" " size=20 maxlength="20">
                 <span>Username</span>
@@ -23,7 +23,7 @@
                 <input class="custom-button" type="submit" value="Log In">
             </div>
             <div class="info">
-                <a href="/forgotPassword/request-reset">Forgot password</a>
+                <a href="/forgot-password/request-reset">Forgot password</a>
                 <br>
                 <br>
                 Don't have an account? <a href="/register">Sign up</a>

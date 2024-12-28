@@ -24,7 +24,7 @@
                         <img src="{{productImageURL}}" alt="{{productName}}">
                     {{else}}
                         <!-- If productImageURL is not available, load directly from the database using displayImage -->
-                        <img src="/displayImage?id={{productId}}" alt="{{productName}}">
+                        <img src="/display-image?id={{productId}}" alt="{{productName}}">
                     {{/if}}
                     <div class="product-action">
                         <a href="product?id={{productId}}" >Details</a>

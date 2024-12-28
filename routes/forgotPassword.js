@@ -51,7 +51,7 @@ router.post('/request-reset', async (req, res) => {
 
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-        const resetUrl = `http://${req.headers.host}/forgotPassword/reset-password/${token}`;
+        const resetUrl = `http://${req.headers.host}/forgot-password/reset-password/${token}`;
         
         const emailMsg = {
             to: email,

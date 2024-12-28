@@ -31,7 +31,7 @@ const auth = {
     },
     checkAdmin: function(req, res) {
         if(req.session.admin == 0) {
-            res.redirect("/notAuthorized");
+            res.redirect("/not-authorized");
         }
         return req.session.admin;
     }
