@@ -1,6 +1,6 @@
 <div class="your-cart">
     <div class="show-cart">
-        {{#if productList.length}}
+        {{#if productList}}
             <h1>Your Shopping Cart</h1>
             <div class="show-cart-table">
                 <table>
@@ -14,7 +14,7 @@
                     </tr>
 
                     {{#each productList}}
-                        {{#if this.id}}
+                        {{#if this}}
                             <tr>
                                 <td>{{this.id}}</td>
                                 <td>{{this.name}}</td>
@@ -30,7 +30,6 @@
                             </tr>
                         {{/if}}
                     {{/each}}
-
 
                     <tr class="total">
                         <td colspan="4" align="right"><b>Order Total</b></td>

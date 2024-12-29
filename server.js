@@ -24,9 +24,8 @@ app.engine('handlebars', exphbs({
     multiply: (a, b) => (a * b).toFixed(2),
     formatPrice: (value) => Number(value).toFixed(2),
     multiplyAndFormat: (a, b) => (a * b).toFixed(2),
-    eq: function (a, b) {
-      return a === b;
-    }
+    eq: (a, b) => a === b,
+    notEq: (a, b) => a !== b
   }
 }));
 app.set('view engine', 'handlebars');

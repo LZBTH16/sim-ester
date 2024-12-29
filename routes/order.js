@@ -13,9 +13,9 @@ const client = new Client({
 client.connect();
 
 router.get('/', async function (req, res, next) {
-    let productList = req.session.productList || [];
+    let productList = req.session.productList || {}; // Treat productList as an object
 
-    if (productList.length === 0) {
+    if (Object.keys(productList).length === 0) {
         return res.render('order', { emptyCart: true });
     }
 
@@ -37,10 +37,11 @@ router.get('/', async function (req, res, next) {
         let orderItems = [];
         let subtotal = 0;
         
-        for (let i = 0; i < productList.length; i++) {
-            const product = productList[i];
+        // Loop over the object keys (product IDs)
+        for (let key in productList) {
+            const product = productList[key];
             
-            if (!product){
+            if (!product) {
                 continue;
             }
             
@@ -64,7 +65,9 @@ router.get('/', async function (req, res, next) {
         let orderId = result.rows[0].order_id;
 
         // Insert into order_products
-        for (let product of productList) {
+        for (let key in productList) {
+            const product = productList[key];
+            
             if (!product) { 
                 continue;
             }
@@ -79,7 +82,7 @@ router.get('/', async function (req, res, next) {
         }
 
         // Clear shopping cart (sessional variable)
-        req.session.productList = [];
+        req.session.productList = {};
 
         // Render the order summary
         res.render('order', {

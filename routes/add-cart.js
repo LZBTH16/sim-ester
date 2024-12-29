@@ -3,11 +3,9 @@ const router = express.Router();
 
 router.get('/', function(req, res, next) {
     // If the product list isn't set in the session,
-    // create a new list.
-    let productList = false;
-    if (!req.session.productList) {
-        productList = [];
-    } else {
+    // create a new object.
+    let productList = {};
+    if (req.session.productList) {
         productList = req.session.productList;
     }
 
@@ -25,7 +23,7 @@ router.get('/', function(req, res, next) {
     }
 
     // Update quantity if add same item to order again
-    if (productList[id]){
+    if (productList[id]) {
         productList[id].quantity = productList[id].quantity + 1;
     } else {
         productList[id] = {
