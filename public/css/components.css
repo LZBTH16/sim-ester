@@ -114,13 +114,18 @@
     margin: 50px;
     font-size: 24px;
 }
-.showcase-container .navigate  a{
-    width: 70%;
-    
+.showcase-container .navigate  a {
+    width: 50%; 
 }
 .showcase-container .navigate {
     margin: 20px;
     font-size: 18px;
+}
+.navigate-button .navigate a {
+    width: 100%;
+}
+.navigate-button .navigate {
+    margin: 10px;
 }
 
 .category-select {

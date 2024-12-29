@@ -194,6 +194,10 @@ html, body {
     margin: 10px 0;
     border-radius: 5px;
 }
+.product-display .justify {
+    margin: 10px 40px;
+    text-align: justify;
+}
 /* the recommended products section */
 .recommended-products .products-container {
     display: flex;
@@ -227,14 +231,6 @@ html, body {
 .review-section label {
     font-weight: bold;
     color: #002145;
-}
-.review-section textarea {
-    padding: 12px 10px;
-    font-size: 14px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-    transition: all 0.3s ease-in-out
 }
 .success-message {
     width: 500px;
@@ -290,6 +286,13 @@ html, body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin: 20px;
     padding: 20px;
+}
+.navigate-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
 }
 /* table styles */
 .show-cart table {
