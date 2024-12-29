@@ -103,8 +103,13 @@ html, body {
     padding: 10px;
     margin: 20px;
 }
+.about-box p {
+    text-align: justify;
+    margin: 10px 40px;
+}
 .about img {
     width: 600px;
+    border-radius: 5px;
 }
 
 /* LIST-PROD */
