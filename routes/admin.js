@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../auth');
-const { Client } = require('pg'); 
+const { Client } = require('pg');
 const moment = require('moment');
+const multer = require('multer');
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -10,6 +11,15 @@ const client = new Client({
         rejectUnauthorized: false
     }
 });
+
+// Set the storage engine to memoryStorage
+const storage = multer.memoryStorage();
+
+// Set file size limit to 15MB (15 * 1024 * 1024 bytes)
+const upload = multer({ 
+    storage: storage,
+    limits: { fileSize: 15 * 1024 * 1024 }  // 15MB limit
+}).single('productImage');  // Assuming 'productImage' is the field name for image uploads
 
 client.connect();
 
@@ -75,11 +85,16 @@ router.get('/', async function(req, res, next) {
     }
 });
 
-router.post('/updateProduct', async function (req, res, next) {
+router.post('/updateProduct', upload, async function (req, res, next) {
     auth.checkAuthentication(req, res);
 
     const updateData = req.body;
     const {productId, productName, productPrice, productDesc, adminPassword} = updateData;
+
+    // Check if file size exceeds 15MB
+    if (req.file && req.file.size > 15 * 1024 * 1024) {
+        return res.status(400).send('File size exceeds the 15MB limit');
+    }
 
     if(adminPassword !== process.env.ADMIN_PASSWORD){
         return res.redirect('/not-authorized');
@@ -89,21 +104,28 @@ router.post('/updateProduct', async function (req, res, next) {
         const currentDataQuery = "SELECT * FROM products WHERE product_id = $1";
         const currentDataResult = await client.query(currentDataQuery, [productId]);
         const currentProduct = currentDataResult.rows[0];
+        const productImage = req.file ? req.file.buffer : currentProduct.product_image;
 
-        const updateQuery = `
+        let updateQuery = `
             UPDATE products
             SET
                 product_name = $1,
                 product_price = $2,
-                product_desc = $3
-            WHERE product_id = $4`;
+                product_desc = $3,
+                product_image = $4
+            WHERE product_id = $5`;
 
         await client.query(updateQuery, [
             productName || currentProduct.product_name,
             productPrice || currentProduct.product_price,
             productDesc || currentProduct.product_desc,
+            productImage,
             productId
         ]);
+
+        // Get rid of an existing image URL since we are now using the one in the database
+        updateQuery = "UPDATE products SET product_image_url = NULL WHERE product_id = $1";
+        await client.query(updateQuery, [productId]);
 
         req.session.successMessage = 'Product updated successfully!';
         res.redirect('/admin');
@@ -140,23 +162,30 @@ router.post('/deleteProduct', async function (req, res, next) {
     }
 });
 
-router.post('/addProduct', async function (req, res, next) {
+router.post('/addProduct', upload, async function (req, res, next) {
     auth.checkAuthentication(req, res);
 
     const newData = req.body;
     const {productName, productPrice, productDesc, categoryId, adminPassword} = newData;
+
+    // Check if file size exceeds 15MB
+    if (req.file && req.file.size > 15 * 1024 * 1024) {
+        return res.status(400).send('File size exceeds the 15MB limit');
+    }
 
     if(adminPassword !== process.env.ADMIN_PASSWORD){
         return res.redirect('/not-authorized');
     }
 
     try {
-        const addQuery = "INSERT INTO products (product_name, category_id, product_desc, product_price) VALUES ($1, $2, $3, $4)";
+        const productImage = req.file ? req.file.buffer : null;
+        const addQuery = "INSERT INTO products (product_name, category_id, product_desc, product_price, product_image) VALUES ($1, $2, $3, $4, $5)";
         await client.query(addQuery, [
             productName,
             categoryId,
             productDesc,
-            productPrice
+            productPrice,
+            productImage
         ]);
 
         req.session.successMessage = 'Product added successfully!';

@@ -23,7 +23,11 @@
         <div class="products-container">
             {{#each recommendedProducts}}
                 <div class="product-display" onclick="window.location.href='product?id={{productId}}'" style="cursor: pointer;">
-                    <img src="{{this.productImageURL}}" alt="{{this.productName}}" />
+                    {{#if this.productImageURL}}
+                        <img src="{{this.productImageURL}}" alt="{{this.productName}}" />
+                    {{else}}
+                        <img src="/display-image?id={{productId}}" alt="{{this.productName}}">
+                    {{/if}}
                     <h4>{{this.productName}}</h4>
                     <p>Price: ${{this.productPrice}}</p>
                 </div>

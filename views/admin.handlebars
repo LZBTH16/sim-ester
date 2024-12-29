@@ -88,25 +88,30 @@
 
         {{!-- to update products --}}
         <div class="admin-actions">
-            <form class="general-form" action="/admin/updateProduct" method="POST">
+            <form class="general-form" action="/admin/updateProduct" method="POST" enctype="multipart/form-data">
                 <h2>Update Product</h2>
                 <label>
-                    <input type="number" name="productId" placeholder="" required>
+                    <input type="number" name="productId" placeholder="Product ID" required>
                     <span>Product ID</span>
                 </label>
 
                 <label>
-                    <input type="text" name="productName" placeholder="">
+                    <input type="text" name="productName" placeholder="Product Name">
                     <span>Product Name</span>
                 </label>
-                
+
                 <label>
-                    <input type="text" name="productPrice" placeholder="">
+                    <input type="text" name="productPrice" placeholder="Price">
                     <span>Price</span>
                 </label>
 
                 <label>
-                    <textarea type="text" name="productDesc" placeholder="Description"></textarea>
+                    <textarea name="productDesc" placeholder="Description"></textarea>
+                </label>
+
+                <label>
+                    <input type="file" name="productImage" accept="image/*" onchange="validateImageFile(this)">
+                    <span>Product Image</span>
                 </label>
 
                 <label>
@@ -122,7 +127,7 @@
             <form class="general-form" action="/admin/deleteProduct" method="POST">
                 <h2>Delete Product</h2>
                 <label>
-                    <input type="number" name="productId" placeholder="" required>
+                    <input type="number" name="productId" placeholder="Product ID" required>
                     <span>Product ID</span>
                 </label>
 
@@ -136,25 +141,30 @@
             </form>
 
             {{!-- to add a new product --}}
-            <form class="general-form" action="/admin/addProduct" method="POST">
+            <form class="general-form" action="/admin/addProduct" method="POST" enctype="multipart/form-data">
                 <h2>Add Product</h2>
                 <label>
-                    <input type="text" name="productName" placeholder="">
+                    <input type="text" name="productName" placeholder="Product Name" required>
                     <span>Product Name</span>
                 </label>
 
                 <label>
-                    <input type="text" name="productPrice" placeholder="">
+                    <input type="text" name="productPrice" placeholder="Price" required>
                     <span>Price</span>
                 </label>
 
                 <label>
-                    <input type="number" name="categoryId" placeholder="">
+                    <input type="number" name="categoryId" placeholder="Category ID" required>
                     <span>Category ID</span>
                 </label>
 
                 <label>
-                    <textarea type="text" name="productDesc" placeholder="Description"></textarea>
+                    <textarea name="productDesc" placeholder="Description"></textarea>
+                </label>
+
+                <label>
+                    <input type="file" name="productImage" accept="image/*" onchange="validateImageFile(this)">
+                    <span>Product Image</span>
                 </label>
 
                 <label>
@@ -184,6 +194,18 @@
             localStorage.removeItem('scrollPosition'); // Clean up
         }
     });
+</script>
+
+<script>
+    function validateImageFile(input) {
+        const file = input.files[0];
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        
+        if (file && !allowedTypes.includes(file.type)) {
+            alert('Please upload a valid image file (JPEG, PNG, GIF, WEBP).');
+            input.value = '';  // Reset the input
+        }
+    }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
