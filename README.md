@@ -1,3 +1,11 @@
+# Sim-ester
+
+## Table of Contents
+- [Description](#description)
+- [Technologies and Tools](#technologies-and-tools)
+- [Features](#features)
+- [Screenshots](#screenshots)
+
 ## Description
 Sim-ester is a website that was developed for the COSC304 project. It is an online store that sells products depicting simulation-style games based on courses at UBC Okanagan.
 
@@ -5,7 +13,7 @@ Documentation can be found [here](https://cmps-people.ok.ubc.ca/rlawrenc/teachin
 
 Sim-ester is hosted on https://sim-ester.onrender.com/.
 
-## Technologies & Tools
+## Technologies and tools
 - [Node.js](https://nodejs.org/en)
 - [Express.js](https://expressjs.com/)
 - [Neon](https://console.neon.tech/)
@@ -13,6 +21,13 @@ Sim-ester is hosted on https://sim-ester.onrender.com/.
 - [Docker](https://www.docker.com/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [SendGrid](https://sendgrid.com/en-us)
+
+## Features
+- **Product listings:** Display products with images, descriptions, and pricing.
+- **Shopping cart:** Add, update, or remove items in real-time with visual updates.
+- **Ratings and reviews:** Allow customers to rate and review purchased products.
+- **Search and filter:** Find products by name and filter results by category.
+- **Order history:** View past orders with details such as products, purchase date, and order total.
 
 ## Screenshots
 ![](public/images/screenshot01.png)
