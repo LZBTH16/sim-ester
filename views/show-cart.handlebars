@@ -38,12 +38,14 @@
                 </table>
             </div>
 
-            <h3 class="navigate"><a href="/checkout">Check Out</a></h3>
+            <div class="navigate-button">
+                <p class="navigate"><a href="/checkout">Check Out</a></p>
+                <p class="navigate"><a href="/list-prod">Continue Shopping</a></p>
+            </div>
         {{else}}
-            <h2>Your shopping cart is empty!</h2>
+                <h2>Your cart is empty!</h2>
+                <p class="navigate"><a href="/list-prod">Continue Shopping</a></p>
         {{/if}}
-
-        <h3 class="navigate"><a href="/list-prod">Continue Shopping</a></h3>
     </div>
 </div>
 

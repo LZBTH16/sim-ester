@@ -123,6 +123,7 @@
 }
 .navigate-button .navigate a {
     width: 100%;
+    box-sizing: border-box;
 }
 .navigate-button .navigate {
     margin: 10px;
@@ -171,6 +172,14 @@ input:focus {
     outline: none;
     border-color: #002145;
     background-color: #f9f9f9;
+}
+input[type="file"] {
+    padding: 12px 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    width: 175px;
 }
 label span {
     position: absolute;
