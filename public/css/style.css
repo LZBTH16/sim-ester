@@ -648,3 +648,7 @@ html, body {
     display: flex;
     justify-content: center;
 }
+
+.wishlist {
+    min-height: 60vh;
+}

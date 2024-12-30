@@ -23,8 +23,8 @@
                                 <td>{{this.productName}}</td>
                                 <td>${{this.productPrice}}</td>
                                 <td>{{this.addedDate}}</td>
-                                <td>
-                                    <a href="/wishlist/remove?productId={{this.productId}}" class="remove-from-wishlist">Remove</a>
+                                <td class="removeitem">
+                                    <a href="/wishlist/remove?productId={{this.productId}}">Remove</a>
                                 </td>
                             </tr>
                         {{/each}}
