@@ -23,7 +23,7 @@
                                     <button class="updateitem" onclick="updateQuantity({{this.id}})">Update</button>
                                 </td>
                                 <td align="right">${{formatPrice this.price}}</td>
-                                <td align="right">${{multiplyAndFormat this.quantity this.price}}</td>
+                                <td align="right">${{multiply this.quantity this.price}}</td>
                                 <td class="removeitem">
                                     <a href="/delete-item?id={{this.id}}">Remove from cart</a>
                                 </td>

@@ -23,7 +23,6 @@ app.engine('handlebars', exphbs({
   helpers: {
     multiply: (a, b) => (a * b).toFixed(2),
     formatPrice: (value) => Number(value).toFixed(2),
-    multiplyAndFormat: (a, b) => (a * b).toFixed(2),
     eq: (a, b) => a === b,
     notEq: (a, b) => a !== b
   }
@@ -58,6 +57,7 @@ const review = require('./routes/review');
 const notAuthorized = require('./routes/not-authorized');
 const forgotPassword = require('./routes/forgot-password');
 const orderHistory = require('./routes/order-history');
+const wishlist = require('./routes/wishlist');
 
 app.use('/load-data', loadData);
 app.use('/list-order', listOrder);
@@ -83,6 +83,7 @@ app.use('/review', review);
 app.use('/not-authorized', notAuthorized);
 app.use('/forgot-password', forgotPassword);
 app.use('/order-history', orderHistory);
+app.use('/wishlist', wishlist);
 
 // setting up CSS & images
 app.use(express.static('public'));

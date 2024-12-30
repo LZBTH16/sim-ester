@@ -1,0 +1,30 @@
+<div class="wishlist">
+    <div class="container">
+        <h2>Wishlist</h2>
+
+        {{#if message}}
+            <p>{{message}}</p>
+        {{else}}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Added Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each products}}
+                        <tr>
+                            <td>{{this.productName}}</td>
+                            <td>${{this.productPrice}}</td>
+                            <td>{{this.addedDate}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        {{/if}}
+
+        <p class="navigate"><a href="/customer">Back to account details</a></p>
+    </div>    
+</div>

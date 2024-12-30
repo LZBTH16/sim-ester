@@ -92,6 +92,25 @@ CREATE TABLE reset_passwords (
         ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
+CREATE TABLE wishlists (
+    wishlist_id SERIAL PRIMARY KEY,
+    customer_id INT,
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE wishlist_products (
+    wishlist_id INT,
+    product_id INT,
+    added_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (wishlist_id, product_id),
+    FOREIGN KEY (wishlist_id) REFERENCES wishlists(wishlist_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
 INSERT INTO categories(category_name) VALUES ('COSC');
 INSERT INTO categories(category_name) VALUES ('MATH');
 INSERT INTO categories(category_name) VALUES ('STAT');
