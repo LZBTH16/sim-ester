@@ -27,11 +27,13 @@ router.get('/', async function (req, res) {
         sqlQuery = "SELECT wishlist_id FROM wishlists WHERE customer_id = $1";
         result = await client.query(sqlQuery, [customerId]);
 
+        // Wishlist doesn't exist
         if (result.rows.length === 0) {
             return res.render('wishlist', {
                 title: "SIM-ESTER",
                 username: req.session.authenticatedUser,
-                message: "No wishlist found."
+                message: "No wishlist found.",
+                noWishlist: true
             });
         }
 
@@ -45,6 +47,8 @@ router.get('/', async function (req, res) {
             WHERE wp.wishlist_id = $1`;
         result = await client.query(sqlQuery, [wishlistId]);
 
+        const emptyWishlist = result.rows.length === 0;
+
         // Prepare the products list
         const products = result.rows.map(row => ({
             productId: row.product_id,
@@ -57,12 +61,51 @@ router.get('/', async function (req, res) {
         res.render('wishlist', {
             title: "SIM-ESTER",
             username: req.session.authenticatedUser,
-            products: products
+            products: products,
+            emptyWishlist
         });
 
     } catch (err) {
         console.error("Error fetching wishlist:", err);
         res.status(500).send("Error loading wishlist.");
+    }
+});
+
+router.post('/create', async function (req, res) {
+    try {
+        // Check if the user is authenticated (i.e., logged in)
+        if (!req.session.authenticatedUser) {
+            return res.redirect('/login'); // Redirect to login page if not authenticated
+        }
+
+        // Retrieve customer_id based on the authenticated user's username
+        let sqlQuery = "SELECT customer_id FROM customers WHERE username = $1";
+        let result = await client.query(sqlQuery, [req.session.authenticatedUser]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).send("Customer not found.");
+        }
+
+        const customerId = result.rows[0].customer_id;
+
+        // Check if the user already has a wishlist
+        sqlQuery = "SELECT wishlist_id FROM wishlists WHERE customer_id = $1";
+        result = await client.query(sqlQuery, [customerId]);
+
+        // User already has a wishlist
+        if (result.rows.length > 0) {
+            return res.redirect('/wishlist'); // Redirect to the existing wishlist
+        }
+
+        // Create a new wishlist for the customer
+        sqlQuery = "INSERT INTO wishlists (customer_id) VALUES ($1)";
+        result = await client.query(sqlQuery, [customerId]);
+
+        // Redirect to the wishlist page after creating it
+        res.redirect('/wishlist');
+    } catch (err) {
+        console.error("Error creating wishlist:", err);
+        res.status(500).send("Error creating wishlist.");
     }
 });
 

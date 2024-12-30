@@ -5,24 +5,35 @@
         {{#if message}}
             <p>{{message}}</p>
         {{else}}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Added Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each products}}
+            {{#if emptyWishlist}}
+                <p>Your wishlist is empty.</p>
+            {{else}}
+                <table>
+                    <thead>
                         <tr>
-                            <td>{{this.productName}}</td>
-                            <td>${{this.productPrice}}</td>
-                            <td>{{this.addedDate}}</td>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Added Date</th>
                         </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {{#each products}}
+                            <tr>
+                                <td>{{this.productName}}</td>
+                                <td>${{this.productPrice}}</td>
+                                <td>{{this.addedDate}}</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            {{/if}}
+        {{/if}}
+
+        <!-- Button to create a wishlist -->
+        {{#if noWishlist}}
+            <form action="/wishlist/create" method="POST">
+                <button type="submit">Create Wishlist</button>
+            </form>
         {{/if}}
 
         <p class="navigate"><a href="/customer">Back to account details</a></p>
