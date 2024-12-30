@@ -7,7 +7,7 @@
 <h3 align="center">Sim-ester</h3>
 
 <p align="center">
-  Hosted on <a>https://sim-ester.onrender.com</a>.
+  Hosted on <a href="https://sim-ester.onrender.com">https://sim-ester.onrender.com</a>.
   <br>
 </p>
 
