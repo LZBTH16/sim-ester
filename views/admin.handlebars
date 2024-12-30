@@ -10,11 +10,11 @@
 
     <div class="container" id="total-sales">
         <h2>Sales Graph</h2>
-        <div>
+        <div class="time-range-buttons">
             <!-- Buttons for filtering time range -->
-            <button class="custom-button" id="filter-3-months">Last 3 Months</button>
-            <button class="custom-button" id="filter-1-year">Last Year</button>
-            <button class="custom-button" id="filter-all-time">All Time</button>
+            <button class="time-button" id="filter-3-months">Last 3 Months</button>
+            <button class="time-button" id="filter-1-year">Last Year</button>
+            <button class="time-button" id="filter-all-time">All Time</button>
         </div>
         <table>
             <tbody>
@@ -178,6 +178,26 @@
         </div>
     </div>
 </div>
+
+{{!-- script for active state buttons for Sales Graph --}}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".time-button");
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            // Remove "active" class from all buttons
+            buttons.forEach((btn) => btn.classList.remove("active"));
+
+            // Add "active" class to the clicked button
+            button.classList.add("active");
+
+            // Call a function to update the graph (optional)
+            updateGraph(button.id);
+        });
+    });
+});
+</script>
 
 {{!-- script to keep scroll position --}}
 <script>

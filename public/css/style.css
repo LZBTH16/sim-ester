@@ -429,6 +429,25 @@ html, body {
     padding-bottom: 50px;
     gap: 10px;
 }
+.time-button {
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+    font-size: 18px;
+    background-color: #002145;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.time-button:hover{
+    background-color: #004176;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.time-button.active {
+    background-color: #004176;
+}
 .admin-actions {
     display: flex;
     flex-direction: row;
