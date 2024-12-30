@@ -8,7 +8,7 @@
     {{/if}}
 
     <p class="justify">{{productDesc}}</p>
-    <h3>Price: ${{productPrice}}</h3>
+    <h3>${{productPrice}}</h3>
     {{#if averageRating}}
         <h3>Average Rating: {{averageRating}}/5.0</h3>
     {{/if}}
@@ -30,7 +30,7 @@
                         <img src="/display-image?id={{productId}}" alt="{{this.productName}}">
                     {{/if}}
                     <h4>{{this.productName}}</h4>
-                    <p>Price: ${{this.productPrice}}</p>
+                    <p>${{this.productPrice}}</p>
                 </div>
             {{/each}}
         </div>
