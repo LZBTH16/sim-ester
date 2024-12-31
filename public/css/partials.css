@@ -8,24 +8,48 @@
     align-items: center;
     gap: 10px;
 }
-.account-bar a {
+.account-bar img {
+    width: 40px;
+    margin: 10px 40px;
+    cursor: pointer;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 60px; /* Adjust this value based on the icon size and spacing */
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 1000;
+    padding: 10px;
+    min-width: 100px;
+    text-align: center;
+}
+.dropdown-menu a {
+    display: block;
     color: #002145;
     text-decoration: none;
     padding: 5px;
     border-radius: 5px;
+    transition: background-color 0.2s ease;
 }
-.account-bar a:hover {
-    color: #013368;
+.dropdown-menu a:hover {
+    color: white;
+    background-color: #002145;
     text-decoration: none;
     padding: 5px;
     border-radius: 5px;
 }
-.account-bar h3 {
-    color: #002145;
-    font-weight: bold;
+.dropdown:hover .dropdown-menu {
+    display: block;
 }
-.end {
-    margin-right: 20px;
+.dropdown-menu .separator {
+    border-top: 1px solid #002145;
 }
 
 /* header */

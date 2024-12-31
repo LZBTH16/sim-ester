@@ -1,21 +1,20 @@
 <div class="account-bar">
-    {{#if username}}
-        <h3>Welcome, {{username}}</h3>
-        <h3>|</h3>
-        <h3><a href="/wishlist">Wishlist</a></h3>
-        <h3>|</h3>
-        <h3><a href="/show-cart">Cart</a></h3>
-        <h3>|</h3>
-        <h3><a href="/customer">Account</a></h3>
-        <h3>|</h3>
-        <h3 class="end"><a href="/logout">Log out</a></h3>
-    {{else}}
-        <h3><a href="/show-cart">Cart</a></h3>
-        <h3>|</h3>
-        <h3><a href="/customer">Account</a></h3>
-        <h3>|</h3>
-        <h3><a href="/login">Login</a></h3>
-        <h3>|</h3>
-        <h3 class="end"><a href="/register">Register</a></h3>
-    {{/if}}
+    <div class="dropdown">
+        <img src="/images/user.png" alt="User Icon">
+        <div class="dropdown-menu">
+            {{#if username}}
+                <p>Welcome, {{username}}</p>
+                <hr class="separator">
+                <p><a href="/wishlist">Wishlist</a></p>
+                <p><a href="/show-cart">Cart</a></p>
+                <p><a href="/customer">Account</a></p>
+                <p><a href="/logout">Log out</a></p>
+            {{else}}
+                <p><a href="/register">Register</a></p>
+                <p><a href="/login">Login</a></p>
+                <p><a href="/show-cart">Cart</a></p>
+                <p><a href="/customer">Account</a></p>
+            {{/if}}
+        </div>
+    </div>
 </div>
