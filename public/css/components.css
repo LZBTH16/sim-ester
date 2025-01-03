@@ -25,15 +25,6 @@
     border: 1px solid #dddddd;
     text-align: left;
 }
-.wishlist .container {
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.wishlist table td {
-    padding: 20px 10px;
-}
 
 /* USED TO STYLE ACTUAL BUTTONS */
 .custom-button {
@@ -51,33 +42,6 @@
 .custom-button:hover{
     background-color: #004176;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-.admin-actions .custom-button {
-    padding: 7px 35px;
-    margin-top: 10px;
-}
-.checkout-page .custom-button {
-    padding: 15px 160px;
-    margin-top: 20px;
-}
-.login-page .custom-button {
-    padding: 7px 70px;
-}
-.register .custom-button {
-    padding: 7px 130px;
-    margin-top: 20px;
-    font-size: 20px;
-}
-.reset-page .custom-button {
-    padding: 7px 95px;
-    margin-top: 20px;
-    font-size: 20px;
-}
-.review-section .custom-button {
-    margin-bottom: 20px;
-}
-.search-form .custom-button {
-    border-radius: 10px;
 }
 
 /* fake buttons, don't lead to anything */
@@ -117,26 +81,6 @@
 .product-card .navigate a {
     width: 60%;
 }
-.showcase .navigate {
-    display: flex;
-    justify-content: center;
-    margin: 50px;
-    font-size: 24px;
-}
-.showcase-container .navigate  a {
-    width: 50%; 
-}
-.showcase-container .navigate {
-    margin: 20px;
-    font-size: 18px;
-}
-.navigate-button .navigate a {
-    width: 100%;
-    box-sizing: border-box;
-}
-.navigate-button .navigate {
-    margin: 10px;
-}
 
 .category-select {
     background: #002145;
@@ -147,9 +91,6 @@
     font-size: 18px;
     color: white;
     outline: none;
-}
-.review-section .category-select {
-    font-size: 16px;
 }
 
 .general-form {
