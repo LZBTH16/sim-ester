@@ -130,22 +130,13 @@ html, body {
 }
 .search-form {
     display: flex;
-    flex-direction: row;
     gap: 10px;
 }
-.search-form .custom-button {
-    border-radius: 10px;
-}
-.list-prod .text-input {
-    background: #FFFFFF;
-    border: none;
-    border-radius: 10px;
-    padding: 5px 10px;
+ .list-prod-search input[type="text"] {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 18px;
-    outline: none;
-}
-.list-prod .text-input:focus {
+    font-size: 16px;
+ }
+.list-prod input[type="text"]:focus {
     box-shadow: 0 0 10px rgba(0, 33, 69, 0.8);
 }
 /* the product cards */
@@ -178,7 +169,6 @@ html, body {
     margin: 10px 0px;
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 20px;
 }
 
 /* PRODUCT */
