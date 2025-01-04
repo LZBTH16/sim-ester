@@ -77,9 +77,11 @@
 .product-display .navigate a {
     width: 80%;
 }
-.customer .navigate a,
 .product-card .navigate a {
     width: 60%;
+}
+.customer .navigate a {
+    width: 30%;
 }
 
 .category-select {
@@ -156,4 +158,18 @@ textarea {
     border-radius: 5px;
     background-color: #f8f9fa;
     transition: all 0.3s ease-in-out;
+}
+
+/* labels */
+.admin-actions label,
+.checkout-page label,
+.login-page label,
+.register label,
+.reset-page label {
+    display: block;
+    position: relative;
+    text-align: left;
+    font-size: 14px;
+    color: #6c757d;
+    flex: 1 1 45%;
 }

@@ -1,14 +1,12 @@
 <div class="your-cart">
-    <div class="show-cart">
+    <div class="container">
         {{#if productList}}
             <h1>Your Shopping Cart</h1>
-            <div class="show-cart-table">
                 <table>
                     <tr>
-                        <th>Product Id</th>
                         <th>Product Name</th>
-                        <th>Quantity</th>
                         <th>Price</th>
+                        <th>Quantity</th>
                         <th>Subtotal</th>
                         <th>Actions</th>
                     </tr>
@@ -16,14 +14,13 @@
                     {{#each productList}}
                         {{#if this}}
                             <tr>
-                                <td>{{this.id}}</td>
                                 <td>{{this.name}}</td>
-                                <td align="center">
-                                    <input class="qty" type="number" id="{{this.id}}" value="{{this.quantity}}" min="1">
-                                    <button class="updateitem" onclick="updateQuantity({{this.id}})">Update</button>
+                                <td>${{formatPrice this.price}}</td>
+                                <td>
+                                    <input type="number" id="{{this.id}}" value="{{this.quantity}}" min="1">
+                                    <button class="custom-button" onclick="updateQuantity({{this.id}})">Update</button>
                                 </td>
-                                <td align="right">${{formatPrice this.price}}</td>
-                                <td align="right">${{multiply this.quantity this.price}}</td>
+                                <td>${{multiply this.quantity this.price}}</td>
                                 <td class="removeitem">
                                     <a href="/delete-item?id={{this.id}}">Remove from cart</a>
                                 </td>
@@ -32,11 +29,10 @@
                     {{/each}}
 
                     <tr class="total">
-                        <td colspan="4" align="right"><b>Order Total</b></td>
-                        <td align="right">${{formatPrice total}}</td>
+                        <td colspan="3" align="right"><b>Order Total</b></td>
+                        <td>${{formatPrice total}}</td>
                     </tr>
                 </table>
-            </div>
 
             <div class="navigate-button">
                 <p class="navigate"><a href="/checkout">Check Out</a></p>
@@ -49,6 +45,7 @@
     </div>
 </div>
 
+{{!-- script to update quantity of product(s) --}}
 <script>
     function updateQuantity(id) {
         let quantity = document.getElementById(id).value;

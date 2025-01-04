@@ -6,7 +6,7 @@
 
     {{!-- Show the order summary --}}
     {{else}}
-        <div class="order-summary">
+        <div class="container">
             <h1>Your Order Summary</h1>
             <h2>Order Reference: {{order.id}}</h2>
             <p><strong>Customer Name:</strong> {{customer.firstName}} {{customer.lastName}}</p>
@@ -16,24 +16,22 @@
 
             <table>
                 <tr>
-                    <th>Product Id</th>
                     <th>Product Name</th>
-                    <th>Quantity</th>
                     <th>Price</th>
+                    <th>Quantity</th>
                     <th>Subtotal</th>
                 </tr>
                 {{#each items}}
                 <tr>
-                    <td>{{this.id}}</td>
                     <td>{{this.name}}</td>
-                    <td align="center">{{this.quantity}}</td>
-                    <td align="right">${{this.price}}</td>
-                    <td align="right">${{this.subtotal}}</td>
+                    <td>${{this.price}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>${{this.subtotal}}</td>
                 </tr>
                 {{/each}}
                 <tr>
-                    <td colspan="4" align="right"><b>Order Total</b></td>
-                    <td align="right">${{order.total}}</td>
+                    <td colspan="3" align="right"><b>Order Total</b></td>
+                    <td>${{order.total}}</td>
                 </tr>
             </table>
             <h2>Order completed. Will be available for download soon...</h2>
